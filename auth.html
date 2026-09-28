@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — Viksit CareerBridge</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="background: linear-gradient(135deg, #F0F9FF 0%, #FFFFFF 50%, #ECFDF5 100%); justify-content: center; align-items: center; padding: 24px;">
+
+  <div class="card" style="max-width: 480px; width: 100%; padding: 36px; box-shadow: var(--shadow-elevated);">
+    <div style="text-align: center; margin-bottom: 24px;">
+      <a href="index.html" class="brand-group" style="justify-content: center; margin-bottom: 12px;">
+        <div class="brand-logo-pill">
+          <div class="brand-icon">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div class="brand-text">Viksit <span>CareerBridge</span></div>
+        </div>
+      </a>
+      <h2>Welcome Back</h2>
+      <p class="subtitle" style="font-size: 13.5px; margin-top: 4px;">Choose your portal to sign in or create an account</p>
+    </div>
+
+    <!-- 2-Step Toggle (Student vs Corporate Recruiter) -->
+    <div class="portal-switcher" style="margin-bottom: 20px;">
+      <button id="authToggleStudent" class="portal-tab-btn active" style="flex: 1; justify-content: center;">
+        <i class="fa-solid fa-user-graduate"></i> Student
+      </button>
+      <button id="authToggleRecruiter" class="portal-tab-btn" style="flex: 1; justify-content: center;">
+        <i class="fa-solid fa-building-user"></i> Recruiter
+      </button>
+    </div>
+
+    <div id="authRoleNotice" style="background: var(--color-sky-tint); color: var(--color-primary); font-size: 12.5px; font-weight: 600; padding: 10px 14px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
+      Student Role: Access AI Readiness Gauges, Mock Interview Studio & Skill Gap Roadmap.
+    </div>
+
+    <form id="standaloneAuthForm" style="display: flex; flex-direction: column; gap: 14px;">
+      <div>
+        <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Email Address</label>
+        <input type="email" id="standaloneEmail" class="role-select-box" value="priya.sharma@rgpv.ac.in" required>
+      </div>
+
+      <div>
+        <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Password</label>
+        <input type="password" class="role-select-box" value="••••••••••••" required>
+      </div>
+
+      <button type="submit" class="btn-pill btn-emerald" style="width: 100%; margin-top: 6px;">
+        Continue to Portal
+      </button>
+    </form>
+
+    <div style="position: relative; text-align: center; margin: 22px 0;">
+      <span style="background: #fff; padding: 0 12px; font-size: 12px; color: var(--color-text-muted); position: relative; z-index: 2;">OR</span>
+      <div style="position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: var(--color-border-subtle); z-index: 1;"></div>
+    </div>
+
+    <button id="standaloneGoogleBtn" class="btn-pill btn-subtle" style="width: 100%;">
+      <i class="fa-brands fa-google" style="color: #EA4335;"></i> Sign In with Google
+    </button>
+
+    <div style="margin-top: 24px; text-align: center; font-size: 13px;">
+      <a href="index.html" style="color: var(--color-text-muted);"><i class="fa-solid fa-arrow-left"></i> Return to Homepage</a>
+    </div>
+  </div>
+
+  <script type="module">
+    import { AppState } from './js/firebase-config.js';
+    import { MOCK_DATA } from './js/data/mock-data.js';
+
+    let currentRole = 'student';
+
+    const tabStudent = document.getElementById('authToggleStudent');
+    const tabRecruiter = document.getElementById('authToggleRecruiter');
+    const notice = document.getElementById('authRoleNotice');
+    const emailInput = document.getElementById('standaloneEmail');
+
+    tabStudent.addEventListener('click', () => {
+      currentRole = 'student';
+      tabStudent.classList.add('active');
+      tabRecruiter.classList.remove('active');
+      notice.textContent = "Student Role: Access AI Readiness Gauges, Mock Interview Studio & Skill Gap Roadmap.";
+      emailInput.value = "priya.sharma@rgpv.ac.in";
+    });
+
+    tabRecruiter.addEventListener('click', () => {
+      currentRole = 'corporate_recruiter';
+      tabRecruiter.classList.add('active');
+      tabStudent.classList.remove('active');
+      notice.textContent = "Recruiter Role: Access Candidate Sourcing, Placement Drive Cut-offs & AI Scorecards.";
+      emailInput.value = "v.malhotra@tcs.com";
+    });
+
+    document.getElementById('standaloneAuthForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      loginAndRedirect();
+    });
+
+    document.getElementById('standaloneGoogleBtn').addEventListener('click', () => {
+      loginAndRedirect();
+    });
+
+    function loginAndRedirect() {
+      if (currentRole === 'student') {
+        AppState.setUser(MOCK_DATA.currentStudent, 'student');
+      } else {
+        AppState.setUser({
+          uid: "recruiter_tcs_01",
+          name: "Vikram Malhotra",
+          company: "Tata Consultancy Services",
+          email: "v.malhotra@tcs.com",
+          role: "corporate_recruiter"
+        }, 'corporate_recruiter');
+      }
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>

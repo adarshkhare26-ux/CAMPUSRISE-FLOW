@@ -1,0 +1,14 @@
+{
+  "name": "viksit-careerbridge",
+  "version": "1.0.0",
+  "description": "AI-Powered Career Readiness & Employability Platform for MPOnline Hackathon 2026",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve -l 3000 .",
+    "dev": "npx serve -l 3000 ."
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}

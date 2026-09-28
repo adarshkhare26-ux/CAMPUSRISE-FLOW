@@ -1,0 +1,393 @@
+// Campus2Corp - Prisma Database Schema
+// PostgreSQL with Multi-Role ERP, Placement Vault & AI Readiness Engine
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ----------------------------------------------------
+// ENUMS
+// ----------------------------------------------------
+
+enum Role {
+  TPO
+  STUDENT
+  COMPANY
+  ALUMNI
+}
+
+enum DriveStatus {
+  DRAFT
+  UPCOMING
+  ACTIVE
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum ApplicationStatus {
+  APPLIED
+  ONLINE_ASSESSMENT
+  SHORTLISTED
+  INTERVIEW_SCHEDULED
+  TECHNICAL_ROUND
+  HR_ROUND
+  SELECTED
+  REJECTED
+}
+
+enum VerificationStatus {
+  PENDING
+  VERIFIED_BY_TPO
+  REJECTED
+}
+
+enum AssessmentType {
+  APTITUDE
+  TECHNICAL
+  PSYCHOMETRIC
+  CODING
+  GROUP_DISCUSSION
+}
+
+// ----------------------------------------------------
+// CORE USER & AUTHENTICATION
+// ----------------------------------------------------
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String?
+  name         String
+  role         Role
+  phoneNumber  String?
+  avatarUrl    String?
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Role Profile Relations
+  studentProfile Student?
+  companyProfile Company?
+  alumniProfile  Alumni?
+
+  @@map("users")
+}
+
+// ----------------------------------------------------
+// STUDENT PORTAL & PROFILE
+// ----------------------------------------------------
+
+model Student {
+  id                  String   @id @default(cuid())
+  userId              String   @unique
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  rollNumber          String   @unique
+  enrollmentNo        String   @unique
+  college             String   @default("RGPV State Technical Campus")
+  branch              String   // CSE, IT, ECE, ME, CE, AI_DS
+  batchYear           Int      // e.g. 2026
+  semester            Int      @default(7)
+  
+  // Academic Metrics for TPO Vault & Eligibility Cutoffs
+  cgpa                Float    // Overall CGPA (0.00 - 10.00)
+  tenthPct            Float    // 10th Board %
+  twelfthPct          Float    // 12th / Diploma %
+  activeBacklogs      Int      @default(0)
+  totalBacklogHistory Int      @default(0)
+  backlogStatus       Boolean  @default(false) // false = no active backlog
+  activeStatus        Boolean  @default(true)  // true = eligible/active for drives
+  placedStatus        Boolean  @default(false) // true = secured placement offer
+  
+  // AI Readiness Composite Score (0 - 100)
+  overallReadinessScore Float  @default(0.0)
+  techReadinessScore    Float  @default(0.0)
+  softSkillsScore       Float  @default(0.0)
+  domainReadinessScore  Float  @default(0.0)
+  
+  // Verification & Credentials
+  resumeUrl           String?
+  linkedinUrl         String?
+  githubUrl           String?
+  digilockerAbcId     String?  // Academic Bank of Credits ID
+  isProfileVerified   Boolean  @default(false)
+
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  // Relations
+  subjectMarks        SubjectMark[]
+  applications        Application[]
+  offers              Offer[]
+  assessments         Assessment[]
+  videoInterviews     VideoInterviewSubmission[]
+
+  @@index([branch, batchYear])
+  @@index([cgpa, activeBacklogs, activeStatus])
+  @@map("students")
+}
+
+// ----------------------------------------------------
+// SUBJECTS & ROLE-SUBJECT MATCH ENGINE
+// ----------------------------------------------------
+
+model Subject {
+  id          String   @id @default(cuid())
+  code        String   @unique // e.g., CS501, CS602
+  name        String   // e.g., Data Structures & Algorithms, DBMS, Operating Systems
+  branch      String   @default("CSE") // CSE, IT, ECE, Core, or ALL
+  semester    Int
+  credits     Int      @default(4)
+
+  // Relations
+  marks               SubjectMark[]
+  roleSubjectWeights  RoleSubjectWeight[]
+
+  @@map("subjects")
+}
+
+model SubjectMark {
+  id            String   @id @default(cuid())
+  studentId     String
+  student       Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  subjectId     String
+  subject       Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+
+  marksObtained Float    // e.g. 88.5
+  maxMarks      Float    @default(100.0)
+  grade         String?  // e.g. "A+", "A", "B"
+  attemptsCount Int      @default(1) // 1 = cleared in 1st attempt
+  passed        Boolean  @default(true)
+  examDate      DateTime?
+
+  @@unique([studentId, subjectId])
+  @@index([studentId])
+  @@map("subject_marks")
+}
+
+// Role Map defines industry profiles (e.g. SDE, Data Analyst, Cloud DevOps, Core VLSI)
+model RoleMap {
+  id          String   @id @default(cuid())
+  roleName    String   @unique // e.g., "Software Development Engineer", "Data Analyst"
+  description String?
+  minCgpa     Float    @default(6.5)
+
+  // Relations
+  weights     RoleSubjectWeight[]
+  drives      Drive[]
+
+  @@map("roles_map")
+}
+
+// Weights per subject for a specific role (e.g., DSA: 35%, DBMS: 25%, OS: 20%, Networks: 20%)
+model RoleSubjectWeight {
+  id         String   @id @default(cuid())
+  roleMapId  String
+  roleMap    RoleMap  @relation(fields: [roleMapId], references: [id], onDelete: Cascade)
+  subjectId  String
+  subject    Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+
+  weight     Float    // Weight factor (0.0 to 1.0)
+
+  @@unique([roleMapId, subjectId])
+  @@map("role_subject_weights")
+}
+
+// ----------------------------------------------------
+// COMPANIES & CAMPUS DRIVES
+// ----------------------------------------------------
+
+model Company {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name        String
+  website     String?
+  industry    String?  // e.g., IT / Software, Product, FinTech, Core
+  location    String?
+  description String?
+  isVerified  Boolean  @default(true)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  drives      Drive[]
+
+  @@map("companies")
+}
+
+model Drive {
+  id                 String      @id @default(cuid())
+  companyId          String
+  company            Company     @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  title              String      // e.g. "Associate Software Engineer - 2026 Batch"
+  jobDescription     String
+  roleType           String      // Full-time, Internship, PPO
+  ctcLpa             Float       // Cost to Company in LPA (e.g. 7.5)
+  stipendMonthly     Float?      // Monthly stipend if internship
+  location           String      // Work location or Remote
+
+  // Eligibility Cutoffs (TPO Smart Filter Integration)
+  minCgpa            Float       @default(6.5)
+  minTenthPct        Float       @default(60.0)
+  minTwelfthPct      Float       @default(60.0)
+  maxBacklogsAllowed Int         @default(0)
+  allowedBranches    String[]    // ["CSE", "IT", "ECE"]
+
+  // Link to Role-Subject Matching Engine
+  targetRoleMapId    String?
+  targetRoleMap      RoleMap?    @relation(fields: [targetRoleMapId], references: [id])
+
+  driveDate          DateTime?
+  deadline           DateTime
+  status             DriveStatus @default(UPCOMING)
+
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+
+  // Relations
+  applications       Application[]
+
+  @@index([companyId, status])
+  @@map("drives")
+}
+
+// ----------------------------------------------------
+// APPLICATIONS & PLACEMENT VAULT (OFFERS)
+// ----------------------------------------------------
+
+model Application {
+  id                 String            @id @default(cuid())
+  driveId            String
+  drive              Drive             @relation(fields: [driveId], references: [id], onDelete: Cascade)
+  studentId          String
+  student            Student           @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  // Computed by Role-Subject Match Engine (Course Marks * Weights)
+  subjectMatchScore  Float?            // 0 - 100%
+  overallFitScore    Float?            // Composite (Match Score + Readiness)
+
+  status             ApplicationStatus @default(APPLIED)
+  notes              String?
+  appliedAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+
+  // Relations
+  offer              Offer?
+
+  @@unique([driveId, studentId])
+  @@index([driveId, status])
+  @@index([studentId])
+  @@map("applications")
+}
+
+// Placement Vault: Digital repository for TPO compliance, verified offer letters & NIRF exports
+model Offer {
+  id                 String             @id @default(cuid())
+  applicationId      String             @unique
+  application        Application        @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  studentId          String
+  student            Student            @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  companyName        String
+  jobTitle           String
+  offeredCtcLpa      Float              // CTC in LPA
+  offerLetterUrl     String             // Stored PDF offer letter
+  offerDate          DateTime
+  joiningDate        DateTime?
+
+  // TPO Digital Verification Status
+  verificationStatus VerificationStatus @default(PENDING)
+  verifiedByTpoId    String?            // Admin/TPO user who validated the document
+  verificationNotes  String?
+
+  // NIRF / NAAC Statutory Data Exports
+  nirfEligible       Boolean            @default(true)
+  isHigherStudies    Boolean            @default(false)
+  isEntrepreneurship Boolean            @default(false)
+
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  @@index([studentId, verificationStatus])
+  @@map("offers")
+}
+
+// ----------------------------------------------------
+// AI READINESS ASSESSMENTS & VIDEO INTERVIEW PREP
+// ----------------------------------------------------
+
+model Assessment {
+  id                 String         @id @default(cuid())
+  studentId          String
+  student            Student        @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  assessmentType     AssessmentType
+  score              Float          // 0.0 - 100.0%
+  totalQuestions     Int
+  correctAnswers     Int
+  timeTakenSeconds   Int
+  topicBreakdown     Json?          // Detailed module breakdown: { "Quant": 85, "Logic": 80 }
+  evaluatedAt        DateTime       @default(now())
+
+  @@index([studentId, assessmentType])
+  @@map("assessments")
+}
+
+model VideoInterviewSubmission {
+  id                 String   @id @default(cuid())
+  studentId          String
+  student            Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  targetRole         String   // e.g. "Full Stack SDE"
+  videoUrl           String?  // Cloud storage / blob URL
+  transcriptText     String?  // Speech-to-text transcript
+  
+  // AI Metrics
+  aiRating           Float?   // e.g., 8.5 / 10
+  speechPaceWpm      Int?     // Words per minute (e.g. 135)
+  confidenceScore    Float?   // e.g. 88.0%
+  clarityScore       Float?   // e.g. 84.0%
+  feedbackSummary    String?  // Gemini AI textual critique
+  
+  status             String   @default("COMPLETED")
+  submittedAt        DateTime @default(now())
+
+  @@index([studentId])
+  @@map("video_interview_submissions")
+}
+
+// ----------------------------------------------------
+// ALUMNI PORTAL (MENTORSHIP & REFERRALS)
+// ----------------------------------------------------
+
+model Alumni {
+  id                 String   @id @default(cuid())
+  userId             String   @unique
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  graduationYear     Int
+  branch             String
+  currentCompany     String
+  designation        String
+  yearsOfExperience  Int      @default(1)
+  
+  referralOpen       Boolean  @default(true)
+  mentorshipOpen     Boolean  @default(true)
+  linkedinUrl        String?
+  bio                String?
+
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@map("alumni")
+}

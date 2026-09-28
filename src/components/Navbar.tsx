@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 
 export const ALL_PAGES = [
-  { name: "Page 1: Auth & Role Gateway", path: "/", icon: ShieldCheck, section: "Authentication" },
+  { name: "Page 1: Student Login Gateway", path: "/", icon: GraduationCap, section: "Authentication" },
   { name: "Page 2: Student Profile Onboarding", path: "/student/profile", icon: FileText, section: "Student Journey" },
   { name: "Page 3: Target Career Selection", path: "/student/career-target", icon: Target, section: "Student Journey" },
   { name: "Page 4: Campus Drive Eligibility", path: "/student/eligibility", icon: CheckCircle2, section: "Student Journey" },
@@ -35,6 +35,7 @@ export const ALL_PAGES = [
   { name: "Page 10: Alumni Mentorship Loop", path: "/student/alumni-network", icon: Users, section: "Student Journey" },
   { name: "Page 11: Drive Matching & Placements", path: "/student/placements", icon: Briefcase, section: "Student Journey" },
   { name: "Page 12: TPO Master Command Dashboard", path: "/tpo/dashboard", icon: LayoutDashboard, section: "TPO ERP" },
+  { name: "TPO / Admin Dedicated Login", path: "/tpo/login", icon: ShieldCheck, section: "TPO ERP" },
 ];
 
 export function Navbar() {
@@ -110,7 +111,7 @@ export function Navbar() {
         {/* Right Actions: Role Switcher & Profile */}
         <div className="flex items-center gap-3">
           <Link
-            href={isTpo ? "/student/profile" : "/tpo/dashboard"}
+            href={isTpo ? "/student/profile" : "/tpo/login"}
             className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all shadow-sm ${
               isTpo
                 ? "bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100"
@@ -125,7 +126,7 @@ export function Navbar() {
             ) : (
               <>
                 <Building2 className="w-3.5 h-3.5 text-blue-400" />
-                <span>Switch to TPO Master</span>
+                <span>TPO Admin Login</span>
               </>
             )}
           </Link>

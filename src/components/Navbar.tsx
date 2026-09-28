@@ -43,6 +43,7 @@ export function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const isTpo = pathname.startsWith("/tpo");
+  const isHomePage = pathname === "/";
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur-md">
@@ -66,47 +67,49 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* Center: 12-Page Quick Flow Dropdown */}
-        <div className="relative">
-          <button
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="hidden md:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 transition-colors"
-          >
-            <Compass className="w-3.5 h-3.5 text-blue-600" />
-            <span>All 12 Platform Pages</span>
-            <ChevronDown className={`w-3.5 h-3.5 transition-transform ${dropdownOpen ? "rotate-180" : ""}`} />
-          </button>
-
-          {dropdownOpen && (
-            <div 
-              className="absolute left-1/2 -translate-x-1/2 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 py-2.5 z-50 max-h-[80vh] overflow-y-auto"
-              onMouseLeave={() => setDropdownOpen(false)}
+        {/* Center: 12-Page Quick Flow Dropdown (Hidden on 1st Page / Student Login) */}
+        {!isHomePage && (
+          <div className="relative">
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="hidden md:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 transition-colors"
             >
-              <div className="px-3 py-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                Full 12-Screen Architecture
+              <Compass className="w-3.5 h-3.5 text-blue-600" />
+              <span>All 12 Platform Pages</span>
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform ${dropdownOpen ? "rotate-180" : ""}`} />
+            </button>
+
+            {dropdownOpen && (
+              <div 
+                className="absolute left-1/2 -translate-x-1/2 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 py-2.5 z-50 max-h-[80vh] overflow-y-auto"
+                onMouseLeave={() => setDropdownOpen(false)}
+              >
+                <div className="px-3 py-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                  Full 12-Screen Architecture
+                </div>
+                {ALL_PAGES.map((page, idx) => {
+                  const Icon = page.icon;
+                  const active = pathname === page.path;
+                  return (
+                    <Link
+                      key={page.path}
+                      href={page.path}
+                      onClick={() => setDropdownOpen(false)}
+                      className={`flex items-center gap-2.5 px-3 py-2 text-xs font-medium transition-colors ${
+                        active 
+                          ? "bg-blue-50 text-blue-700 font-semibold" 
+                          : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                      }`}
+                    >
+                      <Icon className={`w-4 h-4 shrink-0 ${active ? "text-blue-600" : "text-slate-400"}`} />
+                      <span className="truncate">{page.name}</span>
+                    </Link>
+                  );
+                })}
               </div>
-              {ALL_PAGES.map((page, idx) => {
-                const Icon = page.icon;
-                const active = pathname === page.path;
-                return (
-                  <Link
-                    key={page.path}
-                    href={page.path}
-                    onClick={() => setDropdownOpen(false)}
-                    className={`flex items-center gap-2.5 px-3 py-2 text-xs font-medium transition-colors ${
-                      active 
-                        ? "bg-blue-50 text-blue-700 font-semibold" 
-                        : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
-                    }`}
-                  >
-                    <Icon className={`w-4 h-4 shrink-0 ${active ? "text-blue-600" : "text-slate-400"}`} />
-                    <span className="truncate">{page.name}</span>
-                  </Link>
-                );
-              })}
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
 
         {/* Right Actions: Role Switcher & Profile */}
         <div className="flex items-center gap-3">

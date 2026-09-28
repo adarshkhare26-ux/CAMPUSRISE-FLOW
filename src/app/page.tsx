@@ -9,13 +9,9 @@ import {
   Lock, 
   Mail, 
   Sparkles, 
-  ShieldCheck, 
-  Compass,
-  Building2,
-  CheckCircle2,
-  BookOpen
+  Building2 
 } from "lucide-react";
-import { Navbar, ALL_PAGES } from "@/components/Navbar";
+import { Navbar } from "@/components/Navbar";
 
 export default function StudentLoginPage() {
   const router = useRouter();
@@ -31,9 +27,9 @@ export default function StudentLoginPage() {
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-white via-slate-50 to-blue-50/30">
       <Navbar />
 
-      <main className="flex-1 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-10 max-w-7xl mx-auto w-full">
+      <main className="flex-1 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12 max-w-7xl mx-auto w-full">
         
-        {/* Hero Header */}
+        {/* Header */}
         <div className="text-center max-w-2xl mb-8">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold text-blue-700 bg-blue-50 border border-blue-200/80 mb-4 shadow-sm">
             <Sparkles className="w-3.5 h-3.5 text-blue-600" />
@@ -127,43 +123,6 @@ export default function StudentLoginPage() {
                 <span>College TPO / Faculty Admin Login &rarr;</span>
               </Link>
             </div>
-          </div>
-        </div>
-
-        {/* 12-Screen Navigation Roadmap */}
-        <div className="mt-12 w-full max-w-5xl">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-extrabold uppercase tracking-wider text-slate-500 flex items-center gap-2">
-              <Compass className="w-4 h-4 text-blue-600" />
-              Complete 12-Screen Placement Sequence
-            </h3>
-            <span className="text-xs text-blue-600 font-bold">All Routes Live</span>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-            {ALL_PAGES.map((page, index) => {
-              const Icon = page.icon;
-              return (
-                <Link
-                  key={page.path}
-                  href={page.path}
-                  className="bg-white hover:bg-blue-50/50 p-3.5 rounded-2xl border border-slate-200/80 shadow-sm hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group"
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="w-7 h-7 rounded-lg bg-slate-100 text-slate-700 group-hover:bg-blue-600 group-hover:text-white flex items-center justify-center transition-colors">
-                      <Icon className="w-3.5 h-3.5" />
-                    </div>
-                    <span className="text-[10px] font-bold text-slate-400">Step {index + 1}</span>
-                  </div>
-                  <div className="text-xs font-bold text-slate-800 group-hover:text-blue-700 line-clamp-1">
-                    {page.name.split(": ")[1]}
-                  </div>
-                  <div className="text-[10px] text-slate-400 font-mono mt-1 truncate">
-                    {page.path}
-                  </div>
-                </Link>
-              );
-            })}
           </div>
         </div>
 

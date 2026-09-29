@@ -24,16 +24,16 @@ import {
 
 export const ALL_PAGES = [
   { name: "Page 1: Student Login Gateway", path: "/", icon: GraduationCap, section: "Authentication" },
-  { name: "Page 2: Student Profile Onboarding", path: "/student/profile", icon: FileText, section: "Student Journey" },
-  { name: "Page 3: Target Career Selection", path: "/student/career-target", icon: Target, section: "Student Journey" },
-  { name: "Page 4: Campus Drive Eligibility", path: "/student/eligibility", icon: CheckCircle2, section: "Student Journey" },
-  { name: "Page 5: Placement Simulation Center", path: "/student/simulation", icon: PlayCircle, section: "Student Journey" },
-  { name: "Page 6: AI Readiness Score Breakdown", path: "/student/readiness-score", icon: BarChart3, section: "Student Journey" },
-  { name: "Page 7: Skill-Gap Analysis", path: "/student/skill-gap", icon: Split, section: "Student Journey" },
-  { name: "Page 8: Personalized Action Roadmap", path: "/student/roadmap", icon: ListOrdered, section: "Student Journey" },
-  { name: "Page 9: Reassessment & Progress Tracker", path: "/student/reassessment", icon: TrendingUp, section: "Student Journey" },
-  { name: "Page 10: Alumni Mentorship Loop", path: "/student/alumni-network", icon: Users, section: "Student Journey" },
-  { name: "Page 11: Drive Matching & Placements", path: "/student/placements", icon: Briefcase, section: "Student Journey" },
+  { name: "Page 2: Profile & DigiLocker", path: "/student/profile", icon: FileText, section: "Section 1: Onboarding & Eligibility" },
+  { name: "Page 3: Target Career Selection", path: "/student/career-target", icon: Target, section: "Section 1: Onboarding & Eligibility" },
+  { name: "Page 4: Campus Drive Eligibility", path: "/student/eligibility", icon: CheckCircle2, section: "Section 1: Onboarding & Eligibility" },
+  { name: "Page 5: Placement Simulation Center", path: "/student/simulation", icon: PlayCircle, section: "Section 2: Assessment & AI Readiness" },
+  { name: "Page 6: AI Readiness Score Breakdown", path: "/student/readiness-score", icon: BarChart3, section: "Section 2: Assessment & AI Readiness" },
+  { name: "Page 7: Skill-Gap Analysis", path: "/student/skill-gap", icon: Split, section: "Section 2: Assessment & AI Readiness" },
+  { name: "Page 8: Action Roadmap", path: "/student/roadmap", icon: ListOrdered, section: "Section 3: Roadmap & Mentorship" },
+  { name: "Page 9: Reassessment Tracker", path: "/student/reassessment", icon: TrendingUp, section: "Section 3: Roadmap & Mentorship" },
+  { name: "Page 10: Alumni Mentorship Loop", path: "/student/alumni-network", icon: Users, section: "Section 3: Roadmap & Mentorship" },
+  { name: "Page 11: Placements Lifecycle", path: "/student/placements", icon: Briefcase, section: "Section 4: Corporate Placements" },
   { name: "Page 12: TPO Master Command Dashboard", path: "/tpo/dashboard", icon: LayoutDashboard, section: "TPO ERP" },
   { name: "TPO / Admin Dedicated Login", path: "/tpo/login", icon: ShieldCheck, section: "TPO ERP" },
 ];
@@ -67,7 +67,7 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* Center: 12-Page Quick Flow Dropdown (Hidden on 1st Page / Student Login & TPO Pages) */}
+        {/* Center: Quick Flow Dropdown (Hidden on 1st Page / Student Login & TPO Pages) */}
         {!isHomePage && !isTpo && (
           <div className="relative">
             <button
@@ -75,35 +75,43 @@ export function Navbar() {
               className="hidden md:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 transition-colors"
             >
               <Compass className="w-3.5 h-3.5 text-blue-600" />
-              <span>All 12 Platform Pages</span>
+              <span>Browse Sections &amp; Modules</span>
               <ChevronDown className={`w-3.5 h-3.5 transition-transform ${dropdownOpen ? "rotate-180" : ""}`} />
             </button>
 
             {dropdownOpen && (
               <div 
-                className="absolute left-1/2 -translate-x-1/2 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 py-2.5 z-50 max-h-[80vh] overflow-y-auto"
+                className="absolute left-1/2 -translate-x-1/2 mt-2 w-84 bg-white rounded-2xl shadow-2xl border border-slate-200 py-2.5 z-50 max-h-[80vh] overflow-y-auto"
                 onMouseLeave={() => setDropdownOpen(false)}
               >
-                <div className="px-3 py-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                  Full 12-Screen Architecture
+                <div className="px-3 py-1.5 text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">
+                  CampusRise Modular Architecture
                 </div>
                 {ALL_PAGES.map((page, idx) => {
                   const Icon = page.icon;
                   const active = pathname === page.path;
+                  const isNewSection = idx === 0 || page.section !== ALL_PAGES[idx - 1].section;
+
                   return (
-                    <Link
-                      key={page.path}
-                      href={page.path}
-                      onClick={() => setDropdownOpen(false)}
-                      className={`flex items-center gap-2.5 px-3 py-2 text-xs font-medium transition-colors ${
-                        active 
-                          ? "bg-blue-50 text-blue-700 font-semibold" 
-                          : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
-                      }`}
-                    >
-                      <Icon className={`w-4 h-4 shrink-0 ${active ? "text-blue-600" : "text-slate-400"}`} />
-                      <span className="truncate">{page.name}</span>
-                    </Link>
+                    <div key={page.path}>
+                      {isNewSection && (
+                        <div className="px-3 pt-2 pb-1 text-[10px] font-black text-slate-400 uppercase tracking-wider border-t border-slate-100 first:border-0 mt-1 first:mt-0">
+                          {page.section}
+                        </div>
+                      )}
+                      <Link
+                        href={page.path}
+                        onClick={() => setDropdownOpen(false)}
+                        className={`flex items-center gap-2.5 px-3 py-1.5 text-xs font-medium transition-colors ${
+                          active 
+                            ? "bg-blue-50 text-blue-700 font-semibold" 
+                            : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                        }`}
+                      >
+                        <Icon className={`w-4 h-4 shrink-0 ${active ? "text-blue-600" : "text-slate-400"}`} />
+                        <span className="truncate">{page.name}</span>
+                      </Link>
+                    </div>
                   );
                 })}
               </div>

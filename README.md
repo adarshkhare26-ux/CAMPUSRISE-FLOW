@@ -136,4 +136,3 @@ To test the application without registration:
 ## 📄 License
 
 Developed for **MPOnline Idea & Innovation Hackathon 2026**.  
-Created by **Adarsh Khare** (`adarshkhare26-ux` / `adarshkhare2605`).

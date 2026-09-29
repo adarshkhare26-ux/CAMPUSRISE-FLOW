@@ -37,7 +37,7 @@ export default function SkillGapPage() {
 
         <Link
           href="/student/roadmap"
-          className="px-4 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition-all flex items-center gap-1.5 shadow-md shadow-blue-500/20 shrink-0"
+          className="px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-all flex items-center gap-1.5 shadow-md shadow-emerald-500/20 shrink-0"
         >
           <span>Curated Roadmap (Step 8)</span>
           <ArrowRight className="w-3.5 h-3.5" />
@@ -47,7 +47,7 @@ export default function SkillGapPage() {
       {/* Target Match Metric Card */}
       <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center font-black text-xl">
+          <div className="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center font-black text-xl shadow-sm">
             {gap.matchPercentage}%
           </div>
           <div>
@@ -90,7 +90,7 @@ export default function SkillGapPage() {
                   <div className="text-xs font-bold text-slate-900">{item.name}</div>
                   <div className="text-[11px] text-slate-500 mt-0.5">Verified via: {item.source}</div>
                 </div>
-                <span className="text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                   {item.level}
                 </span>
               </div>

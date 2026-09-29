@@ -41,7 +41,7 @@ export default function DriveEligibilityPage() {
 
         <Link
           href="/student/simulation"
-          className="px-4 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition-all flex items-center gap-1.5 shadow-md shadow-blue-500/20 shrink-0"
+          className="px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-all flex items-center gap-1.5 shadow-md shadow-emerald-500/20 shrink-0"
         >
           <span>Start Simulation (Step 5)</span>
           <ArrowRight className="w-3.5 h-3.5" />

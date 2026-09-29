@@ -43,7 +43,7 @@ export default function ReassessmentTrackerPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-200 mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 mb-2">
             <span>Step 9 of 12</span>
             <span>•</span>
             <span>Iterative Competency Trajectory</span>
@@ -58,7 +58,7 @@ export default function ReassessmentTrackerPage() {
 
         <Link
           href="/student/alumni-network"
-          className="px-4 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition-all flex items-center gap-1.5 shadow-md shadow-blue-500/20 shrink-0"
+          className="px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-all flex items-center gap-1.5 shadow-md shadow-emerald-500/20 shrink-0"
         >
           <span>Alumni Mentors (Step 10)</span>
           <ArrowRight className="w-3.5 h-3.5" />
@@ -107,7 +107,7 @@ export default function ReassessmentTrackerPage() {
               {/* Progress bar */}
               <div className="w-full h-3 rounded-full bg-slate-200 overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-blue-600 to-emerald-500 rounded-full transition-all duration-700"
+                  className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full transition-all duration-700"
                   style={{ width: `${item.score}%` }}
                 ></div>
               </div>

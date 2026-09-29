@@ -39,7 +39,7 @@ export default function TargetCareerPage() {
 
         <Link
           href="/student/eligibility"
-          className="px-4 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition-all flex items-center gap-1.5 shadow-md shadow-blue-500/20 shrink-0"
+          className="px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-all flex items-center gap-1.5 shadow-md shadow-emerald-500/20 shrink-0"
         >
           <span>Drive Eligibility (Step 4)</span>
           <ArrowRight className="w-3.5 h-3.5" />
@@ -57,7 +57,7 @@ export default function TargetCareerPage() {
               onClick={() => setSelectedRole(career.id)}
               className={`cursor-pointer rounded-2xl p-5 border-2 transition-all flex flex-col justify-between ${
                 isSelected
-                  ? "bg-white border-blue-600 shadow-lg shadow-blue-500/10 scale-[1.02]"
+                  ? "bg-white border-emerald-600 shadow-lg shadow-emerald-500/10 scale-[1.02]"
                   : "bg-white/80 border-slate-200 hover:border-slate-300 hover:bg-white"
               }`}
             >
@@ -72,7 +72,7 @@ export default function TargetCareerPage() {
                   </span>
 
                   {isSelected && (
-                    <div className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center">
+                    <div className="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center">
                       <CheckCircle2 className="w-3.5 h-3.5" />
                     </div>
                   )}
@@ -90,10 +90,10 @@ export default function TargetCareerPage() {
               </div>
 
               <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold">
-                <span className={isSelected ? "text-blue-600" : "text-slate-400"}>
+                <span className={isSelected ? "text-emerald-600" : "text-slate-400"}>
                   {isSelected ? "Active Target" : "Select Role"}
                 </span>
-                <ChevronRight className={`w-3.5 h-3.5 ${isSelected ? "text-blue-600" : "text-slate-400"}`} />
+                <ChevronRight className={`w-3.5 h-3.5 ${isSelected ? "text-emerald-600" : "text-slate-400"}`} />
               </div>
             </div>
           );
@@ -166,7 +166,7 @@ export default function TargetCareerPage() {
               </div>
               <Link
                 href="/student/eligibility"
-                className="px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition-colors shadow-sm shrink-0"
+                className="px-4 py-2 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-colors shadow-sm shadow-emerald-500/20 shrink-0"
               >
                 Proceed &rarr;
               </Link>

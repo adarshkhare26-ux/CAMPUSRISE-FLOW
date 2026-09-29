@@ -24,7 +24,7 @@ export default function PlacementLifecyclePage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-200 mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 mb-2">
             <span>Step 11 of 12</span>
             <span>•</span>
             <span>Recruitment Pipeline Tracker</span>
@@ -39,7 +39,7 @@ export default function PlacementLifecyclePage() {
 
         <Link
           href="/tpo/dashboard"
-          className="px-4 py-2.5 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition-all flex items-center gap-1.5 shadow-md shadow-slate-900/20 shrink-0"
+          className="px-4 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition-all flex items-center gap-1.5 shadow-md shadow-blue-500/20 shrink-0"
         >
           <span>TPO Master (Step 12)</span>
           <ArrowRight className="w-3.5 h-3.5" />

@@ -95,7 +95,7 @@ export default function TpoLoginPage() {
 
             <button
               type="submit"
-              className="w-full py-3 rounded-xl text-xs font-extrabold bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center gap-2 transition-all shadow-md"
+              className="w-full py-3 rounded-xl text-xs font-extrabold bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center gap-2 transition-all shadow-md shadow-blue-500/25"
             >
               <span>Authenticate to TPO Master</span>
               <ArrowRight className="w-4 h-4" />
@@ -116,9 +116,9 @@ export default function TpoLoginPage() {
             <div className="text-center pt-2">
               <Link
                 href="/"
-                className="text-xs font-bold text-slate-500 hover:text-slate-800 transition-colors inline-flex items-center gap-1.5"
+                className="text-xs font-bold text-emerald-600 hover:text-emerald-700 transition-colors inline-flex items-center gap-1.5"
               >
-                <GraduationCap className="w-3.5 h-3.5 text-blue-600" />
+                <GraduationCap className="w-3.5 h-3.5 text-emerald-600" />
                 <span>Student Login &rarr;</span>
               </Link>
             </div>

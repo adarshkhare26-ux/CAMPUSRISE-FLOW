@@ -40,8 +40,8 @@ export function StudentSidebar() {
           <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400">
             Student Flow Progression
           </span>
-          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
-            <Sparkles className="w-3 h-3 text-blue-600" />
+          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+            <Sparkles className="w-3 h-3 text-emerald-600" />
             10 Stages
           </span>
         </div>
@@ -57,7 +57,7 @@ export function StudentSidebar() {
                 href={item.path}
                 className={`group flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all ${
                   active
-                    ? "bg-blue-600 text-white shadow-md shadow-blue-600/20 translate-x-1"
+                    ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/20 translate-x-1"
                     : "text-slate-600 hover:bg-slate-100/80 hover:text-slate-900"
                 }`}
               >
@@ -89,15 +89,15 @@ export function StudentSidebar() {
 
       {/* Mini Quick Score Widget */}
       <div className="mt-6 pt-4 border-t border-slate-100 hidden lg:block">
-        <div className="bg-gradient-to-br from-blue-50 to-emerald-50 rounded-2xl p-4 border border-blue-100/60 text-slate-800">
+        <div className="bg-gradient-to-br from-emerald-50 to-teal-50/70 rounded-2xl p-4 border border-emerald-100 text-slate-800">
           <div className="flex items-center justify-between text-xs font-bold text-slate-700 mb-2">
             <span>Overall Readiness</span>
             <span className="text-emerald-600 font-extrabold text-sm">84%</span>
           </div>
           <div className="w-full h-2 rounded-full bg-slate-200/80 overflow-hidden">
-            <div className="h-full bg-gradient-to-r from-blue-600 to-emerald-500 rounded-full" style={{ width: "84%" }}></div>
+            <div className="h-full bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full" style={{ width: "84%" }}></div>
           </div>
-          <p className="text-[11px] text-slate-500 mt-2 font-medium">
+          <p className="text-[11px] text-slate-600 mt-2 font-medium">
             Candidate matches 4 active campus drives with 0 backlogs.
           </p>
         </div>

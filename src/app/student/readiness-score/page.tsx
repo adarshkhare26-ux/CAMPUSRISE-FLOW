@@ -38,7 +38,7 @@ export default function ReadinessScorePage() {
 
         <Link
           href="/student/skill-gap"
-          className="px-4 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition-all flex items-center gap-1.5 shadow-md shadow-blue-500/20 shrink-0"
+          className="px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-all flex items-center gap-1.5 shadow-md shadow-emerald-500/20 shrink-0"
         >
           <span>Skill-Gap Analysis (Step 7)</span>
           <ArrowRight className="w-3.5 h-3.5" />
@@ -46,7 +46,7 @@ export default function ReadinessScorePage() {
       </div>
 
       {/* Top Banner: Gauge Meter & Summary */}
-      <div className="bg-gradient-to-br from-white to-blue-50/50 rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
+      <div className="bg-gradient-to-br from-white to-emerald-50/30 rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
           
           {/* Circular SVG Gauge */}
@@ -75,8 +75,8 @@ export default function ReadinessScorePage() {
                 />
                 <defs>
                   <linearGradient id="readinessGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#2563EB" />
-                    <stop offset="100%" stopColor="#10B981" />
+                    <stop offset="0%" stopColor="#34D399" />
+                    <stop offset="100%" stopColor="#059669" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -150,14 +150,14 @@ export default function ReadinessScorePage() {
                   </span>
                 </div>
                 <div className="text-xs font-bold text-slate-700">
-                  Performance: <strong className="text-blue-700">{cat.score}%</strong> &rarr; Net Contribution: <strong className="text-emerald-700">{cat.contribution} pts</strong>
+                  Performance: <strong className="text-emerald-700">{cat.score}%</strong> &rarr; Net Contribution: <strong className="text-emerald-700">{cat.contribution} pts</strong>
                 </div>
               </div>
 
               {/* Progress bar */}
               <div className="w-full h-2 rounded-full bg-slate-200 overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-blue-600 to-emerald-500 rounded-full transition-all duration-500"
+                  className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full transition-all duration-500"
                   style={{ width: `${cat.score}%` }}
                 ></div>
               </div>

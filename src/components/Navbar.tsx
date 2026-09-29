@@ -117,8 +117,8 @@ export function Navbar() {
             href={isTpo ? "/student/profile" : "/tpo/login"}
             className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all shadow-sm ${
               isTpo
-                ? "bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100"
-                : "bg-slate-900 text-white hover:bg-slate-800"
+                ? "bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-500/20"
+                : "bg-blue-600 text-white hover:bg-blue-700 shadow-blue-500/20"
             }`}
           >
             {isTpo ? (
@@ -128,7 +128,7 @@ export function Navbar() {
               </>
             ) : (
               <>
-                <Building2 className="w-3.5 h-3.5 text-blue-400" />
+                <Building2 className="w-3.5 h-3.5" />
                 <span>TPO Admin Login</span>
               </>
             )}

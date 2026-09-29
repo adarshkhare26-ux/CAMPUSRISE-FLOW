@@ -46,7 +46,7 @@ export default function SimulationCenterPage() {
 
         <Link
           href="/student/readiness-score"
-          className="px-4 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition-all flex items-center gap-1.5 shadow-md shadow-blue-500/20 shrink-0"
+          className="px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-all flex items-center gap-1.5 shadow-md shadow-emerald-500/20 shrink-0"
         >
           <span>Readiness Score (Step 6)</span>
           <ArrowRight className="w-3.5 h-3.5" />
@@ -63,7 +63,7 @@ export default function SimulationCenterPage() {
               onClick={() => setActiveStep(mod.step)}
               className={`p-3.5 rounded-2xl border text-left transition-all flex flex-col justify-between ${
                 isActive
-                  ? "bg-blue-600 border-blue-600 text-white shadow-md shadow-blue-500/20 scale-[1.02]"
+                  ? "bg-emerald-600 border-emerald-600 text-white shadow-md shadow-emerald-500/20 scale-[1.02]"
                   : "bg-white border-slate-200 hover:border-slate-300 text-slate-800"
               }`}
             >
@@ -78,7 +78,7 @@ export default function SimulationCenterPage() {
 
               <div>
                 <div className="text-xs font-extrabold leading-snug line-clamp-1">{mod.title}</div>
-                <div className={`text-[11px] font-bold mt-1 ${isActive ? "text-blue-100" : "text-emerald-600"}`}>
+                <div className={`text-[11px] font-bold mt-1 ${isActive ? "text-emerald-100" : "text-emerald-600"}`}>
                   Score: {mod.score}%
                 </div>
               </div>
@@ -96,7 +96,7 @@ export default function SimulationCenterPage() {
               Interactive Test Workspace • Stage {currentModule.step} of 6
             </div>
             <h2 className="text-xl font-extrabold text-slate-900 mt-1 flex items-center gap-2">
-              <PlayCircle className="w-5 h-5 text-blue-600" />
+              <PlayCircle className="w-5 h-5 text-emerald-600" />
               {currentModule.title}
             </h2>
             <p className="text-xs text-slate-500 mt-0.5 max-w-2xl">{currentModule.desc}</p>
@@ -122,7 +122,7 @@ export default function SimulationCenterPage() {
             <div className="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 space-y-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white shadow-md shadow-emerald-600/30">
                     <Bot className="w-5 h-5" />
                   </div>
                   <div>
@@ -148,7 +148,7 @@ export default function SimulationCenterPage() {
                   className={`w-16 h-16 rounded-full flex items-center justify-center transition-all shadow-lg ${
                     micActive
                       ? "bg-red-500 text-white animate-pulse shadow-red-500/30 scale-110"
-                      : "bg-blue-600 text-white hover:bg-blue-700 shadow-blue-500/30"
+                      : "bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-500/30"
                   }`}
                 >
                   <Mic className="w-7 h-7" />
@@ -189,12 +189,12 @@ export default function SimulationCenterPage() {
                     onClick={() => setSelectedAnswer(i)}
                     className={`cursor-pointer p-3.5 rounded-xl border text-xs font-semibold transition-all flex items-center justify-between ${
                       selectedAnswer === i
-                        ? "border-blue-600 bg-blue-50 text-blue-900 font-bold"
+                        ? "border-emerald-600 bg-emerald-50 text-emerald-950 font-bold shadow-sm shadow-emerald-500/10"
                         : "border-slate-200 hover:bg-slate-50 text-slate-700"
                     }`}
                   >
                     <span>{opt}</span>
-                    {selectedAnswer === i && <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />}
+                    {selectedAnswer === i && <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />}
                   </div>
                 ))}
               </div>
@@ -203,7 +203,7 @@ export default function SimulationCenterPage() {
                 <button
                   type="button"
                   onClick={() => alert("Answer confirmed. AI scoring pipeline updated!")}
-                  className="px-4 py-2 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800"
+                  className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all shadow-md shadow-emerald-500/20"
                 >
                   Submit Answer &amp; Next
                 </button>

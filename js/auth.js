@@ -1,121 +1,156 @@
 /* ==========================================================================
-   Viksit CareerBridge — Authentication Logic & Session Management
-   MPOnline Idea & Innovation Hackathon 2026
+   Viksit CareerBridge — Auth Page Logic (Role + Mode + Validation)
    ========================================================================== */
 
-let currentAuthRole = 'student'; // 'student' or 'corporate_recruiter'
-let currentAuthMode = 'login';   // 'login' or 'register'
+let currentRole = 'student';
+let currentMode = 'login';
 
-function setAuthRole(role) {
-    currentAuthRole = role;
-    const studentBtn = document.getElementById('role-btn-student');
-    const corporateBtn = document.getElementById('role-btn-corporate');
-    const mainTitle = document.getElementById('auth-main-title');
-    const mainSubtitle = document.getElementById('auth-main-subtitle');
-    const studentFields = document.getElementById('student-extra-fields');
-    const corporateFields = document.getElementById('corporate-extra-fields');
+function setRole(role) {
+    currentRole = role;
+    const sBtnEl = document.getElementById('role-btn-student');
+    const rBtnEl = document.getElementById('role-btn-recruiter');
+    const titleEl = document.getElementById('auth-title');
+    const subtitleEl = document.getElementById('auth-subtitle');
+    const studEx = document.getElementById('student-extras');
+    const corpEx = document.getElementById('recruiter-extras');
 
     if (role === 'student') {
-        studentBtn.className = 'role-switch-btn active-student';
-        corporateBtn.className = 'role-switch-btn';
-        mainTitle.innerText = 'Student Portal Access';
-        mainSubtitle.innerText = 'Bridge your campus learning to top corporate placements';
-        studentFields.classList.remove('hidden');
-        corporateFields.classList.add('hidden');
+        sBtnEl.className = 'role-switch-btn active-student';
+        rBtnEl.className = 'role-switch-btn';
+        titleEl.innerText = 'Student Portal Access';
+        subtitleEl.innerText = 'Bridge campus learning to top corporate placements';
+        if (studEx) studEx.classList.remove('hidden');
+        if (corpEx) corpEx.classList.add('hidden');
     } else {
-        corporateBtn.className = 'role-switch-btn active-corporate';
-        studentBtn.className = 'role-switch-btn';
-        mainTitle.innerText = 'Corporate Recruiter Access';
-        mainSubtitle.innerText = 'Source & hire verified campus talent across Madhya Pradesh';
-        corporateFields.classList.remove('hidden');
-        studentFields.classList.add('hidden');
+        rBtnEl.className = 'role-switch-btn active-corporate';
+        sBtnEl.className = 'role-switch-btn';
+        titleEl.innerText = 'Corporate Recruiter Access';
+        subtitleEl.innerText = 'Source and hire verified talent from MP universities';
+        if (corpEx) corpEx.classList.remove('hidden');
+        if (studEx) studEx.classList.add('hidden');
     }
 }
 
-function setAuthMode(mode) {
-    currentAuthMode = mode;
+function setMode(mode) {
+    currentMode = mode;
     const loginTab = document.getElementById('tab-login');
-    const registerTab = document.getElementById('tab-register');
-    const registerFields = document.getElementById('register-fields');
-    const submitBtn = document.getElementById('btn-auth-submit');
+    const regTab   = document.getElementById('tab-register');
+    const regFields = document.getElementById('register-fields');
+    const submitBtn = document.getElementById('btn-submit');
 
     if (mode === 'login') {
-        loginTab.classList.add('active');
-        registerTab.classList.remove('active');
-        registerFields.classList.add('hidden');
+        loginTab.classList.add('active'); regTab.classList.remove('active');
+        regFields.classList.add('hidden');
         submitBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Sign In to Portal';
     } else {
-        registerTab.classList.add('active');
-        loginTab.classList.remove('active');
-        registerFields.classList.remove('hidden');
+        regTab.classList.add('active'); loginTab.classList.remove('active');
+        regFields.classList.remove('hidden');
         submitBtn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Create Account';
     }
 }
 
-function handleFormSubmit(event) {
-    event.preventDefault();
-    const email = document.getElementById('input-email').value;
-    const password = document.getElementById('input-password').value;
-    const fullname = document.getElementById('input-fullname')?.value || (currentAuthRole === 'student' ? 'Priya Sharma' : 'Rajesh Verma');
-    const college = document.getElementById('input-college')?.value || 'RGPV Institute of Technology';
-    const branch = document.getElementById('input-branch')?.value || 'Computer Science & Engineering';
-    const company = document.getElementById('input-company')?.value || 'TCS Digital';
+function togglePassword(inputId, iconEl) {
+    const inp = document.getElementById(inputId);
+    if (inp.type === 'password') {
+        inp.type = 'text';
+        iconEl.className = 'fa-solid fa-eye-slash input-toggle';
+    } else {
+        inp.type = 'password';
+        iconEl.className = 'fa-solid fa-eye input-toggle';
+    }
+}
 
-    const userObj = {
-        uid: 'user-' + Date.now(),
-        name: fullname,
-        email: email,
-        role: currentAuthRole,
-        college: currentAuthRole === 'student' ? college : company,
-        branch: currentAuthRole === 'student' ? branch : 'HR / Recruitment',
-        readinessScore: currentAuthRole === 'student' ? 78 : null
-    };
-
-    window.CareerBridge.saveUserSession(userObj);
-    
-    // Redirect to Main Portal
-    window.location.href = 'index.html';
+function checkStrength(val) {
+    let score = 0;
+    if (val.length >= 8) score++;
+    if (/[A-Z]/.test(val)) score++;
+    if (/[0-9]/.test(val)) score++;
+    if (/[^A-Za-z0-9]/.test(val)) score++;
+    const fill = document.getElementById('strength-fill');
+    const label = document.getElementById('strength-label');
+    if (!fill) return;
+    const map = [
+        { w: '0%',   bg: '#EF4444', lbl: '' },
+        { w: '25%',  bg: '#EF4444', lbl: 'Weak' },
+        { w: '50%',  bg: '#F59E0B', lbl: 'Fair' },
+        { w: '75%',  bg: '#3B82F6', lbl: 'Good' },
+        { w: '100%', bg: '#10B981', lbl: 'Strong' }
+    ];
+    const m = map[score];
+    fill.style.width = m.w; fill.style.background = m.bg;
+    if (label) { label.innerText = m.lbl; label.style.color = m.bg; }
 }
 
 function handleGoogleAuth() {
-    const userObj = {
-        uid: 'google-user-' + Date.now(),
-        name: currentAuthRole === 'student' ? 'Priya Sharma (Google)' : 'Rajesh Verma (Google)',
-        email: currentAuthRole === 'student' ? 'priya.sharma@rgpv.ac.in' : 'rajesh.verma@tcs.com',
-        role: currentAuthRole,
-        college: currentAuthRole === 'student' ? 'RGPV Bhopal' : 'TCS Digital Campus Drive',
-        branch: currentAuthRole === 'student' ? 'Computer Science & Engineering' : 'Corporate HR',
-        readinessScore: 78
-    };
+    const name = currentRole === 'student' ? 'Priya Sharma' : 'Rajesh Verma';
+    const email = currentRole === 'student' ? 'priya.sharma@rgpv.ac.in' : 'rajesh.verma@tcs.com';
+    const user = buildUserObj({ name, email });
+    DB.setUser(user);
+    showToast('Signed in with Google successfully!', 'success');
+    setTimeout(() => window.location.href = 'index.html', 800);
+}
 
-    window.CareerBridge.saveUserSession(userObj);
-    window.location.href = 'index.html';
+function handleFormSubmit(e) {
+    e.preventDefault();
+    clearErrors();
+
+    const email    = document.getElementById('input-email').value.trim();
+    const password = document.getElementById('input-password').value;
+    let valid = true;
+
+    if (!email || !email.includes('@')) { showError('email-error', 'Enter a valid email address.'); valid = false; }
+    if (!password || password.length < 6) { showError('pass-error', 'Password must be at least 6 characters.'); valid = false; }
+
+    if (currentMode === 'register') {
+        const name = document.getElementById('input-name')?.value.trim();
+        if (!name) { showError('name-error', 'Full name is required.'); valid = false; }
+    }
+
+    if (!valid) return;
+
+    const name = currentMode === 'register'
+        ? document.getElementById('input-name').value.trim()
+        : (currentRole === 'student' ? 'Priya Sharma' : 'Rajesh Verma');
+
+    const user = buildUserObj({ name, email });
+    DB.setUser(user);
+    showToast(`Welcome, ${name}!`, 'success');
+    setTimeout(() => window.location.href = 'index.html', 700);
+}
+
+function buildUserObj({ name, email }) {
+    const base = {
+        uid: 'user-' + Date.now(),
+        name, email,
+        role: currentRole,
+        initials: name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()
+    };
+    if (currentRole === 'student') {
+        base.college = document.getElementById('input-college')?.value || 'RGPV Bhopal';
+        base.branch  = document.getElementById('input-branch')?.value  || 'Computer Science';
+    } else {
+        base.company     = document.getElementById('input-company')?.value     || 'TCS Digital';
+        base.designation = document.getElementById('input-designation')?.value || 'Talent Acquisition Lead';
+    }
+    return base;
 }
 
 function loginDemo(role) {
-    if (role === 'student') {
-        const studentObj = {
-            uid: 'demo-student-001',
-            name: 'Priya Sharma',
-            email: 'priya.sharma@rgpv.ac.in',
-            role: 'student',
-            college: 'RGPV Institute of Technology, Bhopal',
-            branch: 'Computer Science & Engineering',
-            readinessScore: 78
-        };
-        window.CareerBridge.saveUserSession(studentObj);
-    } else {
-        const recruiterObj = {
-            uid: 'demo-recruiter-001',
-            name: 'Rajesh Verma',
-            email: 'rajesh.verma@tcs.com',
-            role: 'corporate_recruiter',
-            college: 'TCS Digital Campus Hiring Team',
-            branch: 'Senior Talent Acquisition Lead',
-            company: 'TCS Digital'
-        };
-        window.CareerBridge.saveUserSession(recruiterObj);
-    }
+    const users = {
+        student: { uid:'demo-s1', name:'Priya Sharma', email:'priya@rgpv.ac.in', role:'student', college:'RGPV Bhopal', branch:'Computer Science', initials:'PS' },
+        corporate: { uid:'demo-r1', name:'Rajesh Verma', email:'rajesh@tcs.com', role:'corporate_recruiter', company:'TCS Digital', designation:'Campus Recruitment Head', initials:'RV' }
+    };
+    DB.setUser(users[role]);
+    showToast(`Demo ${role === 'student' ? 'Student' : 'Recruiter'} account loaded!`, 'success');
+    setTimeout(() => window.location.href = 'index.html', 700);
+}
 
-    window.location.href = 'index.html';
+/* ── Helpers ─────────────────────────────────────────── */
+function showError(id, msg) {
+    const el = document.getElementById(id);
+    if (el) { el.innerText = msg; el.style.display = 'block'; }
+}
+function clearErrors() {
+    document.querySelectorAll('.form-error').forEach(el => { el.style.display = 'none'; el.innerText = ''; });
+    document.querySelectorAll('.form-control').forEach(el => el.classList.remove('error'));
 }

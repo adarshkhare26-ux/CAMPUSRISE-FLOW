@@ -3,341 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Authentication — Viksit CareerBridge | MPOnline Hackathon 2026</title>
-    <!-- Google Fonts -->
+    <title>Sign In — Viksit CareerBridge | MPOnline Hackathon 2026</title>
+    <meta name="description" content="Access the AI-powered career readiness platform for MP university students and corporate recruiters.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom Design System Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
     <style>
-        body {
-            background: linear-gradient(135deg, #F0F9FF 0%, #FFFFFF 50%, #ECFDF5 100%);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .auth-container {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-        }
-
-        .auth-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(16px);
-            border-radius: 24px;
-            border: 1px solid var(--color-border);
-            box-shadow: var(--shadow-lg);
-            width: 100%;
-            max-width: 480px;
-            padding: 40px 32px;
-            position: relative;
-        }
-
-        .auth-header {
-            text-align: center;
-            margin-bottom: 28px;
-        }
-
-        .auth-header h1 {
-            font-family: var(--font-heading);
-            font-size: 26px;
-            font-weight: 800;
-            color: var(--color-text-primary);
-            margin-top: 12px;
-        }
-
-        .auth-header p {
-            font-size: 14px;
-            color: var(--color-text-secondary);
-            margin-top: 4px;
-        }
-
-        .auth-role-switch {
-            display: flex;
-            background: var(--color-surface);
-            padding: 4px;
-            border-radius: var(--radius-pill);
-            border: 1px solid var(--color-border);
-            margin-bottom: 24px;
-        }
-
-        .role-switch-btn {
-            flex: 1;
-            padding: 10px 16px;
-            border-radius: var(--radius-pill);
-            border: none;
-            background: transparent;
-            font-family: var(--font-body);
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--color-text-secondary);
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            text-align: center;
-        }
-
-        .role-switch-btn.active-student {
-            background: var(--color-success);
-            color: white;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
-        }
-
-        .role-switch-btn.active-corporate {
-            background: var(--color-primary);
-            color: white;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
-        }
-
-        .auth-tabs {
-            display: flex;
-            border-bottom: 2px solid var(--color-border-subtle);
-            margin-bottom: 24px;
-        }
-
-        .auth-tab-btn {
-            flex: 1;
-            padding: 10px 0;
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid transparent;
-            font-family: var(--font-body);
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--color-text-secondary);
-            cursor: pointer;
-            text-align: center;
-            margin-bottom: -2px;
-        }
-
-        .auth-tab-btn.active {
-            color: var(--color-primary);
-            border-bottom-color: var(--color-primary);
-            font-weight: 700;
-        }
-
-        .google-btn {
-            width: 100%;
-            background: white;
-            border: 1px solid var(--color-border);
-            color: var(--color-text-primary);
-            padding: 12px;
-            border-radius: var(--radius-input);
-            font-size: 14px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            cursor: pointer;
-            transition: var(--transition-fast);
-            margin-bottom: 20px;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .google-btn:hover {
-            border-color: var(--color-primary);
-            background: var(--color-surface);
-        }
-
-        .divider-or {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: var(--color-text-muted);
-            font-size: 12px;
-            font-weight: 600;
-            margin: 20px 0;
-        }
-
-        .divider-or::before, .divider-or::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        .divider-or span {
-            padding: 0 12px;
-        }
-
-        .demo-quick-box {
-            background: var(--color-sky-mist);
-            border: 1px solid var(--color-sky-border);
-            border-radius: var(--radius-card);
-            padding: 16px;
-            margin-top: 24px;
-            text-align: center;
-        }
-
-        .demo-quick-box h4 {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--color-primary);
-            margin-bottom: 10px;
-        }
-
-        .demo-btn-group {
-            display: flex;
-            gap: 8px;
-        }
-
-        .demo-btn {
-            flex: 1;
-            padding: 8px 12px;
-            border-radius: var(--radius-pill);
-            border: 1px solid var(--color-primary);
-            background: white;
-            color: var(--color-primary);
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition-fast);
-        }
-
-        .demo-btn:hover {
-            background: var(--color-primary);
-            color: white;
-        }
+        body { background: linear-gradient(135deg,#F0F9FF 0%,#ECFDF5 50%,#EFF6FF 100%); display:flex; flex-direction:column; min-height:100vh; }
+        .auth-page-wrap { flex:1; display:flex; align-items:center; justify-content:center; padding:40px 20px; }
+        .auth-card { animation: authSlide 0.45s cubic-bezier(0.34,1.56,0.64,1); }
+        @keyframes authSlide { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+        .feature-pill { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.7); border:1px solid var(--color-border); border-radius:var(--radius-pill); padding:5px 14px; font-size:12px; font-weight:600; color:var(--color-text-secondary); margin:4px; }
     </style>
 </head>
 <body>
 
-    <!-- Header Navigation -->
-    <header class="main-header">
-        <div class="container flex-between">
-            <a href="index.html" class="brand-logo">
-                <div class="brand-logo-icon">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                </div>
-                <div>
-                    <span class="brand-title">Viksit <span>CareerBridge</span></span>
-                    <span class="brand-badge">MPOnline 2026</span>
-                </div>
-            </a>
+<!-- Header -->
+<header class="main-header">
+    <div class="container flex-between">
+        <a href="index.html" class="brand-logo">
+            <div class="brand-logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
             <div>
-                <a href="index.html" class="btn btn-outline" style="font-size: 13px; padding: 8px 16px;">
-                    <i class="fa-solid fa-house"></i> Main Portal
-                </a>
+                <span class="brand-title">Viksit <span>CareerBridge</span></span>
+                <span class="brand-badge">MPOnline 2026</span>
             </div>
-        </div>
-    </header>
-
-    <!-- Main Auth Card Container -->
-    <div class="auth-container">
-        <div class="auth-card">
-            
-            <div class="auth-header">
-                <div class="flex-center" style="margin-bottom: 8px;">
-                    <span class="hero-pill-tag">
-                        <i class="fa-solid fa-shield-halved"></i> Secure Portal Access
-                    </span>
-                </div>
-                <h1 id="auth-main-title">Student Portal Access</h1>
-                <p id="auth-main-subtitle">Bridge your campus learning to top corporate placements</p>
-            </div>
-
-            <!-- Role Selector Toggle -->
-            <div class="auth-role-switch">
-                <button id="role-btn-student" class="role-switch-btn active-student" onclick="setAuthRole('student')">
-                    <i class="fa-solid fa-user-graduate"></i> Student
-                </button>
-                <button id="role-btn-corporate" class="role-switch-btn" onclick="setAuthRole('corporate_recruiter')">
-                    <i class="fa-solid fa-building-user"></i> Recruiter
-                </button>
-            </div>
-
-            <!-- Auth Mode Tabs (Sign In vs Register) -->
-            <div class="auth-tabs">
-                <button id="tab-login" class="auth-tab-btn active" onclick="setAuthMode('login')">Sign In</button>
-                <button id="tab-register" class="auth-tab-btn" onclick="setAuthMode('register')">Create Account</button>
-            </div>
-
-            <!-- 1-Click Google Sign In -->
-            <button class="google-btn" onclick="handleGoogleAuth()">
-                <svg width="18" height="18" viewBox="0 0 18 18">
-                    <path fill="#4285F4" d="M17.64 9.2c0-.74-.06-1.28-.19-1.84H9v3.34h4.96c-.1.83-.64 2.08-1.84 2.92l2.84 2.2c1.7-1.57 2.68-3.88 2.68-6.62z"/>
-                    <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.84-2.2c-.76.53-1.78.9-3.12.9-2.38 0-4.41-1.57-5.13-3.74L.97 13.04C2.45 15.98 5.48 18 9 18z"/>
-                    <path fill="#FBBC05" d="M3.87 10.78c-.19-.58-.3-1.19-.3-1.78s.11-1.2.3-1.78L.97 4.96C.35 6.18 0 7.55 0 9s.35 2.82.97 4.04l2.9-2.26z"/>
-                    <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0 5.48 0 2.45 2.02.97 4.96l2.9 2.26C4.59 5.05 6.62 3.58 9 3.58z"/>
-                </svg>
-                Continue with Google
-            </button>
-
-            <div class="divider-or"><span>OR EMAIL</span></div>
-
-            <!-- Auth Form -->
-            <form id="auth-form" onsubmit="handleFormSubmit(event)">
-                
-                <!-- Extra Fields for Registration -->
-                <div id="register-fields" class="hidden">
-                    <div class="form-group">
-                        <label class="form-label">Full Name</label>
-                        <input type="text" id="input-fullname" class="form-control" placeholder="e.g. Priya Sharma">
-                    </div>
-                    
-                    <div id="student-extra-fields">
-                        <div class="form-group">
-                            <label class="form-label">College / University</label>
-                            <input type="text" id="input-college" class="form-control" placeholder="e.g. RGPV Bhopal / MANIT">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Academic Branch</label>
-                            <input type="text" id="input-branch" class="form-control" placeholder="e.g. B.Tech Computer Science">
-                        </div>
-                    </div>
-
-                    <div id="corporate-extra-fields" class="hidden">
-                        <div class="form-group">
-                            <label class="form-label">Company Name</label>
-                            <input type="text" id="input-company" class="form-control" placeholder="e.g. TCS Digital / MPSEDC">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Designation / Role</label>
-                            <input type="text" id="input-designation" class="form-control" placeholder="e.g. Campus Hiring Manager">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Standard Email & Password Fields -->
-                <div class="form-group">
-                    <label class="form-label">Email Address</label>
-                    <input type="email" id="input-email" class="form-control" placeholder="name@domain.com" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <input type="password" id="input-password" class="form-control" placeholder="••••••••" required>
-                </div>
-
-                <button type="submit" id="btn-auth-submit" class="btn btn-primary" style="width: 100%; padding: 14px; font-size: 15px;">
-                    <i class="fa-solid fa-right-to-bracket"></i> Sign In to Portal
-                </button>
-            </form>
-
-            <!-- Quick Demo One-Click Sign In -->
-            <div class="demo-quick-box">
-                <h4><i class="fa-solid fa-bolt"></i> Instant Hackathon Demo Accounts</h4>
-                <div class="demo-btn-group">
-                    <button class="demo-btn" onclick="loginDemo('student')">
-                        <i class="fa-solid fa-user-graduate"></i> Demo Student
-                    </button>
-                    <button class="demo-btn" onclick="loginDemo('corporate')">
-                        <i class="fa-solid fa-building"></i> Demo Recruiter
-                    </button>
-                </div>
-            </div>
-
+        </a>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <span class="feature-pill"><i class="fa-solid fa-robot" style="color:var(--color-primary)"></i>Gemini AI</span>
+            <span class="feature-pill"><i class="fa-solid fa-shield-halved" style="color:var(--color-success)"></i>MPGov Verified</span>
+            <span class="feature-pill"><i class="fa-solid fa-building-user" style="color:var(--color-warning)"></i>100+ Corporates</span>
         </div>
     </div>
+</header>
 
-    <!-- Firebase Config & Auth Script -->
-    <script src="js/firebase-config.js"></script>
-    <script src="js/auth.js"></script>
+<div class="auth-page-wrap">
+    <div class="auth-card">
+
+        <!-- Auth Header -->
+        <div style="text-align:center;margin-bottom:24px">
+            <span class="hero-pill-tag"><i class="fa-solid fa-lock"></i> Secure Portal Access</span>
+            <h1 id="auth-title" style="font-family:var(--font-heading);font-size:26px;font-weight:800;margin-top:10px;color:var(--color-text-primary)">Student Portal Access</h1>
+            <p id="auth-subtitle" style="font-size:14px;color:var(--color-text-secondary);margin-top:4px">Bridge campus learning to top corporate placements</p>
+        </div>
+
+        <!-- Role Toggle -->
+        <div class="auth-role-switch">
+            <button id="role-btn-student" class="role-switch-btn active-student" onclick="setRole('student')">
+                <i class="fa-solid fa-user-graduate"></i> Student
+            </button>
+            <button id="role-btn-recruiter" class="role-switch-btn" onclick="setRole('corporate_recruiter')">
+                <i class="fa-solid fa-building-user"></i> Recruiter
+            </button>
+        </div>
+
+        <!-- Login / Register Tabs -->
+        <div class="auth-tabs">
+            <button id="tab-login" class="auth-tab-btn active" onclick="setMode('login')">Sign In</button>
+            <button id="tab-register" class="auth-tab-btn" onclick="setMode('register')">Create Account</button>
+        </div>
+
+        <!-- Google Sign In -->
+        <button class="google-btn" onclick="handleGoogleAuth()">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path fill="#4285F4" d="M17.64 9.2c0-.74-.06-1.28-.19-1.84H9v3.34h4.96c-.1.83-.64 2.08-1.84 2.92l2.84 2.2c1.7-1.57 2.68-3.88 2.68-6.62z"/>
+                <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.84-2.2c-.76.53-1.78.9-3.12.9-2.38 0-4.41-1.57-5.13-3.74L.97 13.04C2.45 15.98 5.48 18 9 18z"/>
+                <path fill="#FBBC05" d="M3.87 10.78c-.19-.58-.3-1.19-.3-1.78s.11-1.2.3-1.78L.97 4.96C.35 6.18 0 7.55 0 9s.35 2.82.97 4.04l2.9-2.26z"/>
+                <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0 5.48 0 2.45 2.02.97 4.96l2.9 2.26C4.59 5.05 6.62 3.58 9 3.58z"/>
+            </svg>
+            Continue with Google
+        </button>
+
+        <div class="divider-or"><span>OR USE EMAIL</span></div>
+
+        <!-- Auth Form -->
+        <form onsubmit="handleFormSubmit(event)">
+
+            <!-- Registration-only fields -->
+            <div id="register-fields" class="hidden">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <div class="input-group">
+                        <i class="fa-solid fa-user input-icon"></i>
+                        <input type="text" id="input-name" class="form-control" placeholder="e.g. Priya Sharma">
+                    </div>
+                    <span class="form-error" id="name-error"></span>
+                </div>
+
+                <!-- Student extra fields -->
+                <div id="student-extras">
+                    <div class="form-group">
+                        <label class="form-label">College / University</label>
+                        <div class="input-group">
+                            <i class="fa-solid fa-school input-icon"></i>
+                            <input type="text" id="input-college" class="form-control" placeholder="e.g. RGPV Bhopal / MANIT">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Academic Branch & Year</label>
+                        <div class="input-group">
+                            <i class="fa-solid fa-book input-icon"></i>
+                            <input type="text" id="input-branch" class="form-control" placeholder="e.g. B.Tech Computer Science 2026">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recruiter extra fields -->
+                <div id="recruiter-extras" class="hidden">
+                    <div class="form-group">
+                        <label class="form-label">Company / Organisation</label>
+                        <div class="input-group">
+                            <i class="fa-solid fa-building input-icon"></i>
+                            <input type="text" id="input-company" class="form-control" placeholder="e.g. TCS Digital / MPSEDC">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Designation / Role</label>
+                        <div class="input-group">
+                            <i class="fa-solid fa-id-badge input-icon"></i>
+                            <input type="text" id="input-designation" class="form-control" placeholder="e.g. Campus Recruitment Lead">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <div class="input-group">
+                    <i class="fa-solid fa-envelope input-icon"></i>
+                    <input type="email" id="input-email" class="form-control" placeholder="name@university.ac.in" required>
+                </div>
+                <span class="form-error" id="email-error"></span>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <div class="input-with-right">
+                    <div class="input-group">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <input type="password" id="input-password" class="form-control" placeholder="••••••••" required oninput="checkStrength(this.value)">
+                    </div>
+                    <button type="button" class="input-toggle" onclick="togglePassword('input-password', this)">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                </div>
+                <div id="register-fields-strength" class="hidden">
+                    <div class="strength-bar"><div id="strength-fill" class="strength-fill" style="width:0%"></div></div>
+                    <span id="strength-label" style="font-size:12px;font-weight:600;margin-top:4px;display:block"></span>
+                </div>
+                <span class="form-error" id="pass-error"></span>
+            </div>
+
+            <button type="submit" id="btn-submit" class="btn btn-primary btn-full" style="padding:14px;font-size:15px;margin-bottom:4px">
+                <i class="fa-solid fa-right-to-bracket"></i> Sign In to Portal
+            </button>
+        </form>
+
+        <!-- Hackathon Demo Quick Access -->
+        <div class="demo-quick-box">
+            <div style="font-size:13px;font-weight:700;color:var(--color-primary)"><i class="fa-solid fa-bolt"></i> Hackathon Evaluator Quick Access</div>
+            <div style="font-size:12px;color:var(--color-text-secondary);margin:6px 0">Skip auth — load a full demo account instantly</div>
+            <div class="demo-btn-group">
+                <button class="demo-btn" onclick="loginDemo('student')">
+                    <i class="fa-solid fa-user-graduate"></i> Student (Priya Sharma)
+                </button>
+                <button class="demo-btn" onclick="loginDemo('corporate')">
+                    <i class="fa-solid fa-building"></i> Recruiter (Rajesh Verma, TCS)
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script>
+    // Show strength bar only on register mode
+    const origSetMode = setMode;
+    setMode = function(mode) {
+        origSetMode(mode);
+        const strengthWrap = document.getElementById('register-fields-strength');
+        if (strengthWrap) strengthWrap.classList.toggle('hidden', mode !== 'register');
+    };
+</script>
 </body>
 </html>

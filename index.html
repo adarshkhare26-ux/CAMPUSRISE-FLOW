@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viksit CareerBridge — AI Career Readiness & Employability Platform | MPOnline 2026</title>
+    <meta name="description" content="AI-powered career readiness platform for MP university students and corporate recruiters. Skill gap analysis, mock interviews, resume enhancement, and placement matching.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ══ HEADER ════════════════════════════════════════════ -->
+<header class="main-header">
+    <div class="container flex-between" style="gap:12px;flex-wrap:wrap">
+        <a href="index.html" class="brand-logo">
+            <div class="brand-logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div>
+                <span class="brand-title">Viksit <span>CareerBridge</span></span>
+                <span class="brand-badge">MPOnline 2026</span>
+            </div>
+        </a>
+
+        <div class="portal-switch-container">
+            <button id="btn-student-view" class="switch-btn active-student" onclick="switchPortal('student')">
+                <i class="fa-solid fa-user-graduate"></i> Student Portal
+            </button>
+            <button id="btn-corporate-view" class="switch-btn" onclick="switchPortal('corporate')">
+                <i class="fa-solid fa-building-user"></i> Corporate Portal
+            </button>
+        </div>
+
+        <div class="user-nav-profile">
+            <div style="text-align:right">
+                <div id="nav-name" class="user-name-text">Loading...</div>
+                <div id="nav-role" class="user-role-text">—</div>
+            </div>
+            <div id="nav-avatar" class="user-avatar">—</div>
+            <button class="btn btn-outline btn-sm" onclick="logout()">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- ══ HERO BANNER ═══════════════════════════════════════ -->
+<section class="hero-banner">
+    <div class="container">
+        <div class="hero-content">
+            <span class="hero-pill-tag">
+                <i class="fa-solid fa-award"></i> MPOnline Idea & Innovation Hackathon 2026
+            </span>
+            <h1 class="hero-title">
+                Transforming Campus Potential into <span>Corporate Success</span>
+            </h1>
+            <p class="hero-subtitle">
+                AI-powered skill mapping, interactive voice mock interviews, resume verification, and direct MP campus placement matching — all in one platform.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ══ STUDENT PORTAL ════════════════════════════════════ -->
+<div id="student-portal">
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs-wrapper">
+        <div class="container">
+            <nav class="nav-tabs" role="tablist">
+                <button id="tab-dashboard" class="nav-tab-btn active" onclick="selectTab('dashboard')" role="tab">
+                    <i class="fa-solid fa-chart-line"></i> Dashboard
+                </button>
+                <button id="tab-mock" class="nav-tab-btn" onclick="selectTab('mock')" role="tab">
+                    <i class="fa-solid fa-microphone-lines"></i> AI Mock Interview
+                </button>
+                <button id="tab-roadmap" class="nav-tab-btn" onclick="selectTab('roadmap')" role="tab">
+                    <i class="fa-solid fa-route"></i> Skill Roadmap
+                </button>
+                <button id="tab-resume" class="nav-tab-btn" onclick="selectTab('resume')" role="tab">
+                    <i class="fa-solid fa-file-contract"></i> Resume Enhancer
+                </button>
+                <button id="tab-placements" class="nav-tab-btn" onclick="selectTab('placements')" role="tab">
+                    <i class="fa-solid fa-briefcase"></i> Placements
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <main class="container" style="padding-bottom:60px">
+
+        <!-- ┌─ TAB 1: STUDENT DASHBOARD ─────────────────────────┐ -->
+        <div id="view-dashboard">
+
+            <!-- Welcome Banner -->
+            <div class="welcome-banner">
+                <div>
+                    <p style="font-size:13px;color:#64748B;font-weight:700;text-transform:uppercase;letter-spacing:0.5px">Welcome back,</p>
+                    <h2>Hey <span id="welcome-name">Student</span>! 👋</h2>
+                    <p>Here's your AI career readiness snapshot for today.</p>
+                </div>
+                <div class="readiness-bubble">
+                    <div id="welcome-score" class="score-big">78%</div>
+                    <div class="score-label">Corporate Ready</div>
+                </div>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-num" style="color:var(--color-primary)" id="stat-interviews">0</div>
+                    <div class="stat-label"><i class="fa-solid fa-microphone" style="color:var(--color-primary)"></i> AI Sessions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num" style="color:var(--color-success)" id="stat-badges">4</div>
+                    <div class="stat-label"><i class="fa-solid fa-shield-check" style="color:var(--color-success)"></i> Verified Badges</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num" style="color:var(--color-warning)" id="applied-count">0</div>
+                    <div class="stat-label"><i class="fa-solid fa-paper-plane" style="color:var(--color-warning)"></i> Applications Sent</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num" style="color:#8B5CF6">4</div>
+                    <div class="stat-label"><i class="fa-solid fa-briefcase" style="color:#8B5CF6"></i> Active Drives</div>
+                </div>
+            </div>
+
+            <!-- Readiness Gauge + Breakdown -->
+            <div class="card-grid" style="margin-bottom:28px">
+
+                <!-- Gauge Card -->
+                <div class="ui-card no-hover" style="text-align:center">
+                    <div class="card-title-bar">
+                        <h3 class="card-title"><i class="fa-solid fa-gauge-high" style="color:var(--color-success)"></i> Employability Score</h3>
+                        <span class="badge badge-mint">AI-Rated</span>
+                    </div>
+                    <div class="gauge-container">
+                        <svg class="gauge-svg" viewBox="0 0 200 200">
+                            <defs>
+                                <linearGradient id="gauge-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#2563EB"/>
+                                    <stop offset="100%" stop-color="#10B981"/>
+                                </linearGradient>
+                            </defs>
+                            <circle class="gauge-bg" cx="100" cy="100" r="85"/>
+                            <circle id="gauge-bar" class="gauge-progress" cx="100" cy="100" r="85" stroke="url(#gauge-grad)"/>
+                        </svg>
+                        <div class="gauge-center-text">
+                            <div id="gauge-num" class="gauge-score-num">78%</div>
+                            <div class="gauge-score-label">Ready</div>
+                        </div>
+                    </div>
+                    <p style="font-size:13px;color:var(--color-text-secondary)">Top 15% among MP graduates 2026</p>
+                </div>
+
+                <!-- Breakdown Card -->
+                <div class="ui-card no-hover">
+                    <div class="card-title-bar">
+                        <h3 class="card-title"><i class="fa-solid fa-layer-group" style="color:var(--color-primary)"></i> Domain Breakdown</h3>
+                    </div>
+                    <div class="metric-row">
+                        <div class="metric-label-group">
+                            <span>Technical Proficiency</span>
+                            <span style="color:var(--color-primary);font-weight:700" id="bar-tech-lbl">82%</span>
+                        </div>
+                        <div class="progress-track"><div id="bar-tech" class="progress-fill fill-blue"></div></div>
+                    </div>
+                    <div class="metric-row">
+                        <div class="metric-label-group">
+                            <span>Soft Skills & Communication</span>
+                            <span style="color:var(--color-success);font-weight:700" id="bar-soft-lbl">74%</span>
+                        </div>
+                        <div class="progress-track"><div id="bar-soft" class="progress-fill fill-green"></div></div>
+                    </div>
+                    <div class="metric-row">
+                        <div class="metric-label-group">
+                            <span>Industry Domain Knowledge</span>
+                            <span style="color:var(--color-warning);font-weight:700" id="bar-domain-lbl">70%</span>
+                        </div>
+                        <div class="progress-track"><div id="bar-domain" class="progress-fill fill-amber"></div></div>
+                    </div>
+                    <div style="margin-top:18px;padding:12px 14px;background:var(--color-sky-mist);border-radius:12px;border:1px solid var(--color-sky-border)">
+                        <div style="font-size:13px;font-weight:700;color:var(--color-primary)"><i class="fa-solid fa-lightbulb"></i> Next Best Action</div>
+                        <p style="font-size:12px;color:var(--color-text-secondary);margin-top:3px">Complete 1 more AI mock session to boost Soft Skills by +8%.</p>
+                    </div>
+                </div>
+
+                <!-- Verified Badges Card -->
+                <div class="ui-card no-hover">
+                    <div class="card-title-bar">
+                        <h3 class="card-title"><i class="fa-solid fa-shield-check" style="color:var(--color-success)"></i> Verified Badges</h3>
+                    </div>
+                    <div id="badges-container" class="badge-group" style="margin-bottom:18px"></div>
+                    <button class="btn btn-outline btn-full btn-sm" onclick="selectTab('roadmap')">
+                        <i class="fa-solid fa-plus"></i> Unlock More Skill Badges
+                    </button>
+                </div>
+            </div>
+
+            <!-- Action Cards -->
+            <div class="ui-card no-hover">
+                <div class="card-title-bar">
+                    <h3 class="card-title"><i class="fa-solid fa-bolt" style="color:var(--color-warning)"></i> Recommended Next Steps</h3>
+                </div>
+                <div id="action-cards-container" style="display:flex;flex-direction:column;gap:10px"></div>
+            </div>
+        </div>
+
+        <!-- ┌─ TAB 2: AI MOCK INTERVIEW STUDIO ──────────────────┐ -->
+        <div id="view-mock" class="hidden">
+
+            <!-- Setup Row -->
+            <div class="ui-card no-hover" style="margin-bottom:22px">
+                <div class="card-title-bar">
+                    <h3 class="card-title"><i class="fa-solid fa-sliders" style="color:var(--color-primary)"></i> Session Setup</h3>
+                    <span class="badge badge-purple"><i class="fa-solid fa-microphone"></i> Web Speech API Powered</span>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;flex-wrap:wrap">
+                    <div class="form-group" style="margin-bottom:0">
+                        <label class="form-label">Target Role</label>
+                        <select id="role-select" class="form-control">
+                            <option>Junior Data Analyst</option>
+                            <option>Full Stack Web Developer</option>
+                            <option>AI / ML Engineer Trainee</option>
+                            <option>Software Quality Engineer</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0">
+                        <label class="form-label">Focus Area</label>
+                        <select id="focus-select" class="form-control" onchange="loadQuestion()">
+                            <option>Technical</option>
+                            <option>HR / Behavioral</option>
+                            <option>Scenario-based</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Speech API Note -->
+            <div id="speech-api-note" class="hidden" style="background:var(--color-warning-light);border:1px solid #FDE68A;border-radius:14px;padding:14px 18px;margin-bottom:20px;font-size:13px;color:#92400E">
+                <i class="fa-solid fa-triangle-exclamation"></i> <strong>Note:</strong> Your browser doesn't support Web Speech API. Voice recording is unavailable — transcript will be simulated. Use Chrome for best experience.
+            </div>
+
+            <!-- Audio Visualizer Box -->
+            <div id="audio-visualizer-box" class="audio-wave-box">
+                <div style="font-size:12px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:1px;position:relative;z-index:1">
+                    AI Technical Interviewer — Viksit CareerBridge
+                </div>
+                <div class="wave-bars-container" style="position:relative;z-index:1">
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                </div>
+                <h2 id="mock-question" style="font-size:19px;font-weight:600;font-family:var(--font-heading);color:white;max-width:700px;margin:0 auto 12px;position:relative;z-index:1;line-height:1.4">
+                    "Press Start to begin your AI-powered voice interview session."
+                </h2>
+                <p id="interview-status" style="font-size:13px;color:#94A3B8;position:relative;z-index:1">
+                    Ready to start — allow microphone access when prompted.
+                </p>
+            </div>
+
+            <!-- Studio Controls -->
+            <div class="studio-controls">
+                <button id="btn-toggle" class="btn btn-success" onclick="toggleInterview()">
+                    <i class="fa-solid fa-play"></i> Start Practice Session
+                </button>
+                <button id="btn-pause" class="btn btn-outline hidden" onclick="pauseInterview()">
+                    <i class="fa-solid fa-pause"></i> Pause
+                </button>
+                <button class="btn btn-outline" onclick="nextQuestion()">
+                    <i class="fa-solid fa-forward"></i> Next Question
+                </button>
+                <div class="timer-display" id="timer-display">00:00</div>
+            </div>
+
+            <!-- Live Metrics -->
+            <div class="confidence-meters" style="margin-top:20px">
+                <div class="confidence-row">
+                    <div class="confidence-label"><i class="fa-solid fa-heart-pulse" style="color:var(--color-danger)"></i> Speech Pace</div>
+                    <div class="progress-track" style="margin-top:8px"><div id="bar-pace" class="progress-fill fill-blue" style="width:0%"></div></div>
+                </div>
+                <div class="confidence-row">
+                    <div class="confidence-label"><i class="fa-solid fa-brain" style="color:var(--color-primary)"></i> Answer Clarity</div>
+                    <div class="progress-track" style="margin-top:8px"><div id="bar-clarity" class="progress-fill fill-green" style="width:0%"></div></div>
+                </div>
+                <div class="confidence-row">
+                    <div class="confidence-label"><i class="fa-solid fa-bolt" style="color:var(--color-warning)"></i> Confidence Level</div>
+                    <div class="progress-track" style="margin-top:8px"><div id="bar-energy" class="progress-fill fill-amber" style="width:0%"></div></div>
+                </div>
+            </div>
+
+            <!-- Live Transcript -->
+            <div style="margin-top:16px">
+                <div style="font-size:13px;font-weight:700;color:var(--color-text-secondary);margin-bottom:8px">
+                    <i class="fa-solid fa-closed-captioning"></i> Live Transcript
+                </div>
+                <div id="live-transcript" class="live-transcript-box">
+                    Your speech will appear here in real-time as you speak...
+                </div>
+            </div>
+
+            <!-- Past Interviews -->
+            <div id="past-interviews-section" class="ui-card no-hover" style="margin-top:24px">
+                <div class="card-title-bar">
+                    <h3 class="card-title"><i class="fa-solid fa-clock-rotate-left" style="color:var(--color-primary)"></i> Previous Sessions</h3>
+                </div>
+                <div id="past-interviews-list">
+                    <p style="font-size:14px;color:var(--color-text-muted);text-align:center;padding:20px">Complete your first AI interview session to see history here.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ┌─ TAB 3: SKILL GAP ROADMAP ─────────────────────────┐ -->
+        <div id="view-roadmap" class="hidden">
+            <div class="ui-card no-hover">
+                <div class="card-title-bar">
+                    <h3 class="card-title"><i class="fa-solid fa-route" style="color:var(--color-primary)"></i> <span id="roadmap-role-title">Career Role Skill Matrix</span></h3>
+                    <select class="form-control" style="width:220px" onchange="updateRoadmap(this.value)">
+                        <option>Junior Data Analyst</option>
+                        <option>Full Stack Web Developer</option>
+                        <option>AI / ML Engineer Trainee</option>
+                    </select>
+                </div>
+
+                <!-- Skill Comparison -->
+                <div class="skill-compare-grid">
+                    <div class="skill-column acquired">
+                        <div class="skill-col-title" style="color:#065F46"><i class="fa-solid fa-circle-check"></i> Acquired Skills</div>
+                        <div id="acquired-skills" class="badge-group"></div>
+                    </div>
+                    <div class="skill-column upgrade">
+                        <div class="skill-col-title" style="color:#92400E"><i class="fa-solid fa-circle-exclamation"></i> Skills to Unlock</div>
+                        <div id="missing-skills" class="badge-group"></div>
+                    </div>
+                </div>
+
+                <!-- Action Timeline -->
+                <div class="card-title-bar" style="margin-top:24px;margin-bottom:16px">
+                    <h3 class="card-title" style="font-size:16px"><i class="fa-solid fa-list-check" style="color:var(--color-success)"></i> Step-by-Step Action Plan</h3>
+                </div>
+                <div id="roadmap-steps" class="timeline-steps"></div>
+            </div>
+        </div>
+
+        <!-- ┌─ TAB 4: AI RESUME ENHANCER ────────────────────────┐ -->
+        <div id="view-resume" class="hidden">
+
+            <!-- Resume Score Bar -->
+            <div class="ui-card no-hover" style="margin-bottom:22px">
+                <div class="flex-between" style="flex-wrap:wrap;gap:12px">
+                    <div>
+                        <h3 class="card-title"><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--color-primary)"></i> AI Resume Optimization Score</h3>
+                        <p style="font-size:13px;color:var(--color-text-secondary);margin-top:4px">Apply AI suggestions below to boost your recruiter visibility score.</p>
+                    </div>
+                    <div style="text-align:center;min-width:100px">
+                        <div id="resume-score-num" style="font-family:var(--font-heading);font-size:36px;font-weight:800;color:var(--color-primary)">64</div>
+                        <div style="font-size:11px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase">/ 100</div>
+                    </div>
+                </div>
+                <div class="progress-track" style="height:14px;margin-top:14px">
+                    <div id="resume-score-fill" class="progress-fill fill-blue" style="width:0%"></div>
+                </div>
+            </div>
+
+            <div class="resume-split">
+
+                <!-- Live Resume Preview -->
+                <div class="resume-preview">
+                    <div class="resume-name-bar flex-between">
+                        <div>
+                            <h2 id="resume-name" style="font-size:24px;font-weight:800;color:var(--color-text-primary)">Student Name</h2>
+                            <p id="resume-college" style="font-size:13px;color:var(--color-text-secondary);margin-top:2px">Branch | College</p>
+                        </div>
+                        <span class="badge badge-mint"><i class="fa-solid fa-shield-check"></i> MPGov Verified</span>
+                    </div>
+
+                    <div class="resume-section-title">Technical Skills & Certifications</div>
+                    <div id="resume-skills-badges" class="badge-group" style="margin-bottom:4px"></div>
+
+                    <div class="resume-section-title">AI Interview Score</div>
+                    <span id="resume-ai-score" class="badge badge-dark"><i class="fa-solid fa-microphone"></i> AI Interview Score: Loading...</span>
+
+                    <div class="resume-section-title">Academic Projects</div>
+                    <p style="font-size:13px;color:var(--color-text-secondary)"><strong>Viksit CareerBridge:</strong> AI employability platform for MPOnline Hackathon 2026. Stack: HTML5, JS, Firebase + Gemini AI.</p>
+                    <p style="font-size:13px;color:var(--color-text-secondary);margin-top:4px"><strong>Data Analytics Dashboard:</strong> Power BI retail sales dashboard reducing reporting time by 35%.</p>
+
+                    <div class="resume-section-title">Education</div>
+                    <p id="resume-edu" style="font-size:13px;color:var(--color-text-secondary)">B.Tech Computer Science | RGPV Bhopal | CGPA: 8.2/10 | 2026</p>
+
+                    <!-- Action Buttons -->
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+                        <button class="btn btn-primary btn-sm" onclick="generateResumePDF()">
+                            <i class="fa-solid fa-download"></i> Export PDF
+                        </button>
+                        <button class="btn btn-success btn-sm" onclick="verifySkillsBadge()">
+                            <i class="fa-solid fa-shield-check"></i> Verify via MPGov
+                        </button>
+                        <button class="btn btn-outline btn-sm" onclick="publishToPlacement()">
+                            <i class="fa-solid fa-paper-plane"></i> Publish to Drives
+                        </button>
+                    </div>
+                </div>
+
+                <!-- AI Suggestions Panel -->
+                <div>
+                    <div style="font-size:16px;font-weight:700;margin-bottom:14px;color:var(--color-text-primary)">
+                        <i class="fa-solid fa-robot" style="color:var(--color-primary)"></i> AI Score-Boosting Suggestions
+                        <span style="font-size:13px;font-weight:600;color:var(--color-text-muted);margin-left:8px">Click to apply</span>
+                    </div>
+                    <div id="ai-suggestions-list"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ┌─ TAB 5: ACTIVE PLACEMENTS ─────────────────────────┐ -->
+        <div id="view-placements" class="hidden">
+
+            <!-- Drives Search -->
+            <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:22px">
+                <div class="input-group" style="flex:1;min-width:220px">
+                    <i class="fa-solid fa-magnifying-glass input-icon"></i>
+                    <input type="text" class="form-control" placeholder="Search by company, role, or location..."
+                        oninput="searchDrives(this.value)">
+                </div>
+                <div style="display:flex;align-items:center;gap:8px">
+                    <span style="font-size:13px;font-weight:700;color:var(--color-text-secondary)">Applied:</span>
+                    <span id="applied-count" style="font-size:18px;font-weight:800;color:var(--color-primary)">0</span>
+                </div>
+            </div>
+
+            <!-- Drives Grid -->
+            <div id="drives-grid" class="card-grid"></div>
+
+        </div>
+
+    </main>
+</div>
+
+<!-- ══ CORPORATE RECRUITER PORTAL ════════════════════════ -->
+<div id="corporate-portal" class="hidden">
+    <main class="container" style="padding:28px 24px 60px">
+
+        <!-- Recruiter Banner -->
+        <div class="recruiter-banner">
+            <div>
+                <span class="badge badge-sky" style="margin-bottom:8px"><i class="fa-solid fa-building-user"></i> Recruiter Console</span>
+                <h2><span id="recruiter-company">TCS Digital</span> — Campus Drive 2026</h2>
+                <p>Accessing AI-verified talent from 50+ MP Engineering & Degree Colleges.</p>
+            </div>
+            <button class="btn btn-success" onclick="openPostDriveModal()">
+                <i class="fa-solid fa-plus"></i> Post New Placement Drive
+            </button>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:start;flex-wrap:wrap">
+
+            <!-- Main Candidates Panel -->
+            <div>
+                <!-- Filters -->
+                <div class="filter-bar">
+                    <div class="input-group" style="flex:1;min-width:180px">
+                        <i class="fa-solid fa-magnifying-glass input-icon"></i>
+                        <input type="text" id="search-candidate" class="form-control" placeholder="Search name or skill..." oninput="filterCandidates()">
+                    </div>
+                    <div class="input-group" style="width:140px">
+                        <i class="fa-solid fa-code input-icon"></i>
+                        <input type="text" id="filter-skill" class="form-control" placeholder="Skill tag..." oninput="filterCandidates()">
+                    </div>
+                    <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+                        <span style="font-size:13px;font-weight:700;white-space:nowrap">Min Score:</span>
+                        <input type="range" id="filter-score" min="50" max="95" value="70" oninput="filterCandidates()" style="width:100px">
+                        <span id="score-display" style="font-size:14px;font-weight:800;color:var(--color-primary);min-width:42px">70%+</span>
+                    </div>
+                    <span id="candidate-count" style="font-size:13px;font-weight:700;color:var(--color-text-secondary);white-space:nowrap">6 candidates</span>
+                </div>
+
+                <!-- Candidates Grid -->
+                <div id="candidates-grid" class="card-grid"></div>
+            </div>
+
+            <!-- Shortlist Sidebar -->
+            <div>
+                <div class="ui-card no-hover">
+                    <div class="card-title-bar">
+                        <h3 class="card-title" style="font-size:15px"><i class="fa-solid fa-star" style="color:var(--color-warning)"></i> Shortlisted</h3>
+                        <span id="shortlist-count" class="badge badge-warning">0</span>
+                    </div>
+                    <div id="shortlist-panel"></div>
+                </div>
+
+                <!-- Posted Drives -->
+                <div class="ui-card no-hover" style="margin-top:18px">
+                    <div class="card-title-bar">
+                        <h3 class="card-title" style="font-size:15px"><i class="fa-solid fa-briefcase" style="color:var(--color-primary)"></i> Posted Drives</h3>
+                    </div>
+                    <div id="recruiter-drives-list"></div>
+                    <button class="btn btn-outline btn-sm btn-full" style="margin-top:10px" onclick="openPostDriveModal()">
+                        <i class="fa-solid fa-plus"></i> Post New Drive
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<!-- ══ MODALS ═════════════════════════════════════════════ -->
+
+<!-- AI Interview Score Modal -->
+<div id="score-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <button class="modal-close-btn" onclick="closeScoreModal()"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-header" style="text-align:center">
+            <span class="badge badge-mint"><i class="fa-solid fa-award"></i> AI Evaluation Complete</span>
+            <h2 class="modal-title" style="margin-top:10px">Interview Performance Report</h2>
+        </div>
+
+        <div id="score-ring" class="score-ring" style="--pct:88">
+            <div class="score-ring-inner">
+                <div id="eval-overall" style="font-family:var(--font-heading);font-size:22px;font-weight:800;color:var(--color-success)">8.8/10</div>
+                <div style="font-size:11px;font-weight:700;color:var(--color-text-muted)">Overall</div>
+            </div>
+        </div>
+
+        <div class="eval-grid">
+            <div class="eval-item">
+                <div class="val" style="color:var(--color-primary)" id="eval-tech">8.5</div>
+                <div class="lbl">Technical</div>
+            </div>
+            <div class="eval-item">
+                <div class="val" style="color:var(--color-success)" id="eval-comm">8.9</div>
+                <div class="lbl">Communication</div>
+            </div>
+            <div class="eval-item">
+                <div class="val" style="color:var(--color-warning)" id="eval-conf">8.7</div>
+                <div class="lbl">Confidence</div>
+            </div>
+            <div class="eval-item">
+                <div class="val" style="color:var(--color-text-secondary)" id="eval-words">—</div>
+                <div class="lbl">Words Spoken</div>
+            </div>
+            <div class="eval-item">
+                <div class="val" style="color:var(--color-text-secondary)" id="eval-duration">—</div>
+                <div class="lbl">Duration</div>
+            </div>
+        </div>
+
+        <div style="background:var(--color-surface);border-radius:12px;padding:14px;margin-top:16px;font-size:13px;color:var(--color-text-secondary);line-height:1.7" id="eval-feedback">
+            Great session! Feedback generating...
+        </div>
+
+        <div style="display:flex;gap:10px;margin-top:18px">
+            <button class="btn btn-success btn-full" onclick="addScoreToProfile()">
+                <i class="fa-solid fa-circle-check"></i> Add Score to Career Profile
+            </button>
+            <button class="btn btn-outline" onclick="closeScoreModal()">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- Candidate Detail Modal (Recruiter) -->
+<div id="candidate-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <input type="hidden" id="cand-modal-uid">
+        <button class="modal-close-btn" onclick="closeCandidateModal()"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-header">
+            <span class="badge badge-mint" style="margin-bottom:8px"><i class="fa-solid fa-shield-check"></i> MPGov Verified Candidate</span>
+            <h2 id="cand-modal-name" class="modal-title">Candidate Name</h2>
+            <p id="cand-modal-college" style="font-size:13px;color:var(--color-text-secondary);margin-top:2px">College | Branch</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:18px">
+            <div class="eval-item">
+                <div id="cand-modal-score" class="val" style="color:var(--color-primary)">78%</div>
+                <div class="lbl">Readiness</div>
+            </div>
+            <div class="eval-item">
+                <div id="cand-modal-ai" class="val" style="color:var(--color-success)">8.8/10</div>
+                <div class="lbl">AI Score</div>
+            </div>
+            <div class="eval-item">
+                <div id="cand-modal-interviews" class="val" style="color:var(--color-warning)">3</div>
+                <div class="lbl">Sessions</div>
+            </div>
+        </div>
+
+        <div style="margin-bottom:18px">
+            <div style="font-size:13px;font-weight:700;margin-bottom:8px">Verified Skills</div>
+            <div id="cand-modal-skills" class="badge-group"></div>
+        </div>
+
+        <div style="display:flex;gap:10px">
+            <button class="btn btn-primary btn-full" onclick="shortlistFromModal()">
+                <i class="fa-solid fa-star"></i> Shortlist for Campus Drive
+            </button>
+            <button class="btn btn-outline" onclick="closeCandidateModal()">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- Post Drive Modal -->
+<div id="post-drive-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <button class="modal-close-btn" onclick="closePostDriveModal()"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-header">
+            <h2 class="modal-title"><i class="fa-solid fa-plus-circle" style="color:var(--color-primary)"></i> Post Campus Placement Drive</h2>
+            <p style="font-size:13px;color:var(--color-text-secondary);margin-top:4px">Published drives are instantly visible to all eligible MP graduates.</p>
+        </div>
+
+        <form onsubmit="handlePostDrive(event)">
+            <div class="form-group">
+                <label class="form-label">Company / Organisation Name</label>
+                <input type="text" id="d-company" class="form-control" placeholder="e.g. TCS Digital / MPSEDC" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Job Role / Title</label>
+                <input type="text" id="d-title" class="form-control" placeholder="e.g. Junior Software Engineer" required>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                <div class="form-group">
+                    <label class="form-label">Minimum Readiness Score (%)</label>
+                    <input type="number" id="d-score" class="form-control" placeholder="e.g. 75" min="50" max="100" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Salary / Stipend</label>
+                    <input type="text" id="d-stipend" class="form-control" placeholder="e.g. ₹7.0–9.0 LPA" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Work Location</label>
+                <input type="text" id="d-location" class="form-control" placeholder="e.g. Indore IT Park / Remote" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Required Skills <span class="form-hint" style="font-weight:400">(comma-separated)</span></label>
+                <input type="text" id="d-skills" class="form-control" placeholder="Python, SQL, Data Analytics">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Application Deadline</label>
+                <input type="date" id="d-deadline" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success btn-full" style="padding:13px;font-size:15px">
+                <i class="fa-solid fa-paper-plane"></i> Publish Placement Drive
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Toast Container -->
+<div id="toast-container"></div>
+
+<!-- ══ SCRIPTS ════════════════════════════════════════════ -->
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/readiness.js"></script>
+<script src="js/mock-studio.js"></script>
+<script src="js/resume.js"></script>
+<script src="js/recruiter.js"></script>
+
+<script>
+/* ══ Portal & Tab Routing ════════════════════════════════ */
+function switchPortal(portalType) {
+    const sPortal = document.getElementById('student-portal');
+    const cPortal = document.getElementById('corporate-portal');
+    const sBtn    = document.getElementById('btn-student-view');
+    const cBtn    = document.getElementById('btn-corporate-view');
+
+    if (portalType === 'student') {
+        sPortal.classList.remove('hidden'); cPortal.classList.add('hidden');
+        sBtn.className = 'switch-btn active-student'; cBtn.className = 'switch-btn';
+    } else {
+        cPortal.classList.remove('hidden'); sPortal.classList.add('hidden');
+        cBtn.className = 'switch-btn active-corporate'; sBtn.className = 'switch-btn';
+        initRecruiterConsole();
+    }
+}
+
+function selectTab(tab) {
+    const tabs = ['dashboard','mock','roadmap','resume','placements'];
+    tabs.forEach(t => {
+        const btn  = document.getElementById('tab-' + t);
+        const view = document.getElementById('view-' + t);
+        if (btn)  btn.classList.remove('active');
+        if (view) view.classList.add('hidden');
+    });
+    document.getElementById('tab-' + tab)?.classList.add('active');
+    document.getElementById('view-' + tab)?.classList.remove('hidden');
+
+    // Lazy-init per tab
+    if (tab === 'mock')       initMockStudio();
+    if (tab === 'roadmap')    updateRoadmap(document.querySelector('#view-roadmap select')?.value || 'Junior Data Analyst');
+    if (tab === 'resume')     initResumeEnhancer();
+    if (tab === 'placements') initPlacementDrives();
+}
+
+/* ══ Bootstrap ═══════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+    const user = DB.getUser();
+
+    // If no session → redirect to auth
+    if (!user) {
+        window.location.href = 'auth.html';
+        return;
+    }
+
+    // Populate nav
+    document.getElementById('nav-name').innerText   = user.name;
+    document.getElementById('nav-avatar').innerText = user.initials || user.name.charAt(0);
+    document.getElementById('nav-role').innerText   =
+        user.role === 'student'
+            ? `${user.branch || 'Student'} • ${DB.getReadiness()?.overallScore || 78}% Ready`
+            : `${user.designation || 'Recruiter'} @ ${user.company || 'Corporate'}`;
+
+    // Route based on role
+    if (user.role === 'corporate_recruiter') {
+        switchPortal('corporate');
+    } else {
+        switchPortal('student');
+        initReadinessDashboard();
+        selectTab('dashboard');
+    }
+
+    // Update shortlist count on sidebar
+    function refreshShortlistCount() {
+        const el = document.getElementById('shortlist-count');
+        if (el) el.innerText = DB.getShortlists().length;
+    }
+    refreshShortlistCount();
+
+    // Update resume AI score display
+    const interviews = DB.getInterviews();
+    const aiScoreEl  = document.getElementById('resume-ai-score');
+    if (aiScoreEl && interviews.length) {
+        aiScoreEl.innerHTML = `<i class="fa-solid fa-microphone"></i> AI Interview Score: ${interviews[0].overallScore}/10`;
+    } else if (aiScoreEl) {
+        aiScoreEl.innerHTML = `<i class="fa-solid fa-microphone"></i> Complete a mock interview to add AI score`;
+    }
+});
+
+/* ── Render interview history list ─────────────────────── */
+function renderInterviewHistory() {
+    const list = DB.getInterviews();
+    const el   = document.getElementById('past-interviews-list');
+    if (!el) return;
+    if (!list.length) {
+        el.innerHTML = '<p style="font-size:14px;color:var(--color-text-muted);text-align:center;padding:16px">No interviews yet. Start a session above!</p>';
+        return;
+    }
+    el.innerHTML = list.slice(0,5).map(iv => `
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:var(--color-surface);border-radius:12px;border:1px solid var(--color-border);margin-bottom:10px">
+            <div>
+                <div style="font-size:14px;font-weight:700">${iv.focus} Interview — ${iv.role}</div>
+                <div style="font-size:12px;color:var(--color-text-muted)">${new Date(iv.completedAt).toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'})}</div>
+            </div>
+            <span style="font-family:var(--font-heading);font-size:20px;font-weight:800;color:${iv.overallScore >= 8 ? 'var(--color-success)' : iv.overallScore >= 6.5 ? 'var(--color-primary)' : 'var(--color-warning)'}">${iv.overallScore}/10</span>
+        </div>
+    `).join('');
+}
+
+// Patch closeScoreModal to refresh history
+const origClose = closeScoreModal;
+closeScoreModal = function() { origClose(); renderInterviewHistory(); };
+
+// Patch addScoreToProfile same
+const origAdd = addScoreToProfile;
+addScoreToProfile = function() { origAdd(); renderInterviewHistory(); };
+
+</script>
+</body>
+</html>

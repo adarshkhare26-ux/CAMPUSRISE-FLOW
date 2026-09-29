@@ -11,7 +11,8 @@ import {
   Building2, 
   GraduationCap, 
   Briefcase,
-  Sparkles
+  Sparkles,
+  ShieldCheck
 } from "lucide-react";
 import { COMPANY_DRIVES, INITIAL_STUDENT_PROFILE } from "@/lib/mockData";
 
@@ -45,6 +46,34 @@ export default function DriveEligibilityPage() {
         >
           <span>Start Simulation (Step 5)</span>
           <ArrowRight className="w-3.5 h-3.5" />
+        </Link>
+      </div>
+
+      {/* DigiLocker Verified Status Notice */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-blue-50/80 border border-blue-200/90 text-blue-950">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0">
+            <ShieldCheck className="w-4 h-4" />
+          </div>
+          <div>
+            <div className="text-xs font-black flex items-center gap-1.5">
+              <span>DigiLocker Cryptographic Compliance Active</span>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-extrabold border border-emerald-300">
+                100% Stamped
+              </span>
+            </div>
+            <p className="text-[11px] text-blue-800/90 mt-0.5">
+              Academic credentials (10th: 91.4%, 12th: 88.6%, B.Tech: 8.42 CGPA, 0 Backlogs) verified directly from CBSE and RGPV National Depository.
+            </p>
+          </div>
+        </div>
+
+        <Link
+          href="/student/profile"
+          className="text-xs font-bold text-blue-700 hover:text-blue-900 bg-white px-3 py-1.5 rounded-xl border border-blue-200 shadow-sm shrink-0 inline-flex items-center gap-1 self-start sm:self-center"
+        >
+          <span>View DigiLocker Docs</span>
+          <ArrowRight className="w-3 h-3" />
         </Link>
       </div>
 

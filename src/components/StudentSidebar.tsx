@@ -14,11 +14,12 @@ import {
   Users, 
   Briefcase,
   ChevronRight,
-  Sparkles
+  Sparkles,
+  ShieldCheck
 } from "lucide-react";
 
 export const STUDENT_STEPS = [
-  { step: 2, title: "Profile Onboarding", path: "/student/profile", icon: FileText, tag: "Essential" },
+  { step: 2, title: "Profile & DigiLocker", path: "/student/profile", icon: FileText, tag: "DigiLocker" },
   { step: 3, title: "Target Career", path: "/student/career-target", icon: Target, tag: "Role Match" },
   { step: 4, title: "Drive Eligibility", path: "/student/eligibility", icon: CheckCircle2, tag: "Verification" },
   { step: 5, title: "Simulation Center", path: "/student/simulation", icon: PlayCircle, tag: "6 Modules" },
@@ -87,8 +88,23 @@ export function StudentSidebar() {
         </nav>
       </div>
 
-      {/* Mini Quick Score Widget */}
-      <div className="mt-6 pt-4 border-t border-slate-100 hidden lg:block">
+      {/* Mini Quick Score Widget & DigiLocker Badge */}
+      <div className="mt-6 pt-4 border-t border-slate-100 hidden lg:block space-y-3">
+        <div className="bg-gradient-to-br from-blue-50 to-indigo-50/70 rounded-2xl p-3.5 border border-blue-200/80 text-slate-800">
+          <div className="flex items-center justify-between text-xs font-bold text-blue-950 mb-1">
+            <span className="flex items-center gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
+              DigiLocker Vault
+            </span>
+            <span className="text-[10px] font-extrabold text-emerald-700 bg-emerald-100/90 px-2 py-0.5 rounded-full border border-emerald-200">
+              5 Verified
+            </span>
+          </div>
+          <p className="text-[11px] text-slate-600 font-medium">
+            10th, 12th, B.Tech &amp; Aadhaar authenticated with SHA-256 signatures.
+          </p>
+        </div>
+
         <div className="bg-gradient-to-br from-emerald-50 to-teal-50/70 rounded-2xl p-4 border border-emerald-100 text-slate-800">
           <div className="flex items-center justify-between text-xs font-bold text-slate-700 mb-2">
             <span>Overall Readiness</span>

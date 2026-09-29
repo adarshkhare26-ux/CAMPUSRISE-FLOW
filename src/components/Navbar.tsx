@@ -67,8 +67,8 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* Center: 12-Page Quick Flow Dropdown (Hidden on 1st Page / Student Login) */}
-        {!isHomePage && (
+        {/* Center: 12-Page Quick Flow Dropdown (Hidden on 1st Page / Student Login & TPO Pages) */}
+        {!isHomePage && !isTpo && (
           <div className="relative">
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}

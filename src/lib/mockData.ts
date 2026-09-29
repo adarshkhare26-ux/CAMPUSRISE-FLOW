@@ -20,6 +20,39 @@ export interface StudentProfile {
   certifications: string[];
   resumeUploaded: boolean;
   resumeFileName?: string;
+  digiLocker?: DigiLockerAccount;
+}
+
+export interface DigiLockerDocument {
+  id: string;
+  name: string;
+  category: "Academic" | "Identity" | "Statutory";
+  issuer: string;
+  docType: string;
+  docNumber: string;
+  dateIssued: string;
+  verificationStatus: "VERIFIED" | "PENDING" | "SYNCING";
+  digitalSignature: {
+    signer: string;
+    certSerial: string;
+    timestamp: string;
+    hash: string;
+  };
+  fileSize: string;
+  summary: string;
+  verifiedFields: Record<string, string>;
+}
+
+export interface DigiLockerAccount {
+  isConnected: boolean;
+  digiLockerId: string;
+  linkedAadhaarMasked: string;
+  apaarId: string;
+  fullName: string;
+  lastSyncedAt: string;
+  verifiedCount: number;
+  tamperProofSealId: string;
+  documents: DigiLockerDocument[];
 }
 
 export interface CareerTarget {
@@ -100,7 +133,144 @@ export const INITIAL_STUDENT_PROFILE: StudentProfile = {
     "NPTEL Elite Certificate in Algorithms"
   ],
   resumeUploaded: true,
-  resumeFileName: "Priya_Sharma_Resume_2026_Verified.pdf"
+  resumeFileName: "Priya_Sharma_Resume_2026_Verified.pdf",
+  digiLocker: {
+    isConnected: true,
+    digiLockerId: "DL-2026-RGPV-88219",
+    linkedAadhaarMasked: "XXXX-XXXX-8421",
+    apaarId: "APAAR-6291-0941-8812",
+    fullName: "Priya Sharma",
+    lastSyncedAt: "Today, 11:30 AM",
+    verifiedCount: 5,
+    tamperProofSealId: "DIGI-GOV-IN-7889102-RGPV",
+    documents: [
+      {
+        id: "doc-1",
+        name: "Class X Secondary School Certificate & Marksheet",
+        category: "Academic",
+        issuer: "Central Board of Secondary Education (CBSE)",
+        docType: "10th_marksheet",
+        docNumber: "CBSE/X/2020/7192841",
+        dateIssued: "15 Jul 2020",
+        verificationStatus: "VERIFIED",
+        fileSize: "1.4 MB",
+        summary: "Aggregate: 91.4% • Science (94), Mathematics (95), English (89)",
+        verifiedFields: {
+          "Board": "CBSE (New Delhi)",
+          "Roll Number": "7192841",
+          "Passing Year": "2020",
+          "Aggregate Score": "91.4%",
+          "Result Status": "PASS / FIRST DIVISION"
+        },
+        digitalSignature: {
+          signer: "Controller of Examinations, CBSE",
+          certSerial: "CBSE-CA-2020-09881",
+          timestamp: "2020-07-15T10:14:02Z",
+          hash: "SHA256: 9b2d8f1e72a44c9b0e21a8d43c22b918"
+        }
+      },
+      {
+        id: "doc-2",
+        name: "Class XII Senior School Certificate & Marksheet",
+        category: "Academic",
+        issuer: "Central Board of Secondary Education (CBSE)",
+        docType: "12th_marksheet",
+        docNumber: "CBSE/XII/2022/8821903",
+        dateIssued: "22 Jul 2022",
+        verificationStatus: "VERIFIED",
+        fileSize: "1.6 MB",
+        summary: "Aggregate: 88.6% • Physics (88), Chemistry (86), Mathematics (92), CS (94)",
+        verifiedFields: {
+          "Board": "CBSE (New Delhi)",
+          "Stream": "Science (PCM + Computer Science)",
+          "Roll Number": "8821903",
+          "Passing Year": "2022",
+          "Aggregate Score": "88.6%"
+        },
+        digitalSignature: {
+          signer: "Controller of Examinations, CBSE",
+          certSerial: "CBSE-CA-2022-77192",
+          timestamp: "2022-07-22T14:32:18Z",
+          hash: "SHA256: c3e192a8b7d420f18c399b1a5e88d014"
+        }
+      },
+      {
+        id: "doc-3",
+        name: "B.Tech Official Transcripts & Semester Grade Sheets (Sem 1-6)",
+        category: "Academic",
+        issuer: "Rajiv Gandhi Proudyogiki Vishwavidyalaya (NAD)",
+        docType: "degree_transcript",
+        docNumber: "RGPV/E-TR/2025/0101CS221045",
+        dateIssued: "18 Jan 2026",
+        verificationStatus: "VERIFIED",
+        fileSize: "3.2 MB",
+        summary: "Cumulative CGPA: 8.42 / 10.0 • 0 Active Backlogs • 142 Credits Earned",
+        verifiedFields: {
+          "University": "RGPV Bhopal (State Technical University)",
+          "Enrollment / Roll No": "0101CS221045",
+          "Branch": "Computer Science & Engineering",
+          "Current CGPA": "8.42",
+          "Active Backlogs": "0 (Zero)",
+          "History of Arrears": "CLEAN"
+        },
+        digitalSignature: {
+          signer: "Registrar / Examination Controller, RGPV",
+          certSerial: "RGPV-PKI-2026-44102",
+          timestamp: "2026-01-18T09:45:00Z",
+          hash: "SHA256: 4a9f77e20b88c4d1192e44a90881bc33"
+        }
+      },
+      {
+        id: "doc-4",
+        name: "Aadhaar Identity Verification (UIDAI e-Aadhaar)",
+        category: "Identity",
+        issuer: "Unique Identification Authority of India (UIDAI)",
+        docType: "aadhaar",
+        docNumber: "UIDAI/VERIFIED/8421",
+        dateIssued: "10 Feb 2026",
+        verificationStatus: "VERIFIED",
+        fileSize: "890 KB",
+        summary: "Identity & Biometric Authentication Token Verified • KYC Complete",
+        verifiedFields: {
+          "Full Name": "Priya Sharma",
+          "Aadhaar Number": "XXXX-XXXX-8421",
+          "DOB": "14/08/2004",
+          "Gender": "Female",
+          "Authentication Mode": "Aadhaar OTP + MeriPehchan Token"
+        },
+        digitalSignature: {
+          signer: "e-Mudhra Sub-CA for UIDAI Government of India",
+          certSerial: "UIDAI-DS-2026-11920",
+          timestamp: "2026-02-10T08:12:45Z",
+          hash: "SHA256: 77a0bc4419e288fa019488bc11099ade"
+        }
+      },
+      {
+        id: "doc-5",
+        name: "APAAR / Academic Bank of Credits (ABC ID Card)",
+        category: "Statutory",
+        issuer: "National Academic Depository (Ministry of Education, GoI)",
+        docType: "apaar_abc",
+        docNumber: "APAAR-6291-0941-8812",
+        dateIssued: "02 Jan 2026",
+        verificationStatus: "VERIFIED",
+        fileSize: "650 KB",
+        summary: "142 Academic Credits Verified & Deposited in Central National Ledger",
+        verifiedFields: {
+          "APAAR ID": "APAAR-6291-0941-8812",
+          "Total Credits Deposited": "142 Credits",
+          "Eligible for Placement": "Yes (NEP 2020 Compliant)",
+          "Institution": "RGPV University Bhopal"
+        },
+        digitalSignature: {
+          signer: "National Academic Depository (NAD) Signing Authority",
+          certSerial: "NAD-MOE-2026-00412",
+          timestamp: "2026-01-02T11:20:10Z",
+          hash: "SHA256: 12f488a09bc332e184aa990177df2301"
+        }
+      }
+    ]
+  }
 };
 
 export const CAREER_TARGETS: CareerTarget[] = [

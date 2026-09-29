@@ -14,9 +14,11 @@ import {
   ArrowRight, 
   CheckCircle2, 
   Sparkles,
-  ShieldAlert
+  ShieldAlert,
+  ShieldCheck
 } from "lucide-react";
 import { INITIAL_STUDENT_PROFILE } from "@/lib/mockData";
+import { DigiLockerSection } from "@/components/DigiLockerSection";
 
 export default function StudentProfilePage() {
   const [profile, setProfile] = useState(INITIAL_STUDENT_PROFILE);
@@ -86,6 +88,9 @@ export default function StudentProfilePage() {
           </Link>
         </div>
       </div>
+ 
+      {/* Official DigiLocker Document Verification & Collection Center */}
+      <DigiLockerSection initialAccount={profile.digiLocker} />
 
       {/* Main Grid: Academics & Experience */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

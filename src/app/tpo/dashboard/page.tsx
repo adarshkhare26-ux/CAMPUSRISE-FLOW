@@ -62,11 +62,6 @@ export default function TpoMasterDashboardPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900 text-white p-6 rounded-2xl shadow-xl shadow-slate-900/10">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-blue-500/20 text-blue-300 border border-blue-400/30 mb-2">
-            <span>Step 12 of 12</span>
-            <span>•</span>
-            <span>Master Enterprise Administration</span>
-          </div>
           <h1 className="text-2xl font-black tracking-tight flex items-center gap-2.5">
             <Building2 className="w-6 h-6 text-blue-400" />
             TPO Master Command Center &amp; Placement Vault
@@ -259,7 +254,16 @@ export default function TpoMasterDashboardPage() {
               {filteredStudents.map((s) => (
                 <tr key={s.roll} className="hover:bg-slate-50 transition-colors">
                   <td className="py-3 px-3 font-mono font-bold text-slate-900">{s.roll}</td>
-                  <td className="py-3 px-3 font-bold text-slate-900">{s.name}</td>
+                  <td className="py-3 px-3">
+                    <div className="font-bold text-slate-900 flex items-center gap-1.5">
+                      <span>{s.name}</span>
+                      {s.verified && (
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-extrabold text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200" title="DigiLocker NAD & Aadhaar Authenticated">
+                          DL Verified
+                        </span>
+                      )}
+                    </div>
+                  </td>
                   <td className="py-3 px-3">{s.branch}</td>
                   <td className="py-3 px-3 font-black text-blue-700">{s.cgpa}</td>
                   <td className="py-3 px-3">

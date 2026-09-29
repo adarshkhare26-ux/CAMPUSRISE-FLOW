@@ -57,7 +57,7 @@ export function Navbar() {
             </div>
             <div>
               <div className="text-lg font-extrabold tracking-tight text-slate-900 leading-none">
-                CampusRise <span className="text-blue-600">Flow</span>
+                Campus<span className="text-blue-600">Rise</span>
               </div>
               <div className="text-[11px] font-semibold text-emerald-600 tracking-wide flex items-center gap-1 mt-0.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>

@@ -1,6 +1,6 @@
 /**
- * CampusRise Flow - Global Seed Dataset & State Store
- * Powers all 12 dedicated pages with interconnected data
+ * CampusRise - Global Seed Dataset & State Store
+ * Powers all dedicated pages with interconnected data
  */
 
 export interface StudentProfile {

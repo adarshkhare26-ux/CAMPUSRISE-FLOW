@@ -129,7 +129,7 @@ export default function TpoLoginPage() {
       </main>
 
       <footer className="border-t border-slate-800 bg-slate-950 py-6 text-center text-xs text-slate-500">
-        CampusRise Flow • Placement ERP &amp; Statutory Compliance • RGPV Bhopal
+        CampusRise • Placement ERP &amp; Statutory Compliance • RGPV Bhopal
       </footer>
     </div>
   );

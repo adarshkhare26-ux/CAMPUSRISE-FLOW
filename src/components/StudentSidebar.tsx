@@ -37,13 +37,9 @@ export function StudentSidebar() {
   return (
     <aside className="w-full lg:w-72 shrink-0 bg-white border-b lg:border-b-0 lg:border-r border-slate-200/80 p-4 lg:p-5 flex flex-col justify-between">
       <div>
-        <div className="flex items-center justify-between mb-4 px-2">
+        <div className="mb-4 px-2">
           <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400">
             Student Flow Progression
-          </span>
-          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-            <Sparkles className="w-3 h-3 text-emerald-600" />
-            10 Stages
           </span>
         </div>
 

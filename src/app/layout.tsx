@@ -9,7 +9,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Campus2Corp | AI-Powered Placement ERP & Readiness Platform",
+  title: "CampusRise | AI-Powered Placement ERP & Readiness Platform",
   description: "Unified AI-powered placement ERP, readiness score engine, and recruitment platform connecting TPOs, Students, Companies, and Alumni.",
 };
 

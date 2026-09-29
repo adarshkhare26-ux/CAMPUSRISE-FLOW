@@ -129,7 +129,7 @@ export default function StudentLoginPage() {
       </main>
 
       <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
-        CampusRise Flow • Student Career Readiness &amp; Placement Suite • MPOnline Hackathon 2026
+        CampusRise • Student Career Readiness &amp; Placement Suite • MPOnline Hackathon 2026
       </footer>
     </div>
   );

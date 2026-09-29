@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viksit CareerBridge — AI Career Readiness & Employability Platform</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Master Design System Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .audio-wave-box {
+            background: linear-gradient(135deg, #0F172A, #1E293B);
+            border-radius: 16px;
+            padding: 36px 24px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.25);
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wave-bars-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            height: 60px;
+            margin: 20px 0;
+        }
+
+        .wave-bar {
+            width: 8px;
+            height: 20px;
+            background: #10B981;
+            border-radius: 4px;
+            transition: height 0.2s ease;
+        }
+
+        .audio-wave-box.pulse-active .wave-bar {
+            animation: wavePulse 1s infinite alternate;
+        }
+
+        .audio-wave-box.pulse-active .wave-bar:nth-child(2) { animation-delay: 0.2s; }
+        .audio-wave-box.pulse-active .wave-bar:nth-child(3) { animation-delay: 0.4s; }
+        .audio-wave-box.pulse-active .wave-bar:nth-child(4) { animation-delay: 0.1s; }
+        .audio-wave-box.pulse-active .wave-bar:nth-child(5) { animation-delay: 0.3s; }
+
+        @keyframes wavePulse {
+            0% { height: 16px; background: #3B82F6; }
+            100% { height: 56px; background: #10B981; }
+        }
+
+        .resume-preview-box {
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .ai-suggestion-box {
+            background: var(--color-mint-light);
+            border: 1px solid var(--color-mint-border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="main-header">
+        <div class="container flex-between">
+            <a href="index.html" class="brand-logo">
+                <div class="brand-logo-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <span class="brand-title">Viksit <span>CareerBridge</span></span>
+                    <span class="brand-badge">MPOnline 2026</span>
+                </div>
+            </a>
+
+            <!-- Dual Portal Switcher -->
+            <div class="portal-switch-container">
+                <button id="btn-student-view" class="switch-btn active-student" onclick="switchPortal('student')">
+                    <i class="fa-solid fa-user-graduate"></i> Student Portal
+                </button>
+                <button id="btn-corporate-view" class="switch-btn" onclick="switchPortal('corporate')">
+                    <i class="fa-solid fa-building-user"></i> Corporate Portal
+                </button>
+            </div>
+
+            <!-- User Session Nav Info -->
+            <div class="user-nav-profile">
+                <div class="user-info-meta">
+                    <span id="nav-user-name" class="user-name-text">Priya Sharma</span>
+                    <span id="nav-user-role" class="user-role-text">B.Tech CSE • 78% Ready</span>
+                </div>
+                <div id="nav-user-avatar" class="user-avatar">PS</div>
+                <a href="auth.html" class="btn btn-outline" style="padding: 6px 14px; font-size: 12px; margin-left: 8px;">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Auth
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-pill-tag">
+                    <i class="fa-solid fa-award"></i> MPOnline Idea & Innovation Hackathon 2026
+                </span>
+                <h1 class="hero-title">
+                    Transforming Campus Potential into <span>Corporate Success</span>
+                </h1>
+                <p class="hero-subtitle">
+                    AI-powered career readiness mapping, interactive audio mock interview practice, and direct verified talent matching for MP university graduates.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs-wrapper">
+        <div class="container">
+            <nav id="student-nav-tabs" class="nav-tabs">
+                <button id="tab-readiness" class="nav-tab-btn active" onclick="selectTab('readiness')">
+                    <i class="fa-solid fa-chart-line"></i> Readiness Dashboard
+                </button>
+                <button id="tab-mock" class="nav-tab-btn" onclick="selectTab('mock')">
+                    <i class="fa-solid fa-microphone-lines"></i> AI Mock Interview Studio
+                </button>
+                <button id="tab-roadmap" class="nav-tab-btn" onclick="selectTab('roadmap')">
+                    <i class="fa-solid fa-route"></i> Skill Gap Roadmap
+                </button>
+                <button id="tab-resume" class="nav-tab-btn" onclick="selectTab('resume')">
+                    <i class="fa-solid fa-file-contract"></i> AI Resume Enhancer
+                </button>
+                <button id="tab-placements" class="nav-tab-btn" onclick="selectTab('placements')">
+                    <i class="fa-solid fa-briefcase"></i> Active Placements
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="container" style="padding-bottom: 60px;">
+        
+        <!-- STUDENT VIEW CONTAINER -->
+        <div id="student-view-container">
+            
+            <!-- TAB 1: READINESS DASHBOARD -->
+            <div id="view-readiness">
+                <div class="card-grid">
+                    
+                    <!-- Readiness Circular Gauge Card -->
+                    <div class="ui-card" style="text-align: center;">
+                        <div class="card-title-bar">
+                            <h3 class="card-title"><i class="fa-solid fa-gauge-high" style="color: var(--color-success);"></i> Overall Employability Score</h3>
+                            <span class="badge badge-mint">Verified AI Rating</span>
+                        </div>
+                        
+                        <div class="gauge-container">
+                            <svg class="gauge-svg" viewBox="0 0 200 200">
+                                <circle class="gauge-bg" cx="100" cy="100" r="90"></circle>
+                                <circle id="gauge-progress-bar" class="gauge-progress" cx="100" cy="100" r="90" stroke="url(#gauge-gradient)"></circle>
+                                <defs>
+                                    <linearGradient id="gauge-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#2563EB" />
+                                        <stop offset="100%" stop-color="#10B981" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <div class="gauge-center-text">
+                                <div id="gauge-score-value" class="gauge-score-num">78%</div>
+                                <div class="gauge-score-label">Corporate Ready</div>
+                            </div>
+                        </div>
+
+                        <p style="font-size: 13px; color: var(--color-text-secondary);">
+                            Top 15% percentile among MP Engineering & Science Graduates 2026.
+                        </p>
+                    </div>
+
+                    <!-- Breakdown Progress Bars Card -->
+                    <div class="ui-card">
+                        <div class="card-title-bar">
+                            <h3 class="card-title"><i class="fa-solid fa-layer-group" style="color: var(--color-primary);"></i> Domain Skill Breakdown</h3>
+                        </div>
+
+                        <div class="metric-row">
+                            <div class="metric-label-group">
+                                <span>Technical Proficiency (Python / SQL)</span>
+                                <span style="color: var(--color-primary); font-weight: 700;">82%</span>
+                            </div>
+                            <div class="progress-track">
+                                <div id="bar-tech" class="progress-fill fill-blue" style="width: 82%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric-row">
+                            <div class="metric-label-group">
+                                <span>Soft Skills & Communication</span>
+                                <span style="color: var(--color-success); font-weight: 700;">74%</span>
+                            </div>
+                            <div class="progress-track">
+                                <div id="bar-soft" class="progress-fill fill-green" style="width: 74%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric-row">
+                            <div class="metric-label-group">
+                                <span>Industry Domain Knowledge</span>
+                                <span style="color: var(--color-warning); font-weight: 700;">70%</span>
+                            </div>
+                            <div class="progress-track">
+                                <div id="bar-domain" class="progress-fill fill-amber" style="width: 70%;"></div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 20px; padding: 12px; background: var(--color-sky-mist); border-radius: 12px; border: 1px solid var(--color-sky-border);">
+                            <span style="font-size: 13px; font-weight: 700; color: var(--color-primary);">
+                                <i class="fa-solid fa-lightbulb"></i> Next Recommended Action:
+                            </span>
+                            <p style="font-size: 12px; color: var(--color-text-secondary); margin-top: 2px;">
+                                Practice 1 AI Mock Interview session to boost Soft Skills score by +8%.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Verified Badges Card -->
+                    <div class="ui-card">
+                        <div class="card-title-bar">
+                            <h3 class="card-title"><i class="fa-solid fa-shield-cat" style="color: var(--color-success);"></i> MPGov Verified Badges</h3>
+                        </div>
+
+                        <div class="badge-group" style="margin-bottom: 20px;">
+                            <span class="badge badge-mint"><i class="fa-solid fa-check"></i> Python & SQL Certified</span>
+                            <span class="badge badge-mint"><i class="fa-solid fa-check"></i> Data Analytics Fundamental</span>
+                            <span class="badge badge-sky"><i class="fa-solid fa-certificate"></i> Swayam NPTEL Track</span>
+                            <span class="badge badge-sky"><i class="fa-solid fa-laptop-code"></i> Git & GitHub Mastery</span>
+                        </div>
+
+                        <button class="btn btn-outline" style="width: 100%; font-size: 13px;" onclick="selectTab('roadmap')">
+                            <i class="fa-solid fa-plus"></i> Unlock Missing Skill Badges
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB 2: AI MOCK INTERVIEW STUDIO -->
+            <div id="view-mock" class="hidden">
+                <div class="ui-card" style="max-width: 900px; margin: 0 auto;">
+                    <div class="card-title-bar">
+                        <h3 class="card-title"><i class="fa-solid fa-robot" style="color: var(--color-primary);"></i> AI Interactive Audio Practice Studio</h3>
+                        <span class="badge badge-sky">Powered by Gemini AI</span>
+                    </div>
+
+                    <!-- Audio Visualizer UI Box -->
+                    <div id="audio-visualizer-box" class="audio-wave-box">
+                        <div style="font-size: 13px; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 1px;">
+                            AI Technical Interviewer — Junior Data Analyst Track
+                        </div>
+                        
+                        <div class="wave-bars-container">
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                        </div>
+
+                        <h2 id="mock-question-text" style="font-size: 20px; font-weight: 600; font-family: var(--font-heading); color: white; max-width: 720px; margin: 0 auto;">
+                            "Explain how you would optimize a slow-running SQL database query for a high-traffic web application."
+                        </h2>
+                        
+                        <p id="interview-status-text" style="font-size: 13px; color: #A7F3D0; margin-top: 14px;">
+                            Press Start to begin audio recording & real-time evaluation.
+                        </p>
+                    </div>
+
+                    <!-- Studio Controls -->
+                    <div class="flex-between" style="flex-wrap: wrap; gap: 12px;">
+                        <button id="btn-toggle-interview" class="btn btn-success" onclick="toggleInterviewState()">
+                            <i class="fa-solid fa-play"></i> Start AI Practice Session
+                        </button>
+                        
+                        <button class="btn btn-outline" onclick="nextQuestion()">
+                            <i class="fa-solid fa-forward"></i> Next Question
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: SKILL GAP ROADMAP -->
+            <div id="view-roadmap" class="hidden">
+                <div class="ui-card">
+                    <div class="card-title-bar">
+                        <h3 class="card-title"><i class="fa-solid fa-route" style="color: var(--color-primary);"></i> Targeted Career Role Skill Matrix</h3>
+                        <div style="width: 240px;">
+                            <select class="form-control" onchange="updateTargetRole(this.value)">
+                                <option value="Junior Data Analyst">Junior Data Analyst</option>
+                                <option value="Full Stack Web Developer">Full Stack Web Developer</option>
+                                <option value="AI / ML Engineer Trainee">AI / ML Engineer Trainee</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <h4 id="roadmap-target-title" style="font-size: 16px; font-weight: 700; margin-bottom: 12px;">Junior Data Analyst Skill Matrix</h4>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
+                        <div style="background: var(--color-mint-light); border: 1px solid var(--color-mint-border); border-radius: 12px; padding: 16px;">
+                            <h5 style="color: #065F46; font-size: 14px; font-weight: 700; margin-bottom: 10px;"><i class="fa-solid fa-circle-check"></i> Acquired Verified Skills</h5>
+                            <div class="badge-group">
+                                <span class="badge badge-mint">Python Basics</span>
+                                <span class="badge badge-mint">SQL Queries</span>
+                                <span class="badge badge-mint">Data Visualization</span>
+                            </div>
+                        </div>
+
+                        <div style="background: var(--color-warning-light); border: 1px solid #FDE68A; border-radius: 12px; padding: 16px;">
+                            <h5 style="color: #92400E; font-size: 14px; font-weight: 700; margin-bottom: 10px;"><i class="fa-solid fa-circle-exclamation"></i> Required Upgrade Skills</h5>
+                            <div id="roadmap-missing-tags" class="badge-group">
+                                <span class="badge badge-warning"><i class="fa-solid fa-triangle-exclamation"></i> Advanced SQL Window Functions</span>
+                                <span class="badge badge-warning"><i class="fa-solid fa-triangle-exclamation"></i> Power BI Dashboarding</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: AI RESUME ENHANCER (SCREEN 5) -->
+            <div id="view-resume" class="hidden">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    
+                    <!-- Left Panel: Live Resume Preview -->
+                    <div class="resume-preview-box">
+                        <div class="flex-between" style="border-bottom: 2px solid var(--color-primary); padding-bottom: 12px; margin-bottom: 16px;">
+                            <div>
+                                <h2 style="font-size: 22px; font-weight: 800; color: var(--color-text-primary);">Priya Sharma</h2>
+                                <p style="font-size: 13px; color: var(--color-text-secondary);">B.Tech Computer Science & Engineering | RGPV Bhopal</p>
+                            </div>
+                            <span class="badge badge-mint"><i class="fa-solid fa-shield-check"></i> MPGov Verified</span>
+                        </div>
+
+                        <h4 style="font-size: 14px; font-weight: 700; color: var(--color-primary); margin-bottom: 6px;">Technical Skills & Certifications</h4>
+                        <div class="badge-group" style="margin-bottom: 16px;">
+                            <span class="badge badge-sky">Python 3.x</span>
+                            <span class="badge badge-sky">SQL & PostgreSQL</span>
+                            <span class="badge badge-sky">Data Structures</span>
+                            <span class="badge badge-mint">AI Interview Score: 8.8/10</span>
+                        </div>
+
+                        <h4 style="font-size: 14px; font-weight: 700; color: var(--color-primary); margin-bottom: 6px;">Academic Projects</h4>
+                        <p style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 12px;">
+                            <strong>Viksit CareerBridge:</strong> Developed an AI-powered employability platform for MPOnline Hackathon 2026 using Node.js & Gemini API.
+                        </p>
+
+                        <button class="btn btn-outline" style="width: 100%; font-size: 13px;" onclick="alert('📄 Resume PDF generated with official MPGov Verified Badge!')">
+                            <i class="fa-solid fa-download"></i> Download Verified Resume PDF
+                        </button>
+                    </div>
+
+                    <!-- Right Panel: AI Suggestion Engine -->
+                    <div>
+                        <div class="ai-suggestion-box">
+                            <h4 style="font-size: 15px; font-weight: 700; color: #065F46; margin-bottom: 6px;">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> AI Score Boosting Tip (+12%)
+                            </h4>
+                            <p style="font-size: 13px; color: var(--color-text-secondary);">
+                                Add quantified achievements to your hackathon project (e.g. "Reduced query response time by 40%").
+                            </p>
+                        </div>
+
+                        <div class="ai-suggestion-box" style="background: var(--color-sky-mist); border-color: var(--color-sky-border);">
+                            <h4 style="font-size: 15px; font-weight: 700; color: #1E40AF; margin-bottom: 6px;">
+                                <i class="fa-solid fa-circle-check"></i> Automatic Placement Drive Matching
+                            </h4>
+                            <p style="font-size: 13px; color: var(--color-text-secondary);">
+                                Your resume score matches 3 active TCS & Infosys placement drives in Madhya Pradesh!
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB 5: ACTIVE PLACEMENTS -->
+            <div id="view-placements" class="hidden">
+                <div class="card-grid" id="placements-grid-container">
+                    
+                    <div class="ui-card">
+                        <div class="card-title-bar">
+                            <h3 class="card-title"><i class="fa-solid fa-building" style="color: var(--color-primary);"></i> TCS Digital Campus Drive</h3>
+                            <span class="badge badge-mint">75%+ Score Required</span>
+                        </div>
+                        <p style="font-size: 14px; font-weight: 600; color: var(--color-text-primary);">Junior Software Engineer</p>
+                        <p style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 12px;">Stipend: ₹7.0 - ₹9.0 LPA | Indore IT Park</p>
+                        <button class="btn btn-primary" style="width: 100%; font-size: 13px;" onclick="alert('🎉 Application submitted to TCS Digital Drive with verified 78% score!')">
+                            <i class="fa-solid fa-paper-plane"></i> Apply with 1-Click
+                        </button>
+                    </div>
+
+                    <div class="ui-card">
+                        <div class="card-title-bar">
+                            <h3 class="card-title"><i class="fa-solid fa-landmark" style="color: var(--color-success);"></i> MPSEDC Tech Trainee</h3>
+                            <span class="badge badge-mint">70%+ Score Required</span>
+                        </div>
+                        <p style="font-size: 14px; font-weight: 600; color: var(--color-text-primary);">Data Analyst & Cloud Intern</p>
+                        <p style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 12px;">Stipend: ₹25,000 / month | Bhopal Smart City</p>
+                        <button class="btn btn-primary" style="width: 100%; font-size: 13px;" onclick="alert('🎉 Application submitted to MPSEDC State IT Drive!')">
+                            <i class="fa-solid fa-paper-plane"></i> Apply with 1-Click
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CORPORATE RECRUITER VIEW CONTAINER -->
+        <div id="corporate-view-container" class="hidden">
+            
+            <div class="ui-card" style="margin-bottom: 24px; background: linear-gradient(135deg, #1E293B, #0F172A); color: white;">
+                <div class="flex-between">
+                    <div>
+                        <span class="badge badge-sky" style="margin-bottom: 8px;">Corporate Recruiter Console</span>
+                        <h2 style="font-size: 24px; font-weight: 800; font-family: var(--font-heading); color: white;">TCS Digital Campus Recruitment Drive 2026</h2>
+                        <p style="font-size: 14px; color: #94A3B8;">Accessing verified talent pool across 50+ MP Engineering & Degree Colleges.</p>
+                    </div>
+                    <button class="btn btn-success" onclick="openPostDriveModal()">
+                        <i class="fa-solid fa-plus"></i> Post New Placement Drive
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filters Bar -->
+            <div class="ui-card" style="margin-bottom: 24px;">
+                <div class="flex-between" style="flex-wrap: wrap; gap: 16px;">
+                    <div style="flex: 1; min-width: 240px;">
+                        <input type="text" id="search-candidate" class="form-control" placeholder="Search candidate name or skill tag..." onkeyup="filterCandidates()">
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <label style="font-size: 13px; font-weight: 700;">Min Readiness Score:</label>
+                        <input type="range" id="filter-min-score" min="50" max="95" value="70" onchange="filterCandidates()">
+                        <span id="score-range-display" style="font-weight: 700; color: var(--color-primary);">70%+</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Talent Feed Cards -->
+            <div class="card-grid">
+                
+                <div class="ui-card candidate-card-item" data-name="Priya Sharma" data-skills="python sql html css" data-score="78">
+                    <div class="card-title-bar">
+                        <h3 class="card-title"><i class="fa-solid fa-user-graduate"></i> Priya Sharma</h3>
+                        <span class="badge badge-mint">78% Ready</span>
+                    </div>
+                    <p style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 10px;">RGPV Institute of Technology, Bhopal | CSE</p>
+                    <div class="badge-group" style="margin-bottom: 16px;">
+                        <span class="badge badge-sky">Python</span>
+                        <span class="badge badge-sky">SQL</span>
+                        <span class="badge badge-mint">AI Score: 8.8/10</span>
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%; font-size: 13px;" onclick="showCandidateModal('Priya Sharma', 78, 8.8, 'RGPV Bhopal', 'Computer Science')">
+                        <i class="fa-solid fa-eye"></i> View AI Interview Summary
+                    </button>
+                </div>
+
+                <div class="ui-card candidate-card-item" data-name="Rahul Kumar" data-skills="react nodejs postgresql" data-score="84">
+                    <div class="card-title-bar">
+                        <h3 class="card-title"><i class="fa-solid fa-user-graduate"></i> Rahul Kumar</h3>
+                        <span class="badge badge-mint">84% Ready</span>
+                    </div>
+                    <p style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 10px;">MANIT Bhopal | Information Technology</p>
+                    <div class="badge-group" style="margin-bottom: 16px;">
+                        <span class="badge badge-sky">ReactJS</span>
+                        <span class="badge badge-sky">Node.js</span>
+                        <span class="badge badge-mint">AI Score: 9.2/10</span>
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%; font-size: 13px;" onclick="showCandidateModal('Rahul Kumar', 84, 9.2, 'MANIT Bhopal', 'Information Technology')">
+                        <i class="fa-solid fa-eye"></i> View AI Interview Summary
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- MODAL 1: AI INTERVIEW EVALUATION SCORECARD -->
+    <div id="score-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div style="text-align: center; margin-bottom: 20px;">
+                <span class="badge badge-mint"><i class="fa-solid fa-award"></i> AI Evaluation Complete</span>
+                <h2 style="font-family: var(--font-heading); font-size: 24px; margin-top: 8px;">Overall Performance: 8.8 / 10</h2>
+            </div>
+
+            <p style="font-size: 14px; color: var(--color-text-secondary); margin-bottom: 16px;">
+                <strong>AI Feedback Summary:</strong> Excellent technical accuracy regarding SQL query optimization and index scanning! Suggest pausing slightly before answering complex architectural questions.
+            </p>
+
+            <button class="btn btn-success" style="width: 100%;" onclick="saveScoreToProfile()">
+                <i class="fa-solid fa-circle-check"></i> Add Verified Score to Profile
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL 2: RECRUITER CANDIDATE DETAIL & SHORTLIST -->
+    <div id="candidate-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeCandidateModal()"><i class="fa-solid fa-xmark"></i></button>
+            
+            <h2 id="modal-cand-name" style="font-family: var(--font-heading); font-size: 24px;">Candidate Name</h2>
+            <p id="modal-cand-college" style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 16px;">College Name</p>
+
+            <div style="display: flex; gap: 16px; margin-bottom: 20px;">
+                <div style="flex: 1; background: var(--color-sky-mist); padding: 12px; border-radius: 12px; text-align: center;">
+                    <div style="font-size: 12px; font-weight: 700; color: var(--color-primary);">Readiness Score</div>
+                    <div id="modal-cand-score" style="font-size: 24px; font-weight: 800; color: var(--color-primary);">78%</div>
+                </div>
+                <div style="flex: 1; background: var(--color-mint-light); padding: 12px; border-radius: 12px; text-align: center;">
+                    <div style="font-size: 12px; font-weight: 700; color: var(--color-success);">AI Audio Rating</div>
+                    <div id="modal-cand-ai" style="font-size: 24px; font-weight: 800; color: var(--color-success);">8.8/10</div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%;" onclick="shortlistCandidate()">
+                <i class="fa-solid fa-circle-check"></i> Shortlist Candidate for TCS Drive
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL 3: POST PLACEMENT DRIVE FORM -->
+    <div id="post-drive-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closePostDriveModal()"><i class="fa-solid fa-xmark"></i></button>
+            
+            <h2 style="font-family: var(--font-heading); font-size: 22px; margin-bottom: 16px;">
+                <i class="fa-solid fa-plus-circle" style="color: var(--color-primary);"></i> Post Campus Placement Drive
+            </h2>
+
+            <form onsubmit="handlePostDriveSubmit(event)">
+                <div class="form-group">
+                    <label class="form-label">Company / Organization Name</label>
+                    <input type="text" id="input-drive-company" class="form-control" placeholder="e.g. TCS Digital / Infosys" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Job Title / Role</label>
+                    <input type="text" id="input-drive-title" class="form-control" placeholder="e.g. Junior Software Engineer" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Minimum Readiness Score Required (%)</label>
+                    <input type="number" id="input-drive-score" class="form-control" placeholder="e.g. 75" min="50" max="100" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Salary / Stipend Offer</label>
+                    <input type="text" id="input-drive-stipend" class="form-control" placeholder="e.g. ₹7.0 - ₹9.0 LPA" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Work Location</label>
+                    <input type="text" id="input-drive-location" class="form-control" placeholder="e.g. Indore / Bhopal / Remote" required>
+                </div>
+
+                <button type="submit" class="btn btn-success" style="width: 100%; padding: 12px;">
+                    <i class="fa-solid fa-paper-plane"></i> Publish Placement Drive
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/readiness.js"></script>
+    <script src="js/mock-studio.js"></script>
+    <script src="js/recruiter.js"></script>
+    <script>
+        function switchPortal(portalType) {
+            const studentBtn = document.getElementById('btn-student-view');
+            const corporateBtn = document.getElementById('btn-corporate-view');
+            const studentView = document.getElementById('student-view-container');
+            const corporateView = document.getElementById('corporate-view-container');
+            const studentNavTabs = document.getElementById('student-nav-tabs');
+
+            if (portalType === 'student') {
+                studentBtn.className = 'switch-btn active-student';
+                corporateBtn.className = 'switch-btn';
+                studentView.classList.remove('hidden');
+                corporateView.classList.add('hidden');
+                studentNavTabs.style.display = 'flex';
+            } else {
+                corporateBtn.className = 'switch-btn active-corporate';
+                studentBtn.className = 'switch-btn';
+                corporateView.classList.remove('hidden');
+                studentView.classList.add('hidden');
+                studentNavTabs.style.display = 'none';
+            }
+        }
+
+        function selectTab(tabName) {
+            const tabs = ['readiness', 'mock', 'roadmap', 'resume', 'placements'];
+            tabs.forEach(t => {
+                const btn = document.getElementById('tab-' + t);
+                const view = document.getElementById('view-' + t);
+                if (btn) btn.classList.remove('active');
+                if (view) view.classList.add('hidden');
+            });
+
+            const activeBtn = document.getElementById('tab-' + tabName);
+            const activeView = document.getElementById('view-' + tabName);
+            if (activeBtn) activeBtn.classList.add('active');
+            if (activeView) activeView.classList.remove('hidden');
+        }
+
+        // Auto-update user navigation info from session
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = window.CareerBridge.currentUser;
+            if (user) {
+                const nameEl = document.getElementById('nav-user-name');
+                const roleEl = document.getElementById('nav-user-role');
+                const avatarEl = document.getElementById('nav-user-avatar');
+
+                if (nameEl) nameEl.innerText = user.name;
+                if (roleEl) roleEl.innerText = user.role === 'student' ? `${user.branch || 'Student'} • 78% Ready` : `${user.college || 'Recruiter'}`;
+                if (avatarEl) {
+                    const initials = user.name.split(' ').map(n => n[0]).join('');
+                    avatarEl.innerText = initials;
+                }
+
+                if (user.role === 'corporate_recruiter') {
+                    switchPortal('corporate');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

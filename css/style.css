@@ -1,0 +1,638 @@
+/* ==========================================================================
+   Viksit CareerBridge — Core Design System & Master Stylesheet
+   MPOnline Idea & Innovation Hackathon 2026
+   Theme: Pure White (#FFFFFF), Sapphire Blue (#2563EB), Emerald Green (#10B981)
+   ========================================================================== */
+
+:root {
+    /* Color Palette Tokens */
+    --color-canvas: #FFFFFF;
+    --color-surface: #F8FAFC;
+    --color-surface-card: #FFFFFF;
+    --color-border: #E2E8F0;
+    --color-border-subtle: #F1F5F9;
+    --color-border-focus: #93C5FD;
+    
+    /* Brand Colors */
+    --color-primary: #2563EB;
+    --color-primary-hover: #1D4ED8;
+    --color-primary-light: #EFF6FF;
+    --color-sky-mist: #E0F2FE;
+    --color-sky-border: #BAE6FD;
+    
+    /* Growth & Success Colors */
+    --color-success: #10B981;
+    --color-success-hover: #059669;
+    --color-mint-light: #ECFDF5;
+    --color-mint-badge: #D1FAE5;
+    --color-mint-border: #A7F3D0;
+    
+    /* Neutral & Text Colors */
+    --color-text-primary: #0F172A;
+    --color-text-secondary: #475569;
+    --color-text-muted: #94A3B8;
+    --color-warning: #F59E0B;
+    --color-warning-light: #FEF3C7;
+    --color-danger: #EF4444;
+    --color-danger-light: #FEE2E2;
+
+    /* Typography */
+    --font-heading: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+    
+    /* Shadows & Elevation */
+    --shadow-sm: 0 2px 4px rgba(15, 23, 42, 0.04);
+    --shadow-md: 0 8px 24px rgba(37, 99, 235, 0.06);
+    --shadow-lg: 0 16px 36px rgba(37, 99, 235, 0.10);
+    --shadow-card-hover: 0 12px 32px rgba(37, 99, 235, 0.12);
+    
+    /* Border Radii */
+    --radius-pill: 9999px;
+    --radius-card: 16px;
+    --radius-input: 12px;
+    --radius-btn: 24px;
+    
+    /* Transitions */
+    --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Base & Reset Rules --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-canvas);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-primary-hover);
+}
+
+/* --- Layout Utility Classes --- */
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* --- Navigation Header --- */
+.main-header {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 14px 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.brand-logo-icon {
+    height: 42px;
+    width: 42px;
+    background: linear-gradient(135deg, var(--color-primary), #3B82F6);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.brand-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--color-text-primary);
+    letter-spacing: -0.5px;
+}
+
+.brand-title span {
+    color: var(--color-primary);
+}
+
+.brand-badge {
+    background: var(--color-sky-mist);
+    color: var(--color-primary);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-sky-border);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- Portal Dual Switcher Controls --- */
+.portal-switch-container {
+    background: var(--color-surface);
+    padding: 5px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border);
+    display: inline-flex;
+    gap: 4px;
+}
+
+.switch-btn {
+    padding: 8px 20px;
+    border-radius: var(--radius-pill);
+    border: none;
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.switch-btn:hover {
+    color: var(--color-text-primary);
+}
+
+.switch-btn.active-student {
+    background: var(--color-success);
+    color: white;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.switch-btn.active-corporate {
+    background: var(--color-primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* User Account Nav Section */
+.user-nav-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-sky-mist), #D1FAE5);
+    border: 2px solid var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: var(--color-primary);
+    font-size: 14px;
+}
+
+.user-info-meta {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.user-name-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.user-role-text {
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+/* --- Hero Banner Section --- */
+.hero-banner {
+    background: linear-gradient(180deg, #F0F9FF 0%, #FFFFFF 100%);
+    padding: 44px 0 28px 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+.hero-pill-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-mint-light);
+    color: var(--color-success);
+    border: 1px solid var(--color-mint-border);
+    padding: 6px 16px;
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.hero-title {
+    font-family: var(--font-heading);
+    font-size: 38px;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    line-height: 1.25;
+    margin-bottom: 14px;
+    letter-spacing: -0.8px;
+}
+
+.hero-title span {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-success));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    max-width: 680px;
+    margin: 0 auto 24px auto;
+}
+
+/* --- Navigation Tabs --- */
+.nav-tabs-wrapper {
+    background: var(--color-canvas);
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 28px;
+}
+
+.nav-tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.nav-tab-btn {
+    padding: 14px 22px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-tab-btn:hover {
+    color: var(--color-primary);
+}
+
+.nav-tab-btn.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+    font-weight: 700;
+}
+
+/* --- Cards & Containers --- */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.ui-card {
+    background: var(--color-surface-card);
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-border);
+    padding: 24px;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-smooth);
+}
+
+.ui-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--color-sky-border);
+}
+
+.card-title-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.card-title {
+    font-family: var(--font-heading);
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- Readiness Circular Gauge Widget --- */
+.gauge-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 20px auto;
+}
+
+.gauge-svg {
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+}
+
+.gauge-bg {
+    fill: none;
+    stroke: var(--color-surface);
+    stroke-width: 16;
+}
+
+.gauge-progress {
+    fill: none;
+    stroke-width: 16;
+    stroke-linecap: round;
+    stroke-dasharray: 565;
+    stroke-dashoffset: 124;
+    transition: stroke-dashoffset 1.2s ease-in-out;
+}
+
+.gauge-center-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.gauge-score-num {
+    font-family: var(--font-heading);
+    font-size: 44px;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    line-height: 1;
+}
+
+.gauge-score-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-success);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-top: 4px;
+}
+
+/* Breakdown Progress Bars */
+.metric-row {
+    margin-bottom: 14px;
+}
+
+.metric-label-group {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    margin-bottom: 6px;
+}
+
+.progress-track {
+    height: 10px;
+    background: var(--color-surface);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+    border: 1px solid var(--color-border-subtle);
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: var(--radius-pill);
+    transition: width 1s ease-out;
+}
+
+.fill-blue { background: linear-gradient(90deg, #3B82F6, #2563EB); }
+.fill-green { background: linear-gradient(90deg, #34D399, #10B981); }
+.fill-amber { background: linear-gradient(90deg, #FBBF24, #F59E0B); }
+
+/* --- Buttons & Inputs --- */
+.btn {
+    padding: 12px 24px;
+    border-radius: var(--radius-btn);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: white;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+}
+
+.btn-primary:hover {
+    background: var(--color-primary-hover);
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+    color: white;
+}
+
+.btn-success {
+    background: var(--color-success);
+    color: white;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+}
+
+.btn-success:hover {
+    background: var(--color-success-hover);
+    color: white;
+}
+
+.btn-outline {
+    background: transparent;
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+}
+
+.btn-outline:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--color-primary-light);
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: var(--radius-input);
+    border: 1px solid var(--color-border);
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--color-text-primary);
+    background: var(--color-surface);
+    transition: var(--transition-fast);
+    outline: none;
+}
+
+.form-control:focus {
+    border-color: var(--color-primary);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 8px;
+}
+
+/* --- Skill Badges & Tags --- */
+.badge-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-mint {
+    background: var(--color-mint-badge);
+    color: #065F46;
+    border: 1px solid var(--color-mint-border);
+}
+
+.badge-sky {
+    background: var(--color-sky-mist);
+    color: #1E40AF;
+    border: 1px solid var(--color-sky-border);
+}
+
+.badge-warning {
+    background: var(--color-warning-light);
+    color: #92400E;
+    border: 1px solid #FDE68A;
+}
+
+/* --- Modals --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(6px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background: white;
+    border-radius: var(--radius-card);
+    width: 100%;
+    max-width: 600px;
+    padding: 32px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--color-border);
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    transition: var(--transition-fast);
+}
+
+.modal-close-btn:hover {
+    background: var(--color-danger-light);
+    color: var(--color-danger);
+    border-color: var(--color-danger);
+}
+
+/* --- Responsive Layout Rules --- */
+@media (max-width: 768px) {
+    .hero-title { font-size: 28px; }
+    .nav-tab-btn { padding: 10px 14px; font-size: 13px; }
+    .main-header .container { flex-direction: column; gap: 12px; }
+}

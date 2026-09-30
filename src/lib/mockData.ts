@@ -55,17 +55,70 @@ export interface DigiLockerAccount {
   documents: DigiLockerDocument[];
 }
 
+export interface CareerSubjectWeight {
+  subject: string;
+  weight: number;
+  topics: string[];
+  importance: "Critical" | "High" | "Medium";
+}
+
+export interface CareerRecruiter {
+  name: string;
+  roleName: string;
+  package: string;
+  hiringType: "Super Dream" | "Dream" | "Regular";
+  location: string;
+}
+
+export interface CareerInterviewRound {
+  roundNumber: number;
+  roundName: string;
+  duration: string;
+  focus: string;
+  passRate: string;
+  evaluationCriteria: string[];
+}
+
+export interface CareerFitAnalysis {
+  matchPct: number;
+  fitStatus: "High Fit" | "Ready with Minor Polish" | "Requires Upskilling";
+  strengths: string[];
+  gapPriorities: string[];
+  readinessTip: string;
+}
+
+export interface CareerCapstone {
+  title: string;
+  techStack: string;
+  impact: string;
+}
+
 export interface CareerTarget {
   id: string;
   title: string;
+  category: string;
   demand: "Very High" | "High" | "Moderate";
   avgSalary: string;
+  salaryBreakdown: {
+    base: string;
+    variable: string;
+    esops: string;
+    tier1Max: string;
+  };
   description: string;
+  subjectWeights: CareerSubjectWeight[];
   benchmarks: {
     coreSkills: string[];
     minCgpa: number;
+    maxBacklogs: number;
     recommendedCert: string;
+    certIssuer: string;
+    certImpact: string;
   };
+  topRecruiters: CareerRecruiter[];
+  interviewRounds: CareerInterviewRound[];
+  candidateFitAnalysis: CareerFitAnalysis;
+  capstoneProjects: CareerCapstone[];
 }
 
 export interface CompanyDrive {
@@ -277,50 +330,493 @@ export const CAREER_TARGETS: CareerTarget[] = [
   {
     id: "sde",
     title: "Software Development Engineer (SDE)",
+    category: "Software & Core Product Engineering",
     demand: "Very High",
-    avgSalary: "₹8.5 - ₹16 LPA",
-    description: "Build robust, scalable software architectures, algorithms, backend microservices, and frontends.",
+    avgSalary: "₹8.5 - ₹16.0 LPA",
+    salaryBreakdown: {
+      base: "₹7.5 - ₹13.0 LPA",
+      variable: "10% - 15% Annual Bonus",
+      esops: "₹2.0 - ₹4.5 Lakhs (Vested over 4 years)",
+      tier1Max: "₹24.0 - ₹32.0 LPA (Tier-1 Super Dream)"
+    },
+    description: "Design, construct, and scale distributed backend architectures, high-performance APIs, relational/document data stores, and responsive frontends with sub-millisecond execution.",
+    subjectWeights: [
+      {
+        subject: "Data Structures & Algorithms (DSA)",
+        weight: 35,
+        topics: ["Dynamic Programming", "Trees & Graphs (BFS/DFS)", "Trie & String Matching", "Hash Maps & Sliding Window", "Time/Space Asymptotics"],
+        importance: "Critical"
+      },
+      {
+        subject: "Database Management & SQL Systems",
+        weight: 20,
+        topics: ["B-Tree & Hash Indexing", "ACID Transactions & Isolation Levels", "Complex Joins & Window Functions", "Sharding & Read Replicas", "Normalization (3NF/BCNF)"],
+        importance: "Critical"
+      },
+      {
+        subject: "Object-Oriented Programming & Low-Level Design (LLD)",
+        weight: 20,
+        topics: ["SOLID Principles", "Design Patterns (Factory, Singleton, Observer)", "UML Class Diagrams", "Schema Modeling", "Clean Code & Refactoring"],
+        importance: "Critical"
+      },
+      {
+        subject: "Operating Systems & Computer Networks",
+        weight: 15,
+        topics: ["Process Concurrency & Mutex/Semaphores", "Memory Virtualization & Paging", "TCP 3-Way Handshake & TLS 1.3", "DNS & HTTP/2 vs HTTP/3", "Sockets & Deadlocks"],
+        importance: "High"
+      },
+      {
+        subject: "High-Level System Design & Cloud Basics",
+        weight: 10,
+        topics: ["Distributed Caching (Redis/Memcached)", "Message Queues (Kafka/RabbitMQ)", "Load Balancing & Rate Limiting", "CDN & CAP Theorem", "Microservices Architecture"],
+        importance: "Medium"
+      }
+    ],
     benchmarks: {
-      coreSkills: ["Data Structures & Algorithms", "System Design", "Node.js / Java", "SQL / NoSQL", "Docker"],
+      coreSkills: ["Data Structures & Algorithms", "System Design & LLD", "Node.js / Java / Go", "PostgreSQL & Redis", "Docker & CI/CD"],
       minCgpa: 7.5,
-      recommendedCert: "AWS Certified Developer / Meta Full Stack"
-    }
+      maxBacklogs: 0,
+      recommendedCert: "AWS Certified Developer – Associate",
+      certIssuer: "Amazon Web Services (AWS)",
+      certImpact: "Increases Tier-1 Super Dream shortlist rate by 52% across visiting MNCs."
+    },
+    topRecruiters: [
+      { name: "Cisco Systems", roleName: "Software Engineer (Cloud & Security)", package: "₹17.5 LPA", hiringType: "Super Dream", location: "Bangalore / Pune" },
+      { name: "Tata Consultancy Services", roleName: "Systems Engineer (Digital & Prime)", package: "₹9.2 LPA", hiringType: "Dream", location: "Indore / PAN India" },
+      { name: "Infosys Limited", roleName: "Specialist Programmer (Power Programmer)", package: "₹9.5 LPA", hiringType: "Dream", location: "Indore / Bangalore" },
+      { name: "Persistent Systems", roleName: "Lead Software Associate", package: "₹8.8 LPA", hiringType: "Dream", location: "Pune / Bhopal" },
+      { name: "Amazon India", roleName: "Software Development Engineer - I", package: "₹24.0 LPA", hiringType: "Super Dream", location: "Hyderabad" }
+    ],
+    interviewRounds: [
+      {
+        roundNumber: 1,
+        roundName: "Online Speed Coding & DSA Screening",
+        duration: "90 Minutes",
+        focus: "2 LeetCode Medium/Hard Problems + 20 CS Fundamental MCQs",
+        passRate: "18% Candidate Shortlist Rate",
+        evaluationCriteria: ["Correctness of all edge cases", "Optimal O(n log n) or O(n) complexity", "Code readability & variable naming"]
+      },
+      {
+        roundNumber: 2,
+        roundName: "Technical Deep-Dive: Code Implementation & LLD",
+        duration: "60 Minutes",
+        focus: "Live code refactoring, Object-Oriented design, and SQL schema modeling",
+        passRate: "35% Round Clearance Rate",
+        evaluationCriteria: ["SOLID design adherence", "Handling concurrent state & thread safety", "SQL query optimization & index selection"]
+      },
+      {
+        roundNumber: 3,
+        roundName: "High-Level Architecture & System Design",
+        duration: "45 Minutes",
+        focus: "Designing scalable real-world systems (e.g., URL Shortener, Uber Driver Matching, WhatsApp Chat)",
+        passRate: "50% Round Clearance Rate",
+        evaluationCriteria: ["Capacity estimation & bottleneck identification", "Database choice (SQL vs NoSQL)", "Cache invalidation & failover strategy"]
+      },
+      {
+        roundNumber: 4,
+        roundName: "Techno-Managerial & Cultural Fitment",
+        duration: "30 Minutes",
+        focus: "STAR format behavioral interview, project trade-offs, and crisis handling",
+        passRate: "80% Final Offer Conversion",
+        evaluationCriteria: ["Communication clarity", "Demonstrated ownership of production bugs", "Growth mindset & team alignment"]
+      }
+    ],
+    candidateFitAnalysis: {
+      matchPct: 86,
+      fitStatus: "High Fit",
+      strengths: [
+        "Verified 8.42 CGPA exceeds corporate threshold (7.50+)",
+        "Zero active backlogs with verified academic degree standing",
+        "Strong full-stack foundations (React.js, Node.js, PostgreSQL)",
+        "Proven distributed project (Task Pipeline handling 5k tasks/min)"
+      ],
+      gapPriorities: [
+        "Dynamic Programming (0/1 Knapsack, Longest Common Subsequence)",
+        "Distributed lock mechanisms with Redis / Redlock",
+        "Formal AWS Developer Associate certificate integration"
+      ],
+      readinessTip: "Priya is in the top 10% candidate percentile for SDE roles. Complete 15 curated medium DP problems and review Redis caching patterns to lock in 90%+ clearance probability."
+    },
+    capstoneProjects: [
+      {
+        title: "High-Concurrency Ticket Booking Engine with Distributed Locks",
+        techStack: "Go / Node.js, Redis (Redlock), PostgreSQL, Docker, NGINX",
+        impact: "Simulates flash-sale concurrency with zero double-booking under 10,000 requests/sec load."
+      },
+      {
+        title: "Microservices URL Analytics & Edge Redirection Gateway",
+        techStack: "Java Spring Boot, Kafka, MongoDB, AWS ECS, Prometheus",
+        impact: "Sub-10ms redirect latency with real-time geo-IP analytics ingestion."
+      }
+    ]
   },
   {
     id: "data-analyst",
     title: "Data Analyst & Business Intelligence",
+    category: "Analytics & Applied AI",
     demand: "High",
-    avgSalary: "₹6.5 - ₹12 LPA",
-    description: "Transform big datasets into actionable business decisions using SQL, Python, PowerBI, and statistical modeling.",
+    avgSalary: "₹6.5 - ₹12.0 LPA",
+    salaryBreakdown: {
+      base: "₹5.8 - ₹10.2 LPA",
+      variable: "8% - 12% Performance Bonus",
+      esops: "₹1.0 - ₹2.5 Lakhs",
+      tier1Max: "₹16.0 - ₹20.0 LPA (Consulting & Fintech Lead)"
+    },
+    description: "Transform petabyte-scale unstructured enterprise databases into structured semantic models, KPI dashboards, customer retention forecasts, and executive board insights.",
+    subjectWeights: [
+      {
+        subject: "Advanced SQL & Analytical Data Warehousing",
+        weight: 35,
+        topics: ["Window Functions (RANK, DENSE_RANK, NTILE)", "Common Table Expressions (CTEs)", "Star & Snowflake Schemas", "Incremental ETL / ELT Models", "Performance Tuning & Partitioning"],
+        importance: "Critical"
+      },
+      {
+        subject: "Python for Data Analysis & Statistical Modeling",
+        weight: 25,
+        topics: ["Pandas DataFrames & Vectorized Ops", "NumPy Numerical Arrays", "Data Wrangling & Imputation", "Hypothesis Testing (p-values, ANOVA)", "Scikit-Learn Regression & Clustering"],
+        importance: "Critical"
+      },
+      {
+        subject: "Business Intelligence & Executive Dashboards",
+        weight: 20,
+        topics: ["Power BI DAX Measures & Data Models", "Tableau Calculated Fields & LODs", "UX Principles for Executive Summaries", "Real-Time KPI Alerts", "Drill-Down Matrix Reports"],
+        importance: "Critical"
+      },
+      {
+        subject: "Probability, Statistics & Metric Engineering",
+        weight: 15,
+        topics: ["A/B Testing Frameworks", "Normal & Poisson Distributions", "Customer Lifetime Value (CLV)", "Churn Rate & Cohort Analysis", "Correlation vs Causation"],
+        importance: "High"
+      },
+      {
+        subject: "Modern Data Pipeline Orchestration",
+        weight: 5,
+        topics: ["Apache Airflow DAGs", "dbt (Data Build Tool)", "Snowflake / BigQuery Basics", "Data Governance & Lineage", "Data Quality Auditing"],
+        importance: "Medium"
+      }
+    ],
     benchmarks: {
-      coreSkills: ["Advanced SQL", "Python (Pandas, NumPy)", "Power BI / Tableau", "Statistics", "Data Warehousing"],
+      coreSkills: ["Advanced SQL & CTEs", "Python (Pandas, NumPy)", "Power BI / DAX / Tableau", "Statistical Hypothesis Testing", "Data Warehousing (BigQuery/Snowflake)"],
       minCgpa: 7.0,
-      recommendedCert: "Google Data Analytics Professional"
-    }
+      maxBacklogs: 0,
+      recommendedCert: "Google Data Analytics Professional Certificate",
+      certIssuer: "Google Career Certificates",
+      certImpact: "Demonstrates practical SQL, R/Python, and Tableau portfolio proficiency."
+    },
+    topRecruiters: [
+      { name: "Deloitte USI", roleName: "Business Technology Analyst (Analytics)", package: "₹8.5 LPA", hiringType: "Dream", location: "Hyderabad / Gurgaon" },
+      { name: "MPSeDC (MP State IT)", roleName: "Data Analytics Associate (GovTech)", package: "₹7.2 LPA", hiringType: "Regular", location: "Bhopal" },
+      { name: "Mu Sigma Inc.", roleName: "Trainee Decision Scientist", package: "₹7.0 LPA", hiringType: "Regular", location: "Bangalore" },
+      { name: "Fractal Analytics", roleName: "Data Engineer / Analytics Specialist", package: "₹10.5 LPA", hiringType: "Dream", location: "Mumbai / Gurgaon" },
+      { name: "EXL Service", roleName: "Analytics Consultant", package: "₹8.0 LPA", hiringType: "Regular", location: "Noida / Pune" }
+    ],
+    interviewRounds: [
+      {
+        roundNumber: 1,
+        roundName: "Advanced SQL & Quantitative Aptitude Test",
+        duration: "75 Minutes",
+        focus: "3 Complex SQL queries (multi-table joins, CTEs, running totals) + Statistics MCQs",
+        passRate: "22% Candidate Shortlist Rate",
+        evaluationCriteria: ["Query efficiency without subquery overhead", "Accurate handling of NULL values", "Calculation logic for business KPIs"]
+      },
+      {
+        roundNumber: 2,
+        roundName: "Data Wrangling & Jupyter Notebook Case Study",
+        duration: "60 Minutes",
+        focus: "Cleaning a messy 100k-row CSV dataset in Python, identifying outliers, and generating visualizations",
+        passRate: "38% Round Clearance Rate",
+        evaluationCriteria: ["Clean pandas code without deprecated syntax", "Appropriate chart selections (Box plot vs Scatter)", "Statistical justification of findings"]
+      },
+      {
+        roundNumber: 3,
+        roundName: "Live BI Dashboard Drilldown & Business Pitch",
+        duration: "45 Minutes",
+        focus: "Presenting a dynamic Power BI or Tableau dashboard to a simulated business stakeholder",
+        passRate: "55% Round Clearance Rate",
+        evaluationCriteria: ["Executive storytelling ability", "Speed in answering ad-hoc drilldown questions", "DAX measure efficiency"]
+      },
+      {
+        roundNumber: 4,
+        roundName: "Partner / Director Fitment & Case Interview",
+        duration: "30 Minutes",
+        focus: "Guesstimate problems (e.g., daily coffee consumption in Indore) and analytical trade-offs",
+        passRate: "85% Final Offer Conversion",
+        evaluationCriteria: ["Structured problem breakdown", "Sanity checking calculations", "Business intuition & cultural alignment"]
+      }
+    ],
+    candidateFitAnalysis: {
+      matchPct: 78,
+      fitStatus: "Ready with Minor Polish",
+      strengths: [
+        "Solid PostgreSQL experience and query structuring skills",
+        "Clean academic record (8.42 CGPA) surpasses 7.00 baseline",
+        "Logical coding foundation in TypeScript translates seamlessly to Python",
+        "Strong analytical mindset proven through academic projects"
+      ],
+      gapPriorities: [
+        "Power BI DAX expressions (CALCULATE, RELATEDTABLE, FILTER)",
+        "Formal Statistical A/B testing methodology and power analysis",
+        "Python Scikit-Learn data modeling pipelines"
+      ],
+      readinessTip: "Priya can achieve 90%+ readiness within 12 days by completing a hands-on Power BI dashboard project and practicing 20 advanced SQL window-function queries."
+    },
+    capstoneProjects: [
+      {
+        title: "Omnichannel Retail Sales & Customer Churn Prediction Dashboard",
+        techStack: "PostgreSQL, Python (Pandas/Seaborn), Power BI (DAX), Scikit-Learn",
+        impact: "Identified high-churn customer segments with 83% precision and automated quarterly revenue projection reports."
+      },
+      {
+        title: "Public Health Scheme Real-Time Enrollment & Fund Utilization Tracker",
+        techStack: "BigQuery, Python, Apache Superset, dbt",
+        impact: "Provided MP district-level insights with daily automated anomaly alerts for administrative auditors."
+      }
+    ]
   },
   {
     id: "cloud-devops",
-    title: "Cloud & DevOps Architect",
+    title: "Cloud & DevOps Architect (SRE)",
+    category: "Cloud Infrastructure & Platform Reliability",
     demand: "Very High",
-    avgSalary: "₹9.0 - ₹18 LPA",
-    description: "Design automated CI/CD deployment pipelines, manage container orchestration with Kubernetes, and infrastructure as code.",
+    avgSalary: "₹9.0 - ₹18.0 LPA",
+    salaryBreakdown: {
+      base: "₹8.0 - ₹14.5 LPA",
+      variable: "12% - 18% Performance & On-call Bonus",
+      esops: "₹2.5 - ₹5.0 Lakhs",
+      tier1Max: "₹26.0 - ₹34.0 LPA (Global SRE / Cloud Specialist)"
+    },
+    description: "Architect self-healing cloud infrastructure, provision multi-region Kubernetes clusters with Terraform, establish automated GitOps CI/CD pipelines, and maintain 99.99% service availability.",
+    subjectWeights: [
+      {
+        subject: "Linux Systems Administration & Shell Scripting",
+        weight: 25,
+        topics: ["File Permissions & ACLs", "Process Hierarchy & Systemd Services", "Networking CLI (netstat, ss, tcpdump, iptables)", "Bash Automation & Regex", "Kernel Tunables & cgroups"],
+        importance: "Critical"
+      },
+      {
+        subject: "Containerization & Kubernetes Orchestration",
+        weight: 25,
+        topics: ["Multi-Stage Docker Builds & Image Optimization", "Pods, Deployments, ReplicaSets, DaemonSets", "Ingress Controllers & Service Meshes (Istio)", "ConfigMaps, Secrets, & RBAC", "Helm Charts & Kustomize"],
+        importance: "Critical"
+      },
+      {
+        subject: "Cloud Providers Architecture (AWS / GCP)",
+        weight: 25,
+        topics: ["VPC Peering, Subnets, Internet Gateways & NAT", "IAM Roles, Policies & Least Privilege Access", "Compute (EC2, Auto Scaling Groups, Lambda)", "Storage Tiering (S3, EBS, EFS)", "Cloud Security & Compliance"],
+        importance: "Critical"
+      },
+      {
+        subject: "Infrastructure as Code (IaC) & Configuration",
+        weight: 15,
+        topics: ["Terraform HCL Syntax & Modules", "State Management & S3 Remote Backend", "Drift Detection & Plan Validation", "Ansible Playbooks & Idempotency", "GitOps with ArgoCD"],
+        importance: "High"
+      },
+      {
+        subject: "CI/CD Automation & Observability",
+        weight: 10,
+        topics: ["GitHub Actions / GitLab CI Pipelines", "Prometheus Metrics & PromQL", "Grafana Dashboard Alerting", "Centralized Logging (ELK / Loki)", "SLIs, SLOs & Error Budgets"],
+        importance: "High"
+      }
+    ],
     benchmarks: {
-      coreSkills: ["Linux CLI", "Kubernetes", "Terraform", "CI/CD (GitHub Actions)", "Cloud (AWS / GCP)"],
+      coreSkills: ["Linux CLI & Bash", "Docker & Kubernetes (K8s)", "AWS / GCP Solutions Architecture", "Terraform (IaC)", "GitHub Actions CI/CD & Prometheus"],
       minCgpa: 7.0,
-      recommendedCert: "CKA (Certified Kubernetes Administrator)"
-    }
+      maxBacklogs: 0,
+      recommendedCert: "CKA (Certified Kubernetes Administrator)",
+      certIssuer: "Cloud Native Computing Foundation (CNCF / Linux Foundation)",
+      certImpact: "Guarantees interview shortlisting across 95% of visiting DevOps and Platform teams."
+    },
+    topRecruiters: [
+      { name: "Red Hat India", roleName: "Associate Software Engineer (OpenShift & Linux)", package: "₹14.0 LPA", hiringType: "Super Dream", location: "Bangalore / Pune" },
+      { name: "Persistent Systems", roleName: "Cloud Infrastructure Engineer", package: "₹9.0 LPA", hiringType: "Dream", location: "Pune / Indore" },
+      { name: "Amazon Web Services (AWS)", roleName: "Cloud Support Associate (DevOps)", package: "₹18.0 LPA", hiringType: "Super Dream", location: "Bangalore / Hyderabad" },
+      { name: "Wipro Digital", roleName: "Platform Reliability Engineer", package: "₹8.5 LPA", hiringType: "Dream", location: "Pune / Greater Noida" },
+      { name: "MP State Data Center", roleName: "Cloud Operations Specialist", package: "₹7.5 LPA", hiringType: "Regular", location: "Bhopal" }
+    ],
+    interviewRounds: [
+      {
+        roundNumber: 1,
+        roundName: "Linux CLI, Networking & Python/Bash Diagnostic",
+        duration: "75 Minutes",
+        focus: "Debugging DNS lookup failure, writing automated log parsers, process management questions",
+        passRate: "20% Candidate Shortlist Rate",
+        evaluationCriteria: ["Understanding of OS kernel signals (SIGTERM, SIGKILL)", "Proficiency in piping grep, awk, and sed", "Subnetting and routing fundamentals"]
+      },
+      {
+        roundNumber: 2,
+        roundName: "Live Docker & Kubernetes Cluster Debugging",
+        duration: "60 Minutes",
+        focus: "Diagnosing CrashLoopBackOff in pods, writing multi-stage secure Dockerfiles, service endpoints",
+        passRate: "32% Round Clearance Rate",
+        evaluationCriteria: ["Identification of out-of-memory (OOMKilled) states", "Proper use of non-root Docker users", "Correct Service type selection (ClusterIP vs NodePort)"]
+      },
+      {
+        roundNumber: 3,
+        roundName: "Terraform & AWS Cloud Architecture Deep-Dive",
+        duration: "60 Minutes",
+        focus: "Coding a highly-available 2-tier VPC infrastructure in Terraform with auto-scaling",
+        passRate: "45% Round Clearance Rate",
+        evaluationCriteria: ["Modular Terraform architecture", "Secure secret handling without plaintext credentials", "Cost-effective resource provisioning"]
+      },
+      {
+        roundNumber: 4,
+        roundName: "Site Reliability Incident Simulation & Post-Mortem",
+        duration: "40 Minutes",
+        focus: "Simulated P1 production outage: 502 Bad Gateway under traffic spike, incident command communication",
+        passRate: "75% Final Offer Conversion",
+        evaluationCriteria: ["Calm structured triage methodology", "Root-cause identification without finger-pointing", "Preventative blameless post-mortem writing"]
+      }
+    ],
+    candidateFitAnalysis: {
+      matchPct: 74,
+      fitStatus: "Ready with Minor Polish",
+      strengths: [
+        "AWS Certified Cloud Practitioner certification already on official profile",
+        "Hands-on experience building distributed backend architectures with Docker",
+        "Strong networking fundamentals and high CGPA (8.42)",
+        "Internship experience optimizing live API latency by 34%"
+      ],
+      gapPriorities: [
+        "Kubernetes configuration (Deployments, Ingress, PersistentVolumes)",
+        "Terraform state manipulation & multi-environment setups",
+        "Observability tooling (Prometheus scraping & Grafana alerts)"
+      ],
+      readinessTip: "Priya already possesses the AWS Cloud Practitioner credential! Deploying a 3-tier app on a local Minikube cluster and writing a Terraform script for AWS will increase readiness to 88%."
+    },
+    capstoneProjects: [
+      {
+        title: "Automated Zero-Downtime Blue/Green Kubernetes Deployment Pipeline",
+        techStack: "Kubernetes, Docker, GitHub Actions, ArgoCD, Helm, AWS EKS",
+        impact: "Implemented automated canary rollouts with instant rollback if Prometheus error-rate exceeds 1%."
+      },
+      {
+        title: "Infrastructure as Code Multi-Tier AWS Cloud Architecture",
+        techStack: "Terraform, AWS (VPC, ALB, ECS Fargate, RDS PostgreSQL), Checkov",
+        impact: "Enforced CIS AWS Benchmark compliance with 100% automated provisioning in under 4 minutes."
+      }
+    ]
   },
   {
     id: "core-embedded",
-    title: "Core Electronics & Embedded Systems",
+    title: "Cyber Security & Embedded Systems",
+    category: "Hardware, Firmware & Cyber Defense",
     demand: "Moderate",
-    avgSalary: "₹5.5 - ₹10 LPA",
-    description: "Design low-level microcontrollers, IoT devices, VLSI chips, and hardware firmware systems.",
+    avgSalary: "₹7.0 - ₹14.5 LPA",
+    salaryBreakdown: {
+      base: "₹6.2 - ₹11.5 LPA",
+      variable: "10% - 14% Annual Bonus",
+      esops: "₹1.5 - ₹3.0 Lakhs",
+      tier1Max: "₹20.0 - ₹28.0 LPA (Semiconductor & Defense Giants)"
+    },
+    description: "Engineer ultra-reliable low-level firmware for microcontrollers and IoT platforms, secure hardware cryptographic interfaces, implement RTOS task schedules, and safeguard cyber infrastructure against zero-day exploits.",
+    subjectWeights: [
+      {
+        subject: "Embedded C / Modern C++ & Memory Optimization",
+        weight: 30,
+        topics: ["Pointer Arithmetic & Memory Mapped I/O", "Bitwise Operators & Register Bitmasking", "Dynamic Memory Hazards & Static Allocation", "Volatile Keyword & Concurrency Barriers", "MISRA-C Safety Guidelines"],
+        importance: "Critical"
+      },
+      {
+        subject: "Microcontroller Architecture & Hardware Interfaces",
+        weight: 25,
+        topics: ["ARM Cortex-M0/M4 Core Architecture", "Communication Buses (UART, SPI, I2C, CAN)", "Timers, PWM & Analog-to-Digital (ADC) Conversion", "Direct Memory Access (DMA) Controllers", "Interrupt Service Routines (ISRs) & Latency"],
+        importance: "Critical"
+      },
+      {
+        subject: "Network Security & Cryptographic Protocols",
+        weight: 20,
+        topics: ["Public Key Infrastructure (PKI) & X.509", "AES-256 Symmetric & RSA/ECC Asymmetric Ciphers", "TLS Handshakes & Mutual Authentication (mTLS)", "Buffer Overflows & Stack Canaries", "Penetration Testing (Wireshark, Nmap, Burp Suite)"],
+        importance: "Critical"
+      },
+      {
+        subject: "Real-Time Operating Systems (RTOS)",
+        weight: 15,
+        topics: ["FreeRTOS Task Scheduling & Priorities", "Semaphores, Mutexes & Priority Inversion", "Inter-Task Communication (Queues & Notifications)", "Memory Protection Units (MPU)", "Watchdog Timers & Brownout Resets"],
+        importance: "High"
+      },
+      {
+        subject: "IoT Security & Secure Boot Firmware",
+        weight: 10,
+        topics: ["Cryptographic Hardware Root of Trust", "Secure Boot & Firmware OTA Verification", "Side-Channel Attack Defenses", "Low-Power Modes (Sleep / Deep Sleep)", "Embedded Linux Basics (Yocto / Buildroot)"],
+        importance: "Medium"
+      }
+    ],
     benchmarks: {
-      coreSkills: ["Embedded C / C++", "Microcontrollers (STM32, ESP32)", "RTOS", "PCB Design", "Digital Signal Processing"],
+      coreSkills: ["Embedded C / C++", "ARM Cortex / STM32 / ESP32", "Hardware Protocols (I2C, SPI, UART)", "Network Cryptography & mTLS", "FreeRTOS Scheduling"],
       minCgpa: 7.2,
-      recommendedCert: "ARM Accredited Engineer"
-    }
+      maxBacklogs: 0,
+      recommendedCert: "CompTIA Security+ / ARM Accredited Engineer",
+      certIssuer: "CompTIA / ARM Holdings",
+      certImpact: "Validates both low-level hardware safety and enterprise cyber security posture."
+    },
+    topRecruiters: [
+      { name: "Qualcomm India", roleName: "Associate Embedded Software Engineer", package: "₹14.5 LPA", hiringType: "Super Dream", location: "Bangalore / Hyderabad" },
+      { name: "Robert Bosch Engineering", roleName: "Embedded Systems Developer (Automotive)", package: "₹9.2 LPA", hiringType: "Dream", location: "Bangalore / Coimbatore" },
+      { name: "Schneider Electric", roleName: "Firmware Verification Engineer", package: "₹8.0 LPA", hiringType: "Dream", location: "Bangalore / Gurgaon" },
+      { name: "Tata Elxsi", roleName: "IoT & Embedded Software Associate", package: "₹7.5 LPA", hiringType: "Regular", location: "Pune / Trivandrum" },
+      { name: "MP State Cyber Police Directorate", roleName: "Technical Cyber Analyst (State Forensic)", package: "₹7.0 LPA", hiringType: "Regular", location: "Bhopal / Indore" }
+    ],
+    interviewRounds: [
+      {
+        roundNumber: 1,
+        roundName: "Low-Level C, Bit-Manipulation & Digital Logic Test",
+        duration: "75 Minutes",
+        focus: "Pointer arithmetic, writing interrupt service routines, register bitmasking, bitwise operations",
+        passRate: "16% Candidate Shortlist Rate",
+        evaluationCriteria: ["Understanding of memory layout (Heap vs Stack vs BSS)", "Precise handling of volatile variables", "Deterministic execution time awareness"]
+      },
+      {
+        roundNumber: 2,
+        roundName: "Hardware Interfacing & Bus Protocol Simulation",
+        duration: "60 Minutes",
+        focus: "Writing firmware drivers for SPI accelerometer or I2C sensor, handling DMA buffers",
+        passRate: "30% Round Clearance Rate",
+        evaluationCriteria: ["Correct timing and clock polarity configuration", "Robust error recovery on bus lockup", "Clean state-machine design"]
+      },
+      {
+        roundNumber: 3,
+        roundName: "Cyber Security & Vulnerability Analysis Challenge",
+        duration: "45 Minutes",
+        focus: "Analyzing packet captures in Wireshark, identifying insecure firmware endpoints, buffer overflow mitigations",
+        passRate: "48% Round Clearance Rate",
+        evaluationCriteria: ["Knowledge of cryptographic standards (AES, SHA-256)", "Secure coding practice in C", "Understanding of attack vectors"]
+      },
+      {
+        roundNumber: 4,
+        roundName: "Technical Director Round: Safety Standards & Fitment",
+        duration: "30 Minutes",
+        focus: "Automotive/Industrial safety (ISO 26262), real-world hardware failure triage, and ethics",
+        passRate: "82% Final Offer Conversion",
+        evaluationCriteria: ["Safety-first engineering mindset", "Problem diagnosis on physical hardware boards", "Ethical hacking compliance"]
+      }
+    ],
+    candidateFitAnalysis: {
+      matchPct: 64,
+      fitStatus: "Requires Upskilling",
+      strengths: [
+        "Strong computer science fundamentals, OS concepts, and clean 8.42 CGPA",
+        "Familiarity with network protocols and API security tokenization",
+        "High quantitative reasoning score and 0 backlogs standing"
+      ],
+      gapPriorities: [
+        "Hands-on Embedded C register manipulation and microcontroller programming",
+        "Hardware bus protocols (UART, SPI, I2C, CAN bus frames)",
+        "FreeRTOS task synchronization (Semaphores & Queues)"
+      ],
+      readinessTip: "Priya currently leans stronger towards Web/Cloud software (86% SDE fit). If choosing Embedded Systems, dedicated practice with an ESP32/STM32 development board and FreeRTOS for 4 weeks is advised."
+    },
+    capstoneProjects: [
+      {
+        title: "Cryptographically Secured IoT Environmental Telemetry Node",
+        techStack: "Embedded C, ESP32, FreeRTOS, mTLS, MQTT, AWS IoT Core",
+        impact: "Achieved tamper-proof sensor data transmission with hardware-accelerated elliptic-curve cryptography."
+      },
+      {
+        title: "Automated CAN Bus Intrusion Detection System for Connected Vehicles",
+        techStack: "C++, Raspberry Pi, SocketCAN, Wireshark, Random Forest Classifier",
+        impact: "Detected denial-of-service and injection attacks on simulated vehicle bus with 96.4% accuracy under 12ms."
+      }
+    ]
   }
 ];
 

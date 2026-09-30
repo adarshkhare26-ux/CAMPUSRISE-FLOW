@@ -23,19 +23,19 @@ import {
 } from "lucide-react";
 
 export const ALL_PAGES = [
-  { name: "Page 1: Student Login Gateway", path: "/", icon: GraduationCap, section: "Authentication" },
-  { name: "Page 2: Profile & DigiLocker", path: "/student/profile", icon: FileText, section: "Section 1: Onboarding & Eligibility" },
-  { name: "Page 3: Target Career Selection", path: "/student/career-target", icon: Target, section: "Section 1: Onboarding & Eligibility" },
-  { name: "Page 4: Campus Drive Eligibility", path: "/student/eligibility", icon: CheckCircle2, section: "Section 1: Onboarding & Eligibility" },
-  { name: "Page 5: Placement Simulation Center", path: "/student/simulation", icon: PlayCircle, section: "Section 2: Assessment & AI Readiness" },
-  { name: "Page 6: AI Readiness Score Breakdown", path: "/student/readiness-score", icon: BarChart3, section: "Section 2: Assessment & AI Readiness" },
-  { name: "Page 7: Skill-Gap Analysis", path: "/student/skill-gap", icon: Split, section: "Section 2: Assessment & AI Readiness" },
-  { name: "Page 8: Action Roadmap", path: "/student/roadmap", icon: ListOrdered, section: "Section 3: Roadmap & Mentorship" },
-  { name: "Page 9: Reassessment Tracker", path: "/student/reassessment", icon: TrendingUp, section: "Section 3: Roadmap & Mentorship" },
-  { name: "Page 10: Alumni Mentorship Loop", path: "/student/alumni-network", icon: Users, section: "Section 3: Roadmap & Mentorship" },
-  { name: "Page 11: Placements Lifecycle", path: "/student/placements", icon: Briefcase, section: "Section 4: Corporate Placements" },
-  { name: "Page 12: TPO Master Command Dashboard", path: "/tpo/dashboard", icon: LayoutDashboard, section: "TPO ERP" },
-  { name: "TPO / Admin Dedicated Login", path: "/tpo/login", icon: ShieldCheck, section: "TPO ERP" },
+  { name: "Student Login Gateway", path: "/", icon: GraduationCap, section: "Authentication Gateway" },
+  { name: "Profile & DigiLocker", path: "/student/profile", icon: FileText, section: "Student Modules" },
+  { name: "Target Career Selection", path: "/student/career-target", icon: Target, section: "Student Modules" },
+  { name: "Campus Drive Eligibility", path: "/student/eligibility", icon: CheckCircle2, section: "Student Modules" },
+  { name: "Placement Simulation Center", path: "/student/simulation", icon: PlayCircle, section: "Student Modules" },
+  { name: "AI Readiness Score Breakdown", path: "/student/readiness-score", icon: BarChart3, section: "Student Modules" },
+  { name: "Skill-Gap Analysis", path: "/student/skill-gap", icon: Split, section: "Student Modules" },
+  { name: "Action Roadmap", path: "/student/roadmap", icon: ListOrdered, section: "Student Modules" },
+  { name: "Reassessment Tracker", path: "/student/reassessment", icon: TrendingUp, section: "Student Modules" },
+  { name: "Alumni Mentorship Loop", path: "/student/alumni-network", icon: Users, section: "Student Modules" },
+  { name: "Placements Lifecycle", path: "/student/placements", icon: Briefcase, section: "Student Modules" },
+  { name: "TPO Master Command Dashboard", path: "/tpo/dashboard", icon: LayoutDashboard, section: "TPO & Corporate ERP" },
+  { name: "TPO / Admin Dedicated Login", path: "/tpo/login", icon: ShieldCheck, section: "TPO & Corporate ERP" },
 ];
 
 export function Navbar() {

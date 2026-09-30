@@ -55,9 +55,8 @@ export default function StudentProfilePage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-200 mb-2">
-            <span>Step 2 of 12</span>
-            <span>•</span>
-            <span>Verified Student Onboarding</span>
+            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+            <span>Verified Student Onboarding &amp; Credentials</span>
           </div>
           <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
             Academic &amp; Experiential Profile
@@ -90,7 +89,21 @@ export default function StudentProfilePage() {
       </div>
  
       {/* Official DigiLocker Document Verification & Collection Center */}
-      <DigiLockerSection initialAccount={profile.digiLocker} />
+      <DigiLockerSection 
+        initialAccount={profile.digiLocker} 
+        onSyncSuccess={(updatedAccount) => {
+          setProfile(prev => ({
+            ...prev,
+            digiLocker: updatedAccount,
+            tenthPct: 91.4,
+            twelfthPct: 88.6,
+            cgpa: 8.42,
+            activeBacklogs: 0
+          }));
+          setSavedSuccess(true);
+          setTimeout(() => setSavedSuccess(false), 4000);
+        }}
+      />
 
       {/* Main Grid: Academics & Experience */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -100,14 +113,51 @@ export default function StudentProfilePage() {
           
           {/* Academic Records Card */}
           <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
-            <h2 className="text-sm font-extrabold uppercase tracking-wider text-slate-700 flex items-center gap-2 mb-4">
-              <BookOpen className="w-4 h-4 text-blue-600" />
-              Official Academic Records (TPO Verified)
-            </h2>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-100">
+              <div>
+                <h2 className="text-sm font-extrabold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+                  <BookOpen className="w-4 h-4 text-blue-600" />
+                  Official Academic Records (DigiLocker &amp; TPO Verified)
+                </h2>
+                <p className="text-[11px] text-slate-500 mt-0.5">
+                  Official scores synchronized with National Academic Depository (NAD) &amp; CBSE Central Server.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Synced: {profile.digiLocker?.lastSyncedAt || "Today, 11:30 AM"}</span>
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setProfile(prev => ({
+                      ...prev,
+                      tenthPct: 91.4,
+                      twelfthPct: 88.6,
+                      cgpa: 8.42,
+                      activeBacklogs: 0
+                    }));
+                    setSavedSuccess(true);
+                    setTimeout(() => setSavedSuccess(false), 3000);
+                  }}
+                  className="px-2.5 py-1 rounded-lg text-[10px] font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 transition-colors"
+                  title="Reset to official DigiLocker certified marks"
+                >
+                  Re-fetch Verified Marks
+                </button>
+              </div>
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <div>
-                <label className="block text-[11px] font-bold text-slate-600 mb-1">Full Legal Name</label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-[11px] font-bold text-slate-600">Full Legal Name</label>
+                  <span className="text-[10px] font-bold text-emerald-700 flex items-center gap-0.5">
+                    <ShieldCheck className="w-3 h-3 text-emerald-600" /> Aadhaar
+                  </span>
+                </div>
                 <input
                   type="text"
                   value={profile.name}
@@ -142,7 +192,12 @@ export default function StudentProfilePage() {
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-600 mb-1">Cumulative CGPA (0-10)</label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-[11px] font-bold text-slate-600">Cumulative CGPA (0-10)</label>
+                  <span className="text-[10px] font-extrabold text-blue-700 flex items-center gap-0.5">
+                    <ShieldCheck className="w-3 h-3 text-blue-600" /> RGPV NAD
+                  </span>
+                </div>
                 <input
                   type="number"
                   step="0.01"
@@ -153,7 +208,12 @@ export default function StudentProfilePage() {
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-600 mb-1">Active Backlogs Count</label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-[11px] font-bold text-slate-600">Active Backlogs Count</label>
+                  <span className="text-[10px] font-extrabold text-emerald-700 flex items-center gap-0.5">
+                    <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Clear
+                  </span>
+                </div>
                 <input
                   type="number"
                   value={profile.activeBacklogs}
@@ -177,7 +237,12 @@ export default function StudentProfilePage() {
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-600 mb-1">Class 10th Score (%)</label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-[11px] font-bold text-slate-600">Class 10th Score (%)</label>
+                  <span className="text-[10px] font-extrabold text-emerald-700 flex items-center gap-0.5">
+                    <ShieldCheck className="w-3 h-3 text-emerald-600" /> CBSE Verified
+                  </span>
+                </div>
                 <input
                   type="number"
                   step="0.1"
@@ -188,7 +253,12 @@ export default function StudentProfilePage() {
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-600 mb-1">Class 12th / Diploma (%)</label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-[11px] font-bold text-slate-600">Class 12th / Diploma (%)</label>
+                  <span className="text-[10px] font-extrabold text-emerald-700 flex items-center gap-0.5">
+                    <ShieldCheck className="w-3 h-3 text-emerald-600" /> CBSE Verified
+                  </span>
+                </div>
                 <input
                   type="number"
                   step="0.1"
@@ -199,10 +269,15 @@ export default function StudentProfilePage() {
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-600 mb-1">Academic ABC-ID</label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-[11px] font-bold text-slate-600">Academic ABC-ID</label>
+                  <span className="text-[10px] font-extrabold text-emerald-700 flex items-center gap-0.5">
+                    <ShieldCheck className="w-3 h-3 text-emerald-600" /> MoE Sealed
+                  </span>
+                </div>
                 <input
                   type="text"
-                  defaultValue="ABC-9812-4412-8819"
+                  defaultValue="APAAR-6291-0941-8812"
                   disabled
                   className="w-full px-3 py-2 rounded-xl border border-emerald-200 text-xs font-mono text-emerald-800 bg-emerald-50/40"
                 />

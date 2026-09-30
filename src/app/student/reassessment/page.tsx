@@ -44,8 +44,7 @@ export default function ReassessmentTrackerPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 mb-2">
-            <span>Step 9 of 12</span>
-            <span>•</span>
+            <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
             <span>Iterative Competency Trajectory</span>
           </div>
           <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
@@ -60,7 +59,7 @@ export default function ReassessmentTrackerPage() {
           href="/student/alumni-network"
           className="px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-all flex items-center gap-1.5 shadow-md shadow-emerald-500/20 shrink-0"
         >
-          <span>Alumni Mentors (Step 10)</span>
+          <span>Alumni Mentors</span>
           <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       </div>
@@ -144,7 +143,7 @@ export default function ReassessmentTrackerPage() {
         </div>
 
         <div className="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
-          <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Next Step Recommendation</div>
+          <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Strategic Recommendation</div>
           <div className="text-2xl font-black text-slate-900 mt-1">
             Alumni Mock Prep
           </div>

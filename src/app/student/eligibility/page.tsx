@@ -28,8 +28,6 @@ export default function DriveEligibilityPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-200 mb-2">
-            <span>Step 4 of 12</span>
-            <span>•</span>
             <span>Automated TPO Vault Compliance</span>
           </div>
           <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
@@ -44,7 +42,7 @@ export default function DriveEligibilityPage() {
           href="/student/simulation"
           className="px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-all flex items-center gap-1.5 shadow-md shadow-emerald-500/20 shrink-0"
         >
-          <span>Start Simulation (Step 5)</span>
+          <span>Start Simulation</span>
           <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       </div>

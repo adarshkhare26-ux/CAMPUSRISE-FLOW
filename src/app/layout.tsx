@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   description: "Unified AI-powered placement ERP, readiness score engine, and recruitment platform connecting TPOs, Students, Companies, and Alumni.",
 };
 
+import { ToastProvider } from "@/components/Toast";
+import { AiAssistantDrawer } from "@/components/AiAssistantDrawer";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -21,7 +24,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={jakarta.variable}>
       <body className="font-sans antialiased min-h-screen bg-slate-50/50">
-        {children}
+        <ToastProvider>
+          {children}
+          <AiAssistantDrawer />
+        </ToastProvider>
       </body>
     </html>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { 
   ListOrdered, 
@@ -15,16 +15,52 @@ import {
   Sparkles
 } from "lucide-react";
 import { ROADMAP_PLAYLIST } from "@/lib/mockData";
+import { useToast } from "@/components/Toast";
+import { RecommendedCoursesSection } from "@/components/RecommendedCoursesSection";
 
 export default function ActionRoadmapPage() {
+  const { toast } = useToast();
   const [playlist, setPlaylist] = useState(ROADMAP_PLAYLIST);
 
-  const toggleTask = (phaseIndex: number, taskId: string) => {
+  useEffect(() => {
+    fetchRoadmap();
+  }, []);
+
+  const fetchRoadmap = async () => {
+    try {
+      const res = await fetch("/api/student/roadmap");
+      const data = await res.json();
+      if (data.success && data.playlist) {
+        setPlaylist(data.playlist);
+      }
+    } catch {
+      // fallback to mockData
+    }
+  };
+
+  const toggleTask = async (phaseIndex: number, taskId: string) => {
     const updated = [...playlist];
     const task = updated[phaseIndex].tasks.find(t => t.id === taskId);
     if (task) {
-      task.completed = !task.completed;
+      const nextCompleted = !task.completed;
+      task.completed = nextCompleted;
       setPlaylist(updated);
+
+      try {
+        await fetch("/api/student/roadmap", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ milestoneId: taskId, isCompleted: nextCompleted }),
+        });
+        toast(
+          nextCompleted
+            ? `Milestone "${task.title}" completed! Readiness score tracking updated.`
+            : `Milestone "${task.title}" marked as pending.`,
+          "success"
+        );
+      } catch (err) {
+        console.error("Failed to sync milestone", err);
+      }
     }
   };
 
@@ -136,6 +172,9 @@ export default function ActionRoadmapPage() {
           );
         })}
       </div>
+
+      {/* Recommended Online Courses & Certifications (SWAYAM / NPTEL / Skill India) */}
+      <RecommendedCoursesSection />
 
     </div>
   );

@@ -35,7 +35,7 @@ function renderResumeBadges(badges) {
 }
 
 const AI_SUGGESTIONS = [
-    { type:'green', icon:'✨', boost:'+12%', title:'Add MPOnline Hackathon Project', desc:'Include a 2-line project summary with quantified impact. e.g., "Built AI employability platform serving 500+ students in 48 hours."' },
+    { type:'green', icon:'✨', boost:'+12%', title:'Add AI Career Platform Project', desc:'Include a 2-line project summary with quantified impact. e.g., "Built AI employability platform serving 500+ students in 48 hours."' },
     { type:'blue',  icon:'📊', boost:'+9%',  title:'Quantify Internship Achievements', desc:'Replace "worked on database optimization" with "Reduced query response time by 40% using PostgreSQL indexing."' },
     { type:'green', icon:'🎙️', boost:'+8%',  title:'Add AI Interview Verified Score', desc:'Your AI score (8.8/10) can be added as a verified certification block on your resume for recruiter trust.' },
     { type:'amber', icon:'🎓', boost:'+6%',  title:'Include NPTEL Course Completion', desc:'Add the NPTEL Data Analytics certification you completed to your Education section.' },
@@ -134,7 +134,7 @@ function generateResumePDF() {
   <div>${(readiness?.verifiedBadges || ['Python & SQL','Data Structures','Git & GitHub']).map(b => `<span class="badge">${b}</span>`).join('')}</div>
 
   <div class="section-title">Academic Projects</div>
-  <p><strong>Viksit CareerBridge (MPOnline Hackathon 2026)</strong> — Built an AI-powered career readiness platform for MP Engineering graduates. Stack: HTML5, Vanilla JS, Firebase, Gemini AI. Serves 500+ students.</p>
+  <p><strong>Viksit CareerBridge</strong> — Built an AI-powered career readiness platform for MP Engineering graduates. Stack: HTML5, Vanilla JS, Firebase, Gemini AI. Serves 500+ students.</p>
   <p><strong>Data Analytics Dashboard (NPTEL Project)</strong> — Designed an interactive Power BI dashboard for retail sales data, reducing reporting time by 35%.</p>
 
   <div class="section-title">Education</div>

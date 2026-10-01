@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { 
   BarChart3, 
@@ -25,15 +25,71 @@ import {
   ChevronRight,
   Code2,
   Check,
-  Printer
+  Printer,
+  RotateCw,
+  Loader2
 } from "lucide-react";
 import { READINESS_BREAKDOWN, SIMULATION_MODULES } from "@/lib/mockData";
+import { useToast } from "@/components/Toast";
 
 export default function ReadinessScorePage() {
-  const data = READINESS_BREAKDOWN;
+  const { toast } = useToast();
+  const [overallScore, setOverallScore] = useState(READINESS_BREAKDOWN.overallScore);
+  const [analysisData, setAnalysisData] = useState<any>(READINESS_BREAKDOWN);
+  const [isRecalculating, setIsRecalculating] = useState(false);
   const modules = SIMULATION_MODULES;
-  const [activeTab, setActiveTab] = useState<"formula" | "modules" | "tiers" | "diagnostics">("formula");
+  const [activeTab, setActiveTab] = useState<"formula" | "modules" | "tiers" | "diagnostics" | "simulator">("formula");
   const [downloadNotice, setDownloadNotice] = useState(false);
+
+  // Interactive What-If Simulator States
+  const [simCoding, setSimCoding] = useState(90);
+  const [simAptitude, setSimAptitude] = useState(85);
+  const [simInterview, setSimInterview] = useState(84);
+  const [simCoreCs, setSimCoreCs] = useState(76);
+  const [simResume, setSimResume] = useState(88);
+  const simulatedComposite = Math.round(
+    simCoding * 0.35 + simAptitude * 0.20 + simInterview * 0.25 + simCoreCs * 0.10 + simResume * 0.10
+  );
+
+  const data = {
+    ...analysisData,
+    overallScore,
+  };
+
+  useEffect(() => {
+    async function loadScore() {
+      try {
+        const res = await fetch("/api/student/readiness-score");
+        const resData = await res.json();
+        if (resData.success && resData.analysis) {
+          setOverallScore(resData.analysis.overallScore || resData.analysis.compositeScore);
+          setAnalysisData(resData.analysis);
+        }
+      } catch (err) {
+        console.error("Failed to load readiness score", err);
+      }
+    }
+    loadScore();
+  }, []);
+
+  const handleRecalculate = async () => {
+    setIsRecalculating(true);
+    try {
+      const res = await fetch("/api/student/readiness-score", { method: "POST" });
+      const resData = await res.json();
+      if (resData.success && resData.analysis) {
+        setOverallScore(resData.analysis.overallScore || resData.analysis.compositeScore);
+        setAnalysisData(resData.analysis);
+        toast(`Readiness score recalculated! Current score: ${resData.analysis.overallScore || resData.analysis.compositeScore}%`, "success");
+      } else {
+        toast("Recalculation complete", "info");
+      }
+    } catch {
+      toast("Error recalculating score", "error");
+    } finally {
+      setIsRecalculating(false);
+    }
+  };
 
   const handleDownload = () => {
     setDownloadNotice(true);
@@ -130,6 +186,16 @@ export default function ReadinessScorePage() {
 
         <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
           <button
+            onClick={handleRecalculate}
+            disabled={isRecalculating}
+            className="px-3.5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm disabled:opacity-60"
+            title="Recalculate score based on completed modules and verified credentials"
+          >
+            {isRecalculating ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <RotateCw className="w-3.5 h-3.5" />}
+            <span>{isRecalculating ? "Recalculating..." : "Recalculate AI Score"}</span>
+          </button>
+
+          <button
             onClick={handleDownload}
             className="px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 text-slate-800 text-xs font-bold transition-all flex items-center gap-1.5 border border-slate-200 shadow-xs"
             title="Download official verified AI Readiness Certificate with SHA-256 seal"
@@ -179,7 +245,7 @@ export default function ReadinessScorePage() {
                   stroke="url(#readinessGrad)"
                   strokeWidth="16"
                   strokeDasharray="502.65"
-                  strokeDashoffset={502.65 - (data.overallScore / 100) * 502.65}
+                  strokeDashoffset={502.65 - (overallScore / 100) * 502.65}
                   strokeLinecap="round"
                   className="transition-all duration-1000 ease-out"
                 />
@@ -192,7 +258,7 @@ export default function ReadinessScorePage() {
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <span className="text-4xl font-black text-slate-900 leading-none">
-                  {data.overallScore}
+                  {overallScore}
                 </span>
                 <span className="text-[11px] font-extrabold text-slate-400 mt-1 uppercase tracking-wider">
                   Out of 100
@@ -306,6 +372,18 @@ export default function ReadinessScorePage() {
           <Zap className="w-3.5 h-3.5" />
           <span>AI Diagnostics &amp; Sub-Competency Matrix</span>
         </button>
+
+        <button
+          onClick={() => setActiveTab("simulator")}
+          className={`px-4 py-2 text-xs font-bold rounded-xl transition-all whitespace-nowrap flex items-center gap-1.5 ${
+            activeTab === "simulator"
+              ? "bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-500/20 font-black"
+              : "text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200"
+          }`}
+        >
+          <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+          <span>⚡ What-If Score Simulator &amp; Radar Benchmark</span>
+        </button>
       </div>
 
       {/* ========================================================
@@ -329,7 +407,7 @@ export default function ReadinessScorePage() {
           </div>
 
           <div className="space-y-4">
-            {data.categories.map((cat, idx) => (
+            {data.categories.map((cat: any, idx: number) => (
               <div key={idx} className="p-4 rounded-xl bg-slate-50/80 border border-slate-200/80 space-y-2.5 transition-all hover:bg-slate-50 hover:border-slate-300">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div className="flex items-center gap-2.5">
@@ -600,6 +678,324 @@ export default function ReadinessScorePage() {
               (Docker &amp; K8s). Allocating 4 hours in the Next.js/Docker sandbox in Skill-Gap Analysis will push composite score past 85%, 
               unlocking Cisco and Amazon campus drive shortlists.&quot;
             </p>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================
+          TAB 5: WHAT-IF SCORE SIMULATOR & RADAR BENCHMARK
+          ======================================================== */}
+      {activeTab === "simulator" && (
+        <div className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 mb-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                <span>Interactive Predictive Calibration Engine</span>
+              </div>
+              <h2 className="text-lg font-extrabold text-slate-900 flex items-center gap-2">
+                What-If Employability Simulator &amp; Tier-1 Radar Matrix
+              </h2>
+              <p className="text-xs text-slate-500">
+                Adjust module scores below to simulate your real-time composite score change and unlock corporate placement drives.
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                setSimCoding(90);
+                setSimAptitude(85);
+                setSimInterview(84);
+                setSimCoreCs(76);
+                setSimResume(88);
+                toast("Reset simulator to verified actual test scores!", "info");
+              }}
+              className="px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 transition-colors flex items-center gap-1.5 w-fit"
+            >
+              <RotateCw className="w-3.5 h-3.5 text-slate-500" />
+              <span>Reset to Verified Actuals</span>
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            {/* Left: Interactive Sliders */}
+            <div className="space-y-4">
+              <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-700 mb-2">
+                Calibrate Dimension Scores
+              </h3>
+
+              {/* Slider 1: Coding & DSA */}
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                    <Code2 className="w-4 h-4 text-blue-600" />
+                    <span>Coding Assessment &amp; DSA (35% Weight)</span>
+                  </label>
+                  <span className="text-sm font-black text-blue-700">{simCoding}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="40"
+                  max="100"
+                  value={simCoding}
+                  onChange={(e) => setSimCoding(parseInt(e.target.value))}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                />
+                <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+                  <span>40% (Fail Threshold)</span>
+                  <span>Verified Actual: 90%</span>
+                  <span>100% (Perfect)</span>
+                </div>
+              </div>
+
+              {/* Slider 2: Quantitative & Aptitude */}
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                    <PieChart className="w-4 h-4 text-emerald-600" />
+                    <span>Quantitative &amp; Cognitive Aptitude (20% Weight)</span>
+                  </label>
+                  <span className="text-sm font-black text-emerald-700">{simAptitude}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="40"
+                  max="100"
+                  value={simAptitude}
+                  onChange={(e) => setSimAptitude(parseInt(e.target.value))}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
+                />
+                <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+                  <span>40% (Base)</span>
+                  <span>Verified Actual: 85%</span>
+                  <span>100% (Perfect)</span>
+                </div>
+              </div>
+
+              {/* Slider 3: AI Mock Interview & Speech */}
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                    <MessageSquare className="w-4 h-4 text-purple-600" />
+                    <span>Voice Mock Interview &amp; Logic (25% Weight)</span>
+                  </label>
+                  <span className="text-sm font-black text-purple-700">{simInterview}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="40"
+                  max="100"
+                  value={simInterview}
+                  onChange={(e) => setSimInterview(parseInt(e.target.value))}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+                />
+                <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+                  <span>40% (Needs Polish)</span>
+                  <span>Verified Actual: 84%</span>
+                  <span>100% (Executive Clarity)</span>
+                </div>
+              </div>
+
+              {/* Slider 4: Core CS & System Design */}
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                    <Cpu className="w-4 h-4 text-amber-600" />
+                    <span>Core OS, Networks &amp; System Design (10% Weight)</span>
+                  </label>
+                  <span className="text-sm font-black text-amber-700">{simCoreCs}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="40"
+                  max="100"
+                  value={simCoreCs}
+                  onChange={(e) => setSimCoreCs(parseInt(e.target.value))}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600"
+                />
+                <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+                  <span>40% (Basic)</span>
+                  <span>Verified Actual: 76%</span>
+                  <span>100% (High Scalability)</span>
+                </div>
+              </div>
+
+              {/* Slider 5: ATS Resume Keyword Density */}
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                    <FileCode className="w-4 h-4 text-teal-600" />
+                    <span>ATS Resume Keyword Density (10% Weight)</span>
+                  </label>
+                  <span className="text-sm font-black text-teal-700">{simResume}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="40"
+                  max="100"
+                  value={simResume}
+                  onChange={(e) => setSimResume(parseInt(e.target.value))}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600"
+                />
+                <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+                  <span>40% (Generic)</span>
+                  <span>Verified Actual: 88%</span>
+                  <span>100% (Role Aligned)</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Real-Time Projected Score & Drive Unlocks */}
+            <div className="space-y-5">
+              
+              {/* Projected Score Card */}
+              <div className="p-6 rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white shadow-xl border border-indigo-500/20 text-center relative overflow-hidden">
+                <div className="text-[11px] font-bold text-indigo-300 uppercase tracking-widest">
+                  Simulated Predictive Placement Score
+                </div>
+                <div className="text-5xl font-black text-white mt-2 flex items-center justify-center gap-2">
+                  <span>{simulatedComposite}</span>
+                  <span className="text-sm font-bold text-emerald-400">/ 100</span>
+                </div>
+
+                <div className="flex items-center justify-center gap-2 mt-2">
+                  <span className={`text-xs font-black px-3 py-0.5 rounded-full ${
+                    simulatedComposite >= 84 
+                      ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
+                      : "bg-amber-500/20 text-amber-400 border border-amber-500/40"
+                  }`}>
+                    {simulatedComposite >= 84 ? "Tier-1 Super Dream Eligible" : "Tier-2 Core Standard"}
+                  </span>
+                  <span className="text-xs text-slate-400">
+                    Delta: {simulatedComposite >= 84 ? `+${simulatedComposite - 84}%` : `${simulatedComposite - 84}%`} vs Baseline
+                  </span>
+                </div>
+              </div>
+
+              {/* Dynamic Company Drive Unlocks */}
+              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-800">
+                    Live Drive Eligibility Under Current Simulation
+                  </h4>
+                  <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    Dynamic Matching
+                  </span>
+                </div>
+
+                <div className="space-y-2">
+                  {/* Company 1 */}
+                  <div className="p-3 rounded-xl bg-white border border-slate-200 flex items-center justify-between">
+                    <div>
+                      <div className="text-xs font-bold text-slate-900">TCS Digital • Full Stack Trainee</div>
+                      <div className="text-[10px] text-slate-400">Cutoff: 75% Score • CTC: ₹7.5 LPA</div>
+                    </div>
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800 flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3" /> 100% Unlocked
+                    </span>
+                  </div>
+
+                  {/* Company 2 */}
+                  <div className="p-3 rounded-xl bg-white border border-slate-200 flex items-center justify-between">
+                    <div>
+                      <div className="text-xs font-bold text-slate-900">Cisco • Network Software Engineer</div>
+                      <div className="text-[10px] text-slate-400">Cutoff: 82% Score • CTC: ₹12.0 LPA</div>
+                    </div>
+                    <span className={`px-2.5 py-1 rounded-full text-[10px] font-black flex items-center gap-1 ${
+                      simulatedComposite >= 82
+                        ? "bg-emerald-100 text-emerald-800"
+                        : "bg-slate-100 text-slate-500"
+                    }`}>
+                      {simulatedComposite >= 82 ? <CheckCircle2 className="w-3 h-3" /> : null}
+                      {simulatedComposite >= 82 ? "Unlocked" : `Needs ${82 - simulatedComposite}% more`}
+                    </span>
+                  </div>
+
+                  {/* Company 3 */}
+                  <div className="p-3 rounded-xl bg-white border border-slate-200 flex items-center justify-between">
+                    <div>
+                      <div className="text-xs font-bold text-slate-900">Microsoft • Cloud Solution Architect</div>
+                      <div className="text-[10px] text-slate-400">Cutoff: 88% Score • CTC: ₹18.5 LPA</div>
+                    </div>
+                    <span className={`px-2.5 py-1 rounded-full text-[10px] font-black flex items-center gap-1 ${
+                      simulatedComposite >= 88
+                        ? "bg-emerald-100 text-emerald-800"
+                        : "bg-amber-100 text-amber-800"
+                    }`}>
+                      {simulatedComposite >= 88 ? <CheckCircle2 className="w-3 h-3 text-emerald-600" /> : <AlertTriangle className="w-3 h-3" />}
+                      {simulatedComposite >= 88 ? "Unlocked 🎉" : `Needs ${88 - simulatedComposite}% more`}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Spider / Radar Comparison Chart SVG */}
+              <div className="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs space-y-3">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-800">
+                    Candidate vs Tier-1 Industry Benchmark Radar
+                  </h4>
+                  <div className="flex items-center gap-3 text-[10px] font-bold">
+                    <span className="flex items-center gap-1 text-blue-600">
+                      <span className="w-2 h-2 rounded-full bg-blue-600"></span> Candidate
+                    </span>
+                    <span className="flex items-center gap-1 text-emerald-600">
+                      <span className="w-2 h-2 rounded-full bg-emerald-600"></span> Tier-1 Cutoff
+                    </span>
+                  </div>
+                </div>
+
+                {/* Radar SVG Visualizer */}
+                <div className="flex justify-center py-2">
+                  <svg className="w-64 h-64" viewBox="0 0 240 240">
+                    {/* Background Concentric Pentagons */}
+                    {[1, 0.75, 0.5, 0.25].map((scale, i) => (
+                      <polygon
+                        key={i}
+                        points="120,30 205,92 173,190 67,190 35,92"
+                        transform={`scale(${scale}) translate(${120 * (1 - scale)}, ${120 * (1 - scale)})`}
+                        fill="none"
+                        stroke="#E2E8F0"
+                        strokeWidth="1"
+                      />
+                    ))}
+
+                    {/* Radial Axis Lines */}
+                    <line x1="120" y1="120" x2="120" y2="30" stroke="#CBD5E1" strokeWidth="1" />
+                    <line x1="120" y1="120" x2="205" y2="92" stroke="#CBD5E1" strokeWidth="1" />
+                    <line x1="120" y1="120" x2="173" y2="190" stroke="#CBD5E1" strokeWidth="1" />
+                    <line x1="120" y1="120" x2="67" y2="190" stroke="#CBD5E1" strokeWidth="1" />
+                    <line x1="120" y1="120" x2="35" y2="92" stroke="#CBD5E1" strokeWidth="1" />
+
+                    {/* Benchmark Polygon (Green, 80% cutoff) */}
+                    <polygon
+                      points="120,48 188,97 162,176 78,176 52,97"
+                      fill="rgba(16, 185, 129, 0.12)"
+                      stroke="#10B981"
+                      strokeWidth="2"
+                    />
+
+                    {/* Candidate Simulated Polygon (Blue, dynamic) */}
+                    <polygon
+                      points={`120,${120 - (simCoding / 100) * 90} ${120 + (simAptitude / 100) * 85},${120 - (simAptitude / 100) * 28} ${120 + (simInterview / 100) * 53},${120 + (simInterview / 100) * 70} ${120 - (simCoreCs / 100) * 53},${120 + (simCoreCs / 100) * 70} ${120 - (simResume / 100) * 85},${120 - (simResume / 100) * 28}`}
+                      fill="rgba(59, 130, 246, 0.25)"
+                      stroke="#2563EB"
+                      strokeWidth="2.5"
+                    />
+
+                    {/* Axis Labels */}
+                    <text x="120" y="20" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#1E293B">Coding ({simCoding}%)</text>
+                    <text x="212" y="95" textAnchor="start" fontSize="9" fontWeight="bold" fill="#1E293B">Aptitude ({simAptitude}%)</text>
+                    <text x="180" y="205" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#1E293B">Interview ({simInterview}%)</text>
+                    <text x="60" y="205" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#1E293B">Core CS ({simCoreCs}%)</text>
+                    <text x="25" y="95" textAnchor="end" fontSize="9" fontWeight="bold" fill="#1E293B">ATS ({simResume}%)</text>
+                  </svg>
+                </div>
+              </div>
+
+            </div>
+
           </div>
         </div>
       )}

@@ -132,20 +132,23 @@ export function StudentSidebar() {
 
       {/* Mini Quick Score Widget & DigiLocker Badge */}
       <div className="mt-6 pt-4 border-t border-slate-100 hidden lg:block space-y-3">
-        <div className="bg-gradient-to-br from-blue-50 to-indigo-50/70 rounded-2xl p-3.5 border border-blue-200/80 text-slate-800">
+        <Link 
+          href="/student/profile"
+          className="block bg-gradient-to-br from-blue-50 to-indigo-50/70 rounded-2xl p-3.5 border border-blue-200/80 text-slate-800 hover:border-blue-300 transition-all group"
+        >
           <div className="flex items-center justify-between text-xs font-bold text-blue-950 mb-1">
             <span className="flex items-center gap-1.5">
               <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
-              DigiLocker Vault
+              Placement Passport
             </span>
             <span className="text-[10px] font-extrabold text-emerald-700 bg-emerald-100/90 px-2 py-0.5 rounded-full border border-emerald-200">
-              5 Verified
+              Verified
             </span>
           </div>
           <p className="text-[11px] text-slate-600 font-medium">
-            10th, 12th, B.Tech &amp; Aadhaar authenticated with SHA-256 signatures.
+            10th, 12th, B.Tech &amp; Aadhaar authenticated with SHA-256 seal.
           </p>
-        </div>
+        </Link>
 
         <div className="bg-gradient-to-br from-emerald-50 to-teal-50/70 rounded-2xl p-4 border border-emerald-100 text-slate-800">
           <div className="flex items-center justify-between text-xs font-bold text-slate-700 mb-2">

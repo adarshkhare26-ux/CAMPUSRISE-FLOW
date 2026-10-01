@@ -11,18 +11,43 @@ import {
   ShieldCheck, 
   FileSpreadsheet, 
   Sparkles,
-  GraduationCap
+  GraduationCap,
+  Loader2
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
+import { useToast } from "@/components/Toast";
 
 export default function TpoLoginPage() {
   const router = useRouter();
+  const { toast } = useToast();
   const [email, setEmail] = useState("tpo.director@rgpv.ac.in");
   const [password, setPassword] = useState("admin123");
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  const handleTpoSignIn = (e: React.FormEvent) => {
+  const handleTpoSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    router.push("/tpo/dashboard");
+    setIsLoggingIn(true);
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, role: "TPO" }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        if (typeof window !== "undefined") {
+          localStorage.setItem("campusrise_user", JSON.stringify(data.user));
+        }
+        toast(`Welcome back, ${data.user?.name || "TPO Administrator"}!`, "success");
+        router.push("/tpo/dashboard");
+      } else {
+        toast(data.message || "Invalid credentials", "error");
+      }
+    } catch {
+      toast("Error connecting to auth service", "error");
+    } finally {
+      setIsLoggingIn(false);
+    }
   };
 
   return (

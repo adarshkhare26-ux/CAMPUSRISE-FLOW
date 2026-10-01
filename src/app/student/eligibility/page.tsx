@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { 
   CheckCircle2, 
@@ -12,14 +12,55 @@ import {
   GraduationCap, 
   Briefcase,
   Sparkles,
-  ShieldCheck
+  ShieldCheck,
+  Check,
+  Loader2
 } from "lucide-react";
 import { COMPANY_DRIVES, INITIAL_STUDENT_PROFILE } from "@/lib/mockData";
+import { useToast } from "@/components/Toast";
+import { checkBranchMatch } from "@/lib/eligibility";
 
 export default function DriveEligibilityPage() {
+  const { toast } = useToast();
+  const [drives, setDrives] = useState<any[]>(COMPANY_DRIVES);
   const [testCgpa, setTestCgpa] = useState(INITIAL_STUDENT_PROFILE.cgpa);
   const [testBacklogs, setTestBacklogs] = useState(INITIAL_STUDENT_PROFILE.activeBacklogs);
   const [selectedBranch, setSelectedBranch] = useState("CSE");
+  const [appliedDrives, setAppliedDrives] = useState<string[]>([]);
+  const [applyingId, setApplyingId] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/api/student/placements")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.drives) {
+          setDrives(data.drives);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const handleQuickApply = async (driveId: string, company: string) => {
+    setApplyingId(driveId);
+    try {
+      const res = await fetch("/api/student/placements", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ driveId }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setAppliedDrives((prev) => [...prev, driveId]);
+        toast(`Application submitted to ${company}!`, "success");
+      } else {
+        toast(data.message || "Eligibility criteria check failed", "error");
+      }
+    } catch {
+      toast("Error submitting application", "error");
+    } finally {
+      setApplyingId(null);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -149,17 +190,21 @@ export default function DriveEligibilityPage() {
 
       {/* Drives Evaluation Table / Cards */}
       <div className="space-y-4">
-        {COMPANY_DRIVES.map((drive) => {
+        {drives.map((drive) => {
+          const minCgpa = drive.eligibility?.minCgpa ?? drive.minCgpa ?? 7.0;
+          const maxBacklogs = drive.eligibility?.maxBacklogs ?? drive.maxBacklogs ?? 0;
+          const allowedBranches: string[] = drive.eligibility?.branches ?? drive.allowedBranches ?? ["CSE", "IT"];
+
           // Check conditions
-          const cgpaEligible = testCgpa >= drive.minCgpa;
-          const backlogEligible = testBacklogs <= drive.maxBacklogs;
-          const branchEligible = drive.allowedBranches.includes(selectedBranch);
+          const cgpaEligible = testCgpa >= minCgpa;
+          const backlogEligible = testBacklogs <= maxBacklogs;
+          const branchEligible = checkBranchMatch(selectedBranch, allowedBranches);
           const isEligible = cgpaEligible && backlogEligible && branchEligible;
 
           const failReasons: string[] = [];
-          if (!cgpaEligible) failReasons.push(`CGPA is ${testCgpa} (Minimum required: ${drive.minCgpa})`);
-          if (!backlogEligible) failReasons.push(`Active backlogs: ${testBacklogs} (Allowed: max ${drive.maxBacklogs})`);
-          if (!branchEligible) failReasons.push(`Branch '${selectedBranch}' is not in allowed list [${drive.allowedBranches.join(", ")}]`);
+          if (!cgpaEligible) failReasons.push(`CGPA is ${testCgpa} (Minimum required: ${minCgpa})`);
+          if (!backlogEligible) failReasons.push(`Active backlogs: ${testBacklogs} (Allowed: max ${maxBacklogs})`);
+          if (!branchEligible) failReasons.push(`Branch '${selectedBranch}' is not in allowed list [${allowedBranches.join(", ")}]`);
 
           return (
             <div
@@ -188,9 +233,9 @@ export default function DriveEligibilityPage() {
                       <span className="font-extrabold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
                         Package: {drive.ctc}
                       </span>
-                      <span>Cutoff: <strong>{drive.minCgpa} CGPA</strong></span>
-                      <span>Max Backlogs: <strong>{drive.maxBacklogs}</strong></span>
-                      <span>Branches: <strong>{drive.allowedBranches.join(", ")}</strong></span>
+                      <span>Cutoff: <strong>{minCgpa} CGPA</strong></span>
+                      <span>Max Backlogs: <strong>{maxBacklogs}</strong></span>
+                      <span>Branches: <strong>{allowedBranches.join(", ")}</strong></span>
                     </div>
                   </div>
                 </div>
@@ -198,9 +243,29 @@ export default function DriveEligibilityPage() {
                 {/* Right Status Badge */}
                 <div className="flex flex-col md:items-end gap-2 shrink-0">
                   {isEligible ? (
-                    <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-extrabold shadow-sm">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                      <span>100% Eligible</span>
+                    <div className="flex items-center gap-2">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-extrabold shadow-sm">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                        <span>Eligible</span>
+                      </div>
+                      <button
+                        onClick={() => handleQuickApply(drive.id, drive.companyName)}
+                        disabled={appliedDrives.includes(drive.id) || applyingId === drive.id}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1 shadow-sm ${
+                          appliedDrives.includes(drive.id)
+                            ? "bg-slate-100 text-slate-600 border border-slate-200 cursor-default"
+                            : "bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-500/20"
+                        }`}
+                      >
+                        {applyingId === drive.id ? (
+                          <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        ) : appliedDrives.includes(drive.id) ? (
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                        ) : (
+                          <Check className="w-3.5 h-3.5" />
+                        )}
+                        <span>{appliedDrives.includes(drive.id) ? "Applied" : "Apply Now"}</span>
+                      </button>
                     </div>
                   ) : (
                     <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-red-50 border border-red-300 text-red-800 text-xs font-extrabold shadow-sm">

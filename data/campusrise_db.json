@@ -1,0 +1,1586 @@
+{
+  "users": [
+    {
+      "id": "usr-student-1",
+      "email": "priya.sharma@rgpv.ac.in",
+      "password": "student123",
+      "name": "Priya Sharma",
+      "role": "STUDENT",
+      "designationOrBranch": "Computer Science & Engineering",
+      "collegeOrCompany": "RGPV State Technical University",
+      "avatar": "PS",
+      "createdAt": "2026-01-10T00:00:00.000Z"
+    },
+    {
+      "id": "usr-tpo-1",
+      "email": "tpo.director@rgpv.ac.in",
+      "password": "admin123",
+      "name": "Dr. Alok Verma",
+      "role": "TPO",
+      "designationOrBranch": "Head Training & Placement Officer",
+      "collegeOrCompany": "RGPV University Campus",
+      "avatar": "AV",
+      "createdAt": "2025-11-01T00:00:00.000Z"
+    },
+    {
+      "id": "usr-company-1",
+      "email": "recruiter@tcs.com",
+      "password": "company123",
+      "name": "Vikram Malhotra",
+      "role": "COMPANY",
+      "designationOrBranch": "Lead Campus Recruiter",
+      "collegeOrCompany": "Tata Consultancy Services",
+      "avatar": "VM",
+      "createdAt": "2025-12-05T00:00:00.000Z"
+    },
+    {
+      "id": "usr-alumni-1",
+      "email": "aman.gupta@google.com",
+      "password": "alumni123",
+      "name": "Aditya Khare",
+      "role": "ALUMNI",
+      "designationOrBranch": "Software Engineer II",
+      "collegeOrCompany": "Microsoft India (2023 Batch)",
+      "avatar": "AK",
+      "createdAt": "2026-01-02T00:00:00.000Z"
+    }
+  ],
+  "activeStudentProfile": {
+    "name": "Priya Sharma",
+    "rollNo": "0101CS221045",
+    "email": "priya.sharma@rgpv.ac.in",
+    "college": "Rajiv Gandhi Proudyogiki Vishwavidyalaya (RGPV)",
+    "branch": "Computer Science & Engineering",
+    "gradYear": 2026,
+    "cgpa": 8.42,
+    "activeBacklogs": 0,
+    "tenthPct": 91.4,
+    "twelfthPct": 88.6,
+    "skills": [
+      "React.js",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "Data Structures",
+      "Tailwind CSS",
+      "Docker",
+      "System Design & LLD"
+    ],
+    "projects": [
+      {
+        "title": "CampusRise ERP & Vault",
+        "tech": "Next.js, Prisma, PostgreSQL",
+        "desc": "Architected multi-role placement ERP with real-time NIRF data compliance."
+      },
+      {
+        "title": "Distributed Task Pipeline",
+        "tech": "Go, Redis, Docker",
+        "desc": "Built high-throughput message consumer handling 5,000 tasks/min."
+      }
+    ],
+    "internships": [
+      {
+        "company": "MP Cloud Solutions",
+        "role": "Backend Engineering Intern",
+        "duration": "May 2025 - Aug 2025",
+        "impact": "Reduced API latency by 34% across 8 public citizen services."
+      }
+    ],
+    "certifications": [
+      "AWS Certified Cloud Practitioner (2025)",
+      "NPTEL Elite Certificate in Algorithms"
+    ],
+    "resumeUploaded": true,
+    "resumeFileName": "Priya_Sharma_Resume_2026_Verified.pdf",
+    "digiLocker": {
+      "isConnected": true,
+      "digiLockerId": "DL-2026-RGPV-88219",
+      "linkedAadhaarMasked": "XXXX-XXXX-8421",
+      "apaarId": "APAAR-6291-0941-8812",
+      "fullName": "Priya Sharma",
+      "lastSyncedAt": "Just now",
+      "verifiedCount": 5,
+      "tamperProofSealId": "DIGI-GOV-IN-7889102-RGPV",
+      "documents": [
+        {
+          "id": "doc-1",
+          "name": "Class X Secondary School Certificate & Marksheet",
+          "category": "Academic",
+          "issuer": "Central Board of Secondary Education (CBSE)",
+          "docType": "10th_marksheet",
+          "docNumber": "CBSE/X/2020/7192841",
+          "dateIssued": "15 Jul 2020",
+          "verificationStatus": "VERIFIED",
+          "fileSize": "1.4 MB",
+          "summary": "Aggregate: 91.4% • Science (94), Mathematics (95), English (89)",
+          "verifiedFields": {
+            "Board": "CBSE (New Delhi)",
+            "Roll Number": "7192841",
+            "Passing Year": "2020",
+            "Aggregate Score": "91.4%",
+            "Result Status": "PASS / FIRST DIVISION"
+          },
+          "digitalSignature": {
+            "signer": "Controller of Examinations, CBSE",
+            "certSerial": "CBSE-CA-2020-09881",
+            "timestamp": "2020-07-15T10:14:02Z",
+            "hash": "SHA256: 9b2d8f1e72a44c9b0e21a8d43c22b918"
+          }
+        },
+        {
+          "id": "doc-2",
+          "name": "Class XII Senior School Certificate & Marksheet",
+          "category": "Academic",
+          "issuer": "Central Board of Secondary Education (CBSE)",
+          "docType": "12th_marksheet",
+          "docNumber": "CBSE/XII/2022/8821903",
+          "dateIssued": "22 Jul 2022",
+          "verificationStatus": "VERIFIED",
+          "fileSize": "1.6 MB",
+          "summary": "Aggregate: 88.6% • Physics (88), Chemistry (86), Mathematics (92), CS (94)",
+          "verifiedFields": {
+            "Board": "CBSE (New Delhi)",
+            "Stream": "Science (PCM + Computer Science)",
+            "Roll Number": "8821903",
+            "Passing Year": "2022",
+            "Aggregate Score": "88.6%"
+          },
+          "digitalSignature": {
+            "signer": "Controller of Examinations, CBSE",
+            "certSerial": "CBSE-CA-2022-77192",
+            "timestamp": "2022-07-22T14:32:18Z",
+            "hash": "SHA256: c3e192a8b7d420f18c399b1a5e88d014"
+          }
+        },
+        {
+          "id": "doc-3",
+          "name": "B.Tech Official Transcripts & Semester Grade Sheets (Sem 1-6)",
+          "category": "Academic",
+          "issuer": "Rajiv Gandhi Proudyogiki Vishwavidyalaya (NAD)",
+          "docType": "degree_transcript",
+          "docNumber": "RGPV/E-TR/2025/0101CS221045",
+          "dateIssued": "18 Jan 2026",
+          "verificationStatus": "VERIFIED",
+          "fileSize": "3.2 MB",
+          "summary": "Cumulative CGPA: 8.42 / 10.0 • 0 Active Backlogs • 142 Credits Earned",
+          "verifiedFields": {
+            "University": "RGPV Bhopal (State Technical University)",
+            "Enrollment / Roll No": "0101CS221045",
+            "Branch": "Computer Science & Engineering",
+            "Current CGPA": "8.42",
+            "Active Backlogs": "0 (Zero)",
+            "History of Arrears": "CLEAN"
+          },
+          "digitalSignature": {
+            "signer": "Registrar / Examination Controller, RGPV",
+            "certSerial": "RGPV-PKI-2026-44102",
+            "timestamp": "2026-01-18T09:45:00Z",
+            "hash": "SHA256: 4a9f77e20b88c4d1192e44a90881bc33"
+          }
+        },
+        {
+          "id": "doc-4",
+          "name": "Aadhaar Identity Verification (UIDAI e-Aadhaar)",
+          "category": "Identity",
+          "issuer": "Unique Identification Authority of India (UIDAI)",
+          "docType": "aadhaar",
+          "docNumber": "UIDAI/VERIFIED/8421",
+          "dateIssued": "10 Feb 2026",
+          "verificationStatus": "VERIFIED",
+          "fileSize": "890 KB",
+          "summary": "Identity & Biometric Authentication Token Verified • KYC Complete",
+          "verifiedFields": {
+            "Full Name": "Priya Sharma",
+            "Aadhaar Number": "XXXX-XXXX-8421",
+            "DOB": "14/08/2004",
+            "Gender": "Female",
+            "Authentication Mode": "Aadhaar OTP + MeriPehchan Token"
+          },
+          "digitalSignature": {
+            "signer": "e-Mudhra Sub-CA for UIDAI Government of India",
+            "certSerial": "UIDAI-DS-2026-11920",
+            "timestamp": "2026-02-10T08:12:45Z",
+            "hash": "SHA256: 77a0bc4419e288fa019488bc11099ade"
+          }
+        },
+        {
+          "id": "doc-5",
+          "name": "APAAR / Academic Bank of Credits (ABC ID Card)",
+          "category": "Statutory",
+          "issuer": "National Academic Depository (Ministry of Education, GoI)",
+          "docType": "apaar_abc",
+          "docNumber": "APAAR-6291-0941-8812",
+          "dateIssued": "02 Jan 2026",
+          "verificationStatus": "VERIFIED",
+          "fileSize": "650 KB",
+          "summary": "142 Academic Credits Verified & Deposited in Central National Ledger",
+          "verifiedFields": {
+            "APAAR ID": "APAAR-6291-0941-8812",
+            "Total Credits Deposited": "142 Credits",
+            "Eligible for Placement": "Yes (NEP 2020 Compliant)",
+            "Institution": "RGPV University Bhopal"
+          },
+          "digitalSignature": {
+            "signer": "National Academic Depository (NAD) Signing Authority",
+            "certSerial": "NAD-MOE-2026-00412",
+            "timestamp": "2026-01-02T11:20:10Z",
+            "hash": "SHA256: 12f488a09bc332e184aa990177df2301"
+          }
+        }
+      ]
+    }
+  },
+  "activeCareerTargetId": "sde",
+  "studentsList": [
+    {
+      "roll": "0101CS221045",
+      "name": "Priya Sharma",
+      "branch": "CSE",
+      "cgpa": 8.42,
+      "backlogs": 0,
+      "readiness": 84,
+      "status": "Eligible (1 Offer)",
+      "verified": true,
+      "email": "priya.sharma@rgpv.ac.in",
+      "targetRole": "Software Development Engineer (SDE)"
+    },
+    {
+      "roll": "0101CS221088",
+      "name": "Rahul Verma",
+      "branch": "CSE",
+      "cgpa": 8.89,
+      "backlogs": 0,
+      "readiness": 91,
+      "status": "Placed (TCS Digital)",
+      "verified": true,
+      "email": "rahul.v@rgpv.ac.in",
+      "targetRole": "Software Development Engineer (SDE)"
+    },
+    {
+      "roll": "0101IT221012",
+      "name": "Ananya Patel",
+      "branch": "IT",
+      "cgpa": 7.95,
+      "backlogs": 0,
+      "readiness": 82,
+      "status": "Shortlisted (Infosys)",
+      "verified": true,
+      "email": "ananya.p@rgpv.ac.in",
+      "targetRole": "Data Analyst & Business Intelligence"
+    },
+    {
+      "roll": "0101EC221034",
+      "name": "Devendra Soni",
+      "branch": "ECE",
+      "cgpa": 6.84,
+      "backlogs": 1,
+      "readiness": 68,
+      "status": "Backlog Restriction (Intervention Needed)",
+      "verified": false,
+      "email": "devendra.s@rgpv.ac.in",
+      "targetRole": "Cyber Security & Embedded Systems"
+    },
+    {
+      "roll": "0101CS221102",
+      "name": "Sanya Kothari",
+      "branch": "CSE",
+      "cgpa": 9.15,
+      "backlogs": 0,
+      "readiness": 94,
+      "status": "Placed (Infosys Power)",
+      "verified": true,
+      "email": "sanya.k@rgpv.ac.in",
+      "targetRole": "Software Development Engineer (SDE)"
+    },
+    {
+      "roll": "0101IT221067",
+      "name": "Manish Tiwari",
+      "branch": "IT",
+      "cgpa": 7.45,
+      "backlogs": 0,
+      "readiness": 76,
+      "status": "Assessment Cleared",
+      "verified": true,
+      "email": "manish.t@rgpv.ac.in",
+      "targetRole": "Cloud & DevOps Architect (SRE)"
+    },
+    {
+      "roll": "0101ME221019",
+      "name": "Rajesh Kumar",
+      "branch": "ME",
+      "cgpa": 7.2,
+      "backlogs": 0,
+      "readiness": 65,
+      "status": "Seeking Core IT Bridge",
+      "verified": true,
+      "email": "rajesh.k@rgpv.ac.in",
+      "targetRole": "Software Development Engineer (SDE)"
+    },
+    {
+      "roll": "0101EC221078",
+      "name": "Megha Chouhan",
+      "branch": "ECE",
+      "cgpa": 8.35,
+      "backlogs": 0,
+      "readiness": 85,
+      "status": "Shortlisted (Cisco Systems)",
+      "verified": true,
+      "email": "megha.c@rgpv.ac.in",
+      "targetRole": "Cyber Security & Embedded Systems"
+    },
+    {
+      "roll": "0101CS221015",
+      "name": "Arjun Nambiar",
+      "branch": "CSE",
+      "cgpa": 8.62,
+      "backlogs": 0,
+      "readiness": 89,
+      "status": "Interview Scheduled (Persistent)",
+      "verified": true,
+      "email": "arjun.n@rgpv.ac.in",
+      "targetRole": "Cloud & DevOps Architect (SRE)"
+    },
+    {
+      "roll": "0101CE221008",
+      "name": "Vikram Bundela",
+      "branch": "CE",
+      "cgpa": 6.4,
+      "backlogs": 2,
+      "readiness": 54,
+      "status": "Intervention Needed (Aptitude & Backlog)",
+      "verified": false,
+      "email": "vikram.b@rgpv.ac.in",
+      "targetRole": "Government & Public Sector Engineering"
+    },
+    {
+      "roll": "0101CS221130",
+      "name": "Ritika Sen",
+      "branch": "CSE",
+      "cgpa": 8.78,
+      "backlogs": 0,
+      "readiness": 90,
+      "status": "Placed (MPSeDC)",
+      "verified": true,
+      "email": "ritika.s@rgpv.ac.in",
+      "targetRole": "Data Analyst & Business Intelligence"
+    },
+    {
+      "roll": "0101IT221095",
+      "name": "Mohit Jain",
+      "branch": "IT",
+      "cgpa": 7.82,
+      "backlogs": 0,
+      "readiness": 79,
+      "status": "In Drive Pipeline",
+      "verified": true,
+      "email": "mohit.j@rgpv.ac.in",
+      "targetRole": "Software Development Engineer (SDE)"
+    },
+    {
+      "roll": "0101EC221041",
+      "name": "Pooja Trivedi",
+      "branch": "ECE",
+      "cgpa": 7.6,
+      "backlogs": 0,
+      "readiness": 77,
+      "status": "Eligible for Dream",
+      "verified": true,
+      "email": "pooja.t@rgpv.ac.in",
+      "targetRole": "Cyber Security & Embedded Systems"
+    },
+    {
+      "roll": "0101ME221055",
+      "name": "Sunil Rathore",
+      "branch": "ME",
+      "cgpa": 6.9,
+      "backlogs": 1,
+      "readiness": 61,
+      "status": "Intervention Needed (Skill Gap)",
+      "verified": false,
+      "email": "sunil.r@rgpv.ac.in",
+      "targetRole": "Government & Public Sector Engineering"
+    },
+    {
+      "roll": "0101CS221060",
+      "name": "Kunal Bansal",
+      "branch": "CSE",
+      "cgpa": 8.92,
+      "backlogs": 0,
+      "readiness": 92,
+      "status": "Placed (Cisco Systems)",
+      "verified": true,
+      "email": "kunal.b@rgpv.ac.in",
+      "targetRole": "Software Development Engineer (SDE)"
+    }
+  ],
+  "drives": [
+    {
+      "id": "drive-1",
+      "companyName": "Tata Consultancy Services (TCS)",
+      "logo": "TC",
+      "role": "Systems Engineer (Digital & Prime)",
+      "ctc": "₹7.2 - ₹9.5 LPA",
+      "minCgpa": 7.2,
+      "maxBacklogs": 0,
+      "allowedBranches": [
+        "CSE",
+        "IT",
+        "AI_DS"
+      ],
+      "deadline": "2026-10-15",
+      "stage": "Interview"
+    },
+    {
+      "id": "drive-2",
+      "companyName": "Infosys Special Economic Zone",
+      "logo": "IN",
+      "role": "Specialist Programmer (Power Programmer)",
+      "ctc": "₹9.5 LPA",
+      "minCgpa": 7.5,
+      "maxBacklogs": 0,
+      "allowedBranches": [
+        "CSE",
+        "IT"
+      ],
+      "deadline": "2026-10-22",
+      "stage": "Shortlisted"
+    },
+    {
+      "id": "drive-3",
+      "companyName": "Cisco Systems India",
+      "logo": "CS",
+      "role": "Technical Consulting Engineer",
+      "ctc": "₹14.8 LPA",
+      "minCgpa": 8,
+      "maxBacklogs": 0,
+      "allowedBranches": [
+        "CSE",
+        "IT",
+        "ECE"
+      ],
+      "deadline": "2026-11-05",
+      "stage": "Assessment"
+    },
+    {
+      "id": "drive-4",
+      "companyName": "MP State Electronics Dev Corp (MPSeDC)",
+      "logo": "MP",
+      "role": "GovTech Digital Trainee Fellow",
+      "ctc": "₹6.0 LPA",
+      "minCgpa": 6.5,
+      "maxBacklogs": 1,
+      "allowedBranches": [
+        "CSE",
+        "IT",
+        "ECE",
+        "ME",
+        "CE"
+      ],
+      "deadline": "2026-10-10",
+      "stage": "Offer Letter",
+      "offerPackage": "₹6.0 LPA",
+      "offerLetterUrl": "#"
+    },
+    {
+      "id": "drive-5",
+      "companyName": "Persistent Systems",
+      "logo": "PS",
+      "role": "Software Engineer - Product Cloud",
+      "ctc": "₹8.0 LPA",
+      "minCgpa": 7.2,
+      "maxBacklogs": 0,
+      "allowedBranches": [
+        "CSE",
+        "IT"
+      ],
+      "deadline": "2026-11-12",
+      "stage": "Applied"
+    }
+  ],
+  "governmentOpportunities": [
+    {
+      "id": "govt-isro-2026",
+      "organization": "Indian Space Research Organisation (ISRO)",
+      "title": "Scientist/Engineer 'SC' Recruitment 2026",
+      "cadre": "Group 'A' Gazetted / Level 10 Pay Matrix",
+      "vacancies": 68,
+      "minCgpa": 6.84,
+      "allowedBranches": [
+        "CSE",
+        "ECE",
+        "ME"
+      ],
+      "ageLimit": "Max 28 Years (Relaxable for OBC/SC/ST)",
+      "examPattern": "80 Multiple Choice Technical Questions (75 mins) + Comprehensive Interview",
+      "syllabus": "Core Engineering Fundamentals, Discrete Mathematics, Data Structures, Computer Architecture, Digital Logic",
+      "deadline": "2026-11-18",
+      "officialNotificationUrl": "https://www.isro.gov.in/careers",
+      "applicationMode": "Direct Online Portal"
+    },
+    {
+      "id": "govt-nic-2026",
+      "organization": "National Informatics Centre (NIC)",
+      "title": "Scientist-B / Scientific Officer (Cyber & Cloud)",
+      "cadre": "Ministry of Electronics and Information Technology (MeitY)",
+      "vacancies": 142,
+      "minCgpa": 6.5,
+      "allowedBranches": [
+        "CSE",
+        "IT",
+        "ECE"
+      ],
+      "ageLimit": "Max 30 Years",
+      "examPattern": "Written Exam (65% Tech + 35% Generic Aptitude) followed by Technical Interview",
+      "syllabus": "Algorithms, Database Systems, Computer Networks, Operating Systems, Web Technologies, Cyber Security",
+      "deadline": "2026-10-30",
+      "officialNotificationUrl": "https://recruitment.nic.in",
+      "applicationMode": "Direct Online Portal"
+    },
+    {
+      "id": "govt-gate-psu-2026",
+      "organization": "Public Sector Undertakings (ONGC / BHEL / IOCL / NTPC)",
+      "title": "Executive Trainee / Graduate Engineer Trainee via GATE",
+      "cadre": "Maharatna & Navratna Public Enterprise",
+      "vacancies": 350,
+      "minCgpa": 6.5,
+      "allowedBranches": [
+        "CSE",
+        "IT",
+        "ECE",
+        "ME",
+        "CE"
+      ],
+      "ageLimit": "Max 26-28 Years",
+      "examPattern": "Valid GATE Score (85% weightage) + Group Discussion / Personal Interview (15%)",
+      "syllabus": "Official National GATE Syllabus for CS / EC / ME / CE",
+      "deadline": "2026-12-05",
+      "officialNotificationUrl": "https://gate2026.iit.ac.in",
+      "applicationMode": "GATE Score Based"
+    },
+    {
+      "id": "govt-upsc-ese-2026",
+      "organization": "Union Public Service Commission (UPSC)",
+      "title": "Indian Engineering Services (IES / ESE Examination)",
+      "cadre": "Central Engineering Services (Railways, Defense, Telecom)",
+      "vacancies": 220,
+      "minCgpa": 6,
+      "allowedBranches": [
+        "ECE",
+        "ME",
+        "CE"
+      ],
+      "ageLimit": "21 to 30 Years",
+      "examPattern": "Preliminary (Objective) + Mains (Conventional Technical) + Personality Test",
+      "syllabus": "General Studies & Engineering Aptitude + Branch-Specific Deep Technical Papers",
+      "deadline": "2026-10-25",
+      "officialNotificationUrl": "https://upsc.gov.in",
+      "applicationMode": "UPSC CSE/ESE"
+    },
+    {
+      "id": "govt-barc-2026",
+      "organization": "Bhabha Atomic Research Centre (BARC)",
+      "title": "Scientific Officer (OCES / DGFS Training Scheme)",
+      "cadre": "Department of Atomic Energy (DAE)",
+      "vacancies": 95,
+      "minCgpa": 6,
+      "allowedBranches": [
+        "CSE",
+        "ECE",
+        "ME"
+      ],
+      "ageLimit": "Max 26 Years",
+      "examPattern": "Online Screening Test or GATE score cutoff + Rigorous 60-minute Technical Board Interview",
+      "syllabus": "Core Discipline In-Depth Knowledge, Analytical Derivations & First-Principle Reasoning",
+      "deadline": "2026-11-10",
+      "officialNotificationUrl": "https://barcoces.gov.in",
+      "applicationMode": "Direct Online Portal"
+    }
+  ],
+  "applications": [
+    {
+      "id": "app-1790832064759",
+      "driveId": "drive-1",
+      "studentId": "0101CS221045",
+      "studentName": "Priya Sharma",
+      "rollNo": "0101CS221045",
+      "appliedAt": "2026-10-01T05:21:04.759Z",
+      "status": "APPLIED",
+      "matchScore": 92,
+      "notes": "Application dispatched to recruiter screening portal with verified DigiLocker stamp."
+    },
+    {
+      "id": "app-1790830659008",
+      "driveId": "drive-4",
+      "studentId": "0101CS221045",
+      "studentName": "Priya Sharma",
+      "rollNo": "0101CS221045",
+      "appliedAt": "2026-10-01T04:57:39.008Z",
+      "status": "APPLIED",
+      "matchScore": 89,
+      "notes": "Application dispatched to recruiter screening portal with verified DigiLocker stamp."
+    },
+    {
+      "id": "app-1790830436053",
+      "driveId": "drive-3",
+      "studentId": "0101CS221045",
+      "studentName": "Priya Sharma",
+      "rollNo": "0101CS221045",
+      "appliedAt": "2026-10-01T04:53:56.053Z",
+      "status": "APPLIED",
+      "matchScore": 90,
+      "notes": "Application dispatched to recruiter screening portal with verified DigiLocker stamp."
+    },
+    {
+      "id": "app-1790798901568",
+      "driveId": "drive-5",
+      "studentId": "0101CS221045",
+      "studentName": "Priya Sharma",
+      "rollNo": "0101CS221045",
+      "appliedAt": "2026-09-30T20:08:21.568Z",
+      "status": "APPLIED",
+      "matchScore": 86,
+      "notes": "Application dispatched to recruiter screening portal with verified DigiLocker stamp."
+    },
+    {
+      "id": "app-2",
+      "driveId": "drive-2",
+      "studentId": "0101CS221045",
+      "studentName": "Priya Sharma",
+      "rollNo": "0101CS221045",
+      "appliedAt": "2026-09-28T17:32:42.622Z",
+      "status": "SHORTLISTED",
+      "matchScore": 92,
+      "notes": "Online Coding Test Cleared with 95% Score"
+    }
+  ],
+  "assessments": [
+    {
+      "phaseStep": 1,
+      "phaseId": "phase-1",
+      "title": "Aptitude Assessment",
+      "score": 95,
+      "totalQuestions": 5,
+      "correctAnswers": 5,
+      "timeSpentSeconds": 150,
+      "id": "asm-1790832064181",
+      "completedAt": "2026-10-01T05:21:04.181Z"
+    },
+    {
+      "id": "asm-2",
+      "phaseStep": 2,
+      "phaseId": "technical",
+      "title": "Technical Core MCQs",
+      "score": 82,
+      "totalQuestions": 30,
+      "correctAnswers": 25,
+      "timeSpentSeconds": 1680,
+      "completedAt": "2026-09-28T17:32:42.622Z"
+    },
+    {
+      "phaseStep": 6,
+      "phaseId": "interview",
+      "title": "AI Voice Interview Terminal",
+      "score": 86,
+      "totalQuestions": 1,
+      "correctAnswers": 1,
+      "timeSpentSeconds": 180,
+      "id": "asm-1790832064210",
+      "completedAt": "2026-10-01T05:21:04.210Z"
+    }
+  ],
+  "simulationModules": [
+    {
+      "step": 1,
+      "id": "aptitude",
+      "title": "Aptitude Assessment",
+      "questionsCount": 20,
+      "timeMins": 25,
+      "completed": true,
+      "score": 95,
+      "desc": "Quantitative ability, Permutations & Combinations, Data Interpretation, and Logical Reasoning."
+    },
+    {
+      "step": 2,
+      "id": "technical",
+      "title": "Technical MCQs",
+      "questionsCount": 30,
+      "timeMins": 30,
+      "completed": true,
+      "score": 82,
+      "desc": "DSA, DBMS (SQL & Indexing), OS Concepts, Computer Networks, and Object-Oriented Design."
+    },
+    {
+      "step": 3,
+      "id": "psychometric",
+      "title": "Psychometric Evaluation",
+      "questionsCount": 15,
+      "timeMins": 15,
+      "completed": true,
+      "score": 90,
+      "desc": "Workplace ethics, situational judgement, leadership adaptability, and team collaboration."
+    },
+    {
+      "step": 4,
+      "id": "scenario",
+      "title": "Scenario-Based Problems",
+      "questionsCount": 3,
+      "timeMins": 20,
+      "completed": true,
+      "score": 78,
+      "desc": "System outage recovery, API scale bottlenecks, and deadline conflict management."
+    },
+    {
+      "step": 5,
+      "id": "gd",
+      "title": "Group Discussion Prep",
+      "questionsCount": 1,
+      "timeMins": 10,
+      "completed": true,
+      "score": 75,
+      "desc": "Topic: 'AI Regulation vs Innovation in India's Tech Ecosystem' - Speech fluency & point formulation."
+    },
+    {
+      "step": 6,
+      "id": "interview",
+      "title": "AI Mock Interview Terminal",
+      "questionsCount": 5,
+      "timeMins": 15,
+      "completed": true,
+      "score": 86,
+      "desc": "Full voice-enabled simulation with audio visualizer, confidence gauge, and speech pace tracking."
+    }
+  ],
+  "interviews": [
+    {
+      "targetRole": "Full Stack SDE",
+      "question": "Explain LRU Cache eviction",
+      "answerText": "LRU cache maintains access order using a hash map and a doubly linked list to achieve O(1) get and put operations.",
+      "rating": 8.6,
+      "scores": {
+        "technical": 80,
+        "communication": 90,
+        "problemSolving": 90
+      },
+      "feedback": "Strong structural explanation. You articulated key concepts like cache, lru. Consider expanding on edge cases and concrete latency/throughput impact metrics.",
+      "speechMetrics": {
+        "wpm": 140,
+        "clarity": 90,
+        "confidence": 92
+      },
+      "id": "iv-1790832064210",
+      "submittedAt": "2026-10-01T05:21:04.210Z"
+    },
+    {
+      "targetRole": "Full Stack SDE",
+      "question": "Explain LRU Cache eviction",
+      "answerText": "LRU cache maintains access order using a hash map and a doubly linked list to achieve O(1) get and put operations.",
+      "rating": 8.6,
+      "scores": {
+        "technical": 80,
+        "communication": 90,
+        "problemSolving": 90
+      },
+      "feedback": "Strong structural explanation. You articulated key concepts like cache, lru. Consider expanding on edge cases and concrete latency/throughput impact metrics.",
+      "speechMetrics": {
+        "wpm": 140,
+        "clarity": 90,
+        "confidence": 92
+      },
+      "id": "iv-1790831778865",
+      "submittedAt": "2026-10-01T05:16:18.865Z"
+    },
+    {
+      "targetRole": "Full Stack SDE",
+      "question": "Explain LRU Cache eviction",
+      "answerText": "LRU cache maintains access order using a hash map and a doubly linked list to achieve O(1) get and put operations.",
+      "rating": 8.6,
+      "scores": {
+        "technical": 80,
+        "communication": 90,
+        "problemSolving": 90
+      },
+      "feedback": "Strong structural explanation. You articulated key concepts like cache, lru. Consider expanding on edge cases and concrete latency/throughput impact metrics.",
+      "speechMetrics": {
+        "wpm": 140,
+        "clarity": 90,
+        "confidence": 92
+      },
+      "id": "iv-1790831467626",
+      "submittedAt": "2026-10-01T05:11:07.626Z"
+    },
+    {
+      "targetRole": "Full Stack SDE",
+      "question": "Explain LRU Cache eviction",
+      "answerText": "LRU cache maintains access order using a hash map and a doubly linked list to achieve O(1) get and put operations.",
+      "rating": 8.6,
+      "scores": {
+        "technical": 80,
+        "communication": 90,
+        "problemSolving": 90
+      },
+      "feedback": "Strong structural explanation. You articulated key concepts like cache, lru. Consider expanding on edge cases and concrete latency/throughput impact metrics.",
+      "speechMetrics": {
+        "wpm": 140,
+        "clarity": 90,
+        "confidence": 92
+      },
+      "id": "iv-1790831073471",
+      "submittedAt": "2026-10-01T05:04:33.471Z"
+    },
+    {
+      "targetRole": "Full Stack SDE",
+      "question": "Explain LRU Cache eviction",
+      "answerText": "LRU cache maintains access order using a hash map and a doubly linked list to achieve O(1) get and put operations.",
+      "rating": 8.6,
+      "scores": {
+        "technical": 80,
+        "communication": 90,
+        "problemSolving": 90
+      },
+      "feedback": "Strong structural explanation. You articulated key concepts like cache, lru. Consider expanding on edge cases and concrete latency/throughput impact metrics.",
+      "speechMetrics": {
+        "wpm": 140,
+        "clarity": 90,
+        "confidence": 92
+      },
+      "id": "iv-1790830658324",
+      "submittedAt": "2026-10-01T04:57:38.324Z"
+    },
+    {
+      "targetRole": "Full Stack SDE",
+      "question": "Explain LRU Cache eviction",
+      "answerText": "LRU cache maintains access order using a hash map and a doubly linked list to achieve O(1) get and put operations.",
+      "rating": 8.6,
+      "scores": {
+        "technical": 80,
+        "communication": 90,
+        "problemSolving": 90
+      },
+      "feedback": "Strong structural explanation. You articulated key concepts like cache, lru. Consider expanding on edge cases and concrete latency/throughput impact metrics.",
+      "speechMetrics": {
+        "wpm": 140,
+        "clarity": 90,
+        "confidence": 92
+      },
+      "id": "iv-1790830435330",
+      "submittedAt": "2026-10-01T04:53:55.330Z"
+    },
+    {
+      "targetRole": "Full Stack SDE",
+      "question": "Explain LRU Cache eviction",
+      "answerText": "LRU cache maintains access order using a hash map and a doubly linked list to achieve O(1) get and put operations.",
+      "rating": 8.6,
+      "scores": {
+        "technical": 80,
+        "communication": 90,
+        "problemSolving": 90
+      },
+      "feedback": "Strong structural explanation. You articulated key concepts like cache, lru. Consider expanding on edge cases and concrete latency/throughput impact metrics.",
+      "speechMetrics": {
+        "wpm": 140,
+        "clarity": 90,
+        "confidence": 92
+      },
+      "id": "iv-1790790344884",
+      "submittedAt": "2026-09-30T17:45:44.884Z"
+    },
+    {
+      "targetRole": "Full Stack SDE",
+      "question": "Explain LRU Cache eviction",
+      "answerText": "LRU cache maintains access order using a hash map and a doubly linked list to achieve O(1) get and put operations.",
+      "rating": 8.6,
+      "scores": {
+        "technical": 80,
+        "communication": 90,
+        "problemSolving": 90
+      },
+      "feedback": "Strong structural explanation. You articulated key concepts like cache, lru. Consider expanding on edge cases and concrete latency/throughput impact metrics.",
+      "speechMetrics": {
+        "wpm": 140,
+        "clarity": 90,
+        "confidence": 92
+      },
+      "id": "iv-1790790318528",
+      "submittedAt": "2026-09-30T17:45:18.528Z"
+    },
+    {
+      "id": "iv-seed-1",
+      "targetRole": "Full Stack SDE",
+      "question": "Explain how you would design a cache eviction policy in an in-memory datastore under heavy write workloads. When would you choose LFU over LRU?",
+      "answerText": "In write-heavy distributed systems, LRU uses a doubly-linked list with hash map, which can encounter lock contention under concurrent writes. LFU tracks access frequencies across historical windows, which makes it ideal for caching long-tail assets.",
+      "rating": 8.8,
+      "scores": {
+        "technical": 90,
+        "communication": 86,
+        "problemSolving": 88
+      },
+      "feedback": "Exceptional structural clarity. Demonstrated solid understanding of concurrency bottlenecks and cache eviction trade-offs.",
+      "speechMetrics": {
+        "wpm": 135,
+        "confidence": 88,
+        "clarity": 85
+      },
+      "submittedAt": "2026-09-29T17:32:42.622Z"
+    }
+  ],
+  "mentorships": [
+    {
+      "id": "ment-1790796918086",
+      "alumniId": "m1",
+      "alumniName": "Aditya Khare",
+      "studentName": "Priya Sharma",
+      "studentRoll": "0101CS221045",
+      "date": "Upcoming Weekend 5:00 PM",
+      "topic": "Technical Mock Interview & Resume Deep-Dive",
+      "status": "CONFIRMED",
+      "createdAt": "2026-09-30T19:35:18.086Z",
+      "notes": "Calendar invite and Google Meet link dispatched."
+    },
+    {
+      "id": "ment-1790796908466",
+      "alumniId": "m1",
+      "alumniName": "Aditya Khare",
+      "studentName": "Priya Sharma",
+      "studentRoll": "0101CS221045",
+      "date": "Upcoming Weekend 5:00 PM",
+      "topic": "Technical Mock Interview & Resume Deep-Dive",
+      "status": "CONFIRMED",
+      "createdAt": "2026-09-30T19:35:08.466Z",
+      "notes": "Calendar invite and Google Meet link dispatched."
+    },
+    {
+      "id": "ment-1",
+      "alumniId": "m1",
+      "alumniName": "Aditya Khare",
+      "studentName": "Priya Sharma",
+      "studentRoll": "0101CS221045",
+      "date": "Saturday, 5:00 PM IST",
+      "topic": "Technical Mock Interview & Microsoft Campus Hiring Strategy",
+      "status": "CONFIRMED",
+      "createdAt": "2026-09-28T17:32:42.622Z",
+      "notes": "Focus on Graph algorithms and Distributed Systems design."
+    }
+  ],
+  "referrals": [
+    {
+      "id": "ref-1",
+      "alumniId": "m2",
+      "alumniName": "Sneha Mukherjee",
+      "companyName": "Amazon AWS",
+      "studentName": "Priya Sharma",
+      "studentRoll": "0101CS221045",
+      "note": "Applying for 2026 Cloud Solutions Associate roles.",
+      "status": "REVIEWED",
+      "createdAt": "2026-09-27T17:32:42.622Z"
+    }
+  ],
+  "alumniMentors": [
+    {
+      "id": "m1",
+      "name": "Aditya Khare",
+      "avatar": "AK",
+      "currentCompany": "Microsoft India",
+      "role": "Software Engineer II",
+      "batch": 2023,
+      "branch": "Computer Science",
+      "expertise": [
+        "System Design",
+        "Cloud Infrastructure",
+        "Campus to Corp Transition"
+      ],
+      "openForReferral": true,
+      "slotsAvailable": 3
+    },
+    {
+      "id": "m2",
+      "name": "Sneha Mukherjee",
+      "avatar": "SM",
+      "currentCompany": "Amazon AWS",
+      "role": "Solutions Architect",
+      "batch": 2022,
+      "branch": "Information Technology",
+      "expertise": [
+        "AWS Architecture",
+        "Behavioral Leadership Principles",
+        "Resume Polish"
+      ],
+      "openForReferral": true,
+      "slotsAvailable": 2
+    },
+    {
+      "id": "m3",
+      "name": "Rohan Agrawal",
+      "avatar": "RA",
+      "currentCompany": "Goldman Sachs",
+      "role": "Analyst - Financial Engineering",
+      "batch": 2024,
+      "branch": "Electronics & Communication",
+      "expertise": [
+        "FinTech",
+        "Quantitative Algorithms",
+        "Aptitude Round Mastery"
+      ],
+      "openForReferral": false,
+      "slotsAvailable": 1
+    }
+  ],
+  "reassessmentQuestions": [
+    {
+      "id": "q1",
+      "category": "DSA",
+      "question": "What is the worst-case time complexity of QuickSort with standard median-of-three pivot selection?",
+      "options": [
+        "O(n log n)",
+        "O(n^2)",
+        "O(n)",
+        "O(log n)"
+      ],
+      "correctIndex": 1,
+      "explanation": "QuickSort worst-case remains O(n^2) when sub-arrays are consistently partitioned into size 0 and n-1, though its average performance is O(n log n)."
+    },
+    {
+      "id": "q2",
+      "category": "DBMS",
+      "question": "Which isolation level in ACID transactions eliminates Phantom Reads completely?",
+      "options": [
+        "Read Committed",
+        "Repeatable Read",
+        "Serializable",
+        "Read Uncommitted"
+      ],
+      "correctIndex": 2,
+      "explanation": "Serializable is the highest isolation level and uses range locks (or serialization graph checking) to eliminate phantom reads."
+    },
+    {
+      "id": "q3",
+      "category": "System Design",
+      "question": "Which database type is best suited for social network relationship traversal and recommendation engines?",
+      "options": [
+        "Document DB (MongoDB)",
+        "Graph DB (Neo4j)",
+        "Key-Value Store (Redis)",
+        "Columnar DB (Cassandra)"
+      ],
+      "correctIndex": 1,
+      "explanation": "Graph databases excel at navigating multi-hop entity relationships with constant time edge traversals."
+    },
+    {
+      "id": "q4",
+      "category": "Aptitude",
+      "question": "A train running at 54 km/hr crosses a platform in 20 seconds. If the length of the train is 120m, what is the length of the platform?",
+      "options": [
+        "180m",
+        "150m",
+        "200m",
+        "220m"
+      ],
+      "correctIndex": 0,
+      "explanation": "Speed in m/s = 54 * (5/18) = 15 m/s. Total distance in 20s = 15 * 20 = 300m. Platform length = 300 - 120 = 180m."
+    },
+    {
+      "id": "q5",
+      "category": "DSA",
+      "question": "Which data structure operates on the LIFO (Last In First Out) principle and manages nested function execution frames?",
+      "options": [
+        "Queue",
+        "Stack",
+        "Binary Heap",
+        "Circular Buffer"
+      ],
+      "correctIndex": 1,
+      "explanation": "Call stacks operate on LIFO ordering, pushing stack frames on invocation and popping on return."
+    },
+    {
+      "id": "q6",
+      "category": "Networks",
+      "question": "In the TCP 3-way handshake, what flags are set in the second packet transmitted by the server?",
+      "options": [
+        "SYN only",
+        "SYN-ACK",
+        "ACK only",
+        "FIN-ACK"
+      ],
+      "correctIndex": 1,
+      "explanation": "The server responds to the client's SYN packet with a SYN-ACK packet to synchronize sequence numbers and acknowledge client's SYN."
+    },
+    {
+      "id": "q7",
+      "category": "Psychometric",
+      "question": "You discover a high-severity bug in production 3 hours before an executive demo. What is the most professional initial response?",
+      "options": [
+        "Hide the bug and proceed hoping the stakeholder won't trigger that path",
+        "Immediately alert engineering lead with bug reproduction, risk impact, and a draft hotfix PR",
+        "Publicly assign blame to the junior teammate who committed the code",
+        "Cancel the demo without consulting the product team"
+      ],
+      "correctIndex": 1,
+      "explanation": "Proactive communication paired with an actionable solution exhibits high accountability and calm crisis management."
+    }
+  ],
+  "reassessmentHistory": [
+    {
+      "attempt": "Initial Diagnostic (Aug 10)",
+      "score": 64,
+      "tech": 60,
+      "apt": 65,
+      "comm": 68,
+      "notes": "Baseline check before structured training"
+    },
+    {
+      "attempt": "Mid-Term Simulation (Sep 02)",
+      "score": 76,
+      "tech": 75,
+      "apt": 78,
+      "comm": 72,
+      "notes": "After completing SQL & DSA bootcamp"
+    },
+    {
+      "attempt": "Pre-Placement Final (Sep 28)",
+      "score": 87,
+      "tech": 89,
+      "apt": 86,
+      "comm": 84,
+      "notes": "After AI Mock Interview & Project Refactor"
+    }
+  ],
+  "tpoVerifications": [
+    {
+      "id": "ver-1",
+      "studentName": "Priya Sharma",
+      "rollNo": "0101CS221045",
+      "docType": "B.Tech Marksheet Sem-6 (8.42 CGPA)",
+      "status": "VERIFIED",
+      "updatedAt": "2026-09-30T17:32:42.622Z"
+    },
+    {
+      "id": "ver-2",
+      "studentName": "Priya Sharma",
+      "rollNo": "0101CS221045",
+      "docType": "AWS Cloud Practitioner Certificate",
+      "status": "VERIFIED",
+      "updatedAt": "2026-09-30T17:32:42.622Z"
+    },
+    {
+      "id": "ver-3",
+      "studentName": "Devendra Soni",
+      "rollNo": "0101EC221034",
+      "docType": "Medical Arrears Exemption Application",
+      "status": "PENDING",
+      "updatedAt": "2026-09-30T17:32:42.622Z"
+    },
+    {
+      "id": "ver-4",
+      "studentName": "Vikram Bundela",
+      "rollNo": "0101CE221008",
+      "docType": "Sem-5 Re-evaluation Marksheet",
+      "status": "PENDING",
+      "updatedAt": "2026-09-30T17:32:42.622Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notif-1790832064759",
+      "recipientRole": "STUDENT",
+      "title": "Applied to Tata Consultancy Services (TCS)",
+      "message": "Your application for Systems Engineer (Digital & Prime) (₹7.2 - ₹9.5 LPA) has been submitted successfully with verified ABC ID.",
+      "category": "DRIVE",
+      "read": false,
+      "link": "/student/placements",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790832064210",
+      "recipientRole": "STUDENT",
+      "title": "Assessment Completed: AI Voice Interview Terminal",
+      "message": "Score recorded: 86%. Your verified employability index has been recalibrated.",
+      "category": "ASSESSMENT",
+      "read": false,
+      "link": "/student/simulation",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790832064182",
+      "recipientRole": "STUDENT",
+      "title": "Assessment Completed: Aptitude Assessment",
+      "message": "Score recorded: 95%. Your verified employability index has been recalibrated.",
+      "category": "ASSESSMENT",
+      "read": false,
+      "link": "/student/simulation",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790831779259",
+      "recipientRole": "STUDENT",
+      "title": "Applied to Tata Consultancy Services (TCS)",
+      "message": "Your application for Systems Engineer (Digital & Prime) (₹7.2 - ₹9.5 LPA) has been submitted successfully with verified ABC ID.",
+      "category": "DRIVE",
+      "read": false,
+      "link": "/student/placements",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790831778865",
+      "recipientRole": "STUDENT",
+      "title": "Assessment Completed: AI Voice Interview Terminal",
+      "message": "Score recorded: 86%. Your verified employability index has been recalibrated.",
+      "category": "ASSESSMENT",
+      "read": false,
+      "link": "/student/simulation",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790831778845",
+      "recipientRole": "STUDENT",
+      "title": "Assessment Completed: Aptitude Assessment",
+      "message": "Score recorded: 95%. Your verified employability index has been recalibrated.",
+      "category": "ASSESSMENT",
+      "read": false,
+      "link": "/student/simulation",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790831468179",
+      "recipientRole": "STUDENT",
+      "title": "Applied to Tata Consultancy Services (TCS)",
+      "message": "Your application for Systems Engineer (Digital & Prime) (₹7.2 - ₹9.5 LPA) has been submitted successfully with verified ABC ID.",
+      "category": "DRIVE",
+      "read": false,
+      "link": "/student/placements",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790831467626",
+      "recipientRole": "STUDENT",
+      "title": "Assessment Completed: AI Voice Interview Terminal",
+      "message": "Score recorded: 86%. Your verified employability index has been recalibrated.",
+      "category": "ASSESSMENT",
+      "read": false,
+      "link": "/student/simulation",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790831467604",
+      "recipientRole": "STUDENT",
+      "title": "Assessment Completed: Aptitude Assessment",
+      "message": "Score recorded: 95%. Your verified employability index has been recalibrated.",
+      "category": "ASSESSMENT",
+      "read": false,
+      "link": "/student/simulation",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790831073974",
+      "recipientRole": "STUDENT",
+      "title": "Applied to Tata Consultancy Services (TCS)",
+      "message": "Your application for Systems Engineer (Digital & Prime) (₹7.2 - ₹9.5 LPA) has been submitted successfully with verified ABC ID.",
+      "category": "DRIVE",
+      "read": false,
+      "link": "/student/placements",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790831073471",
+      "recipientRole": "STUDENT",
+      "title": "Assessment Completed: AI Voice Interview Terminal",
+      "message": "Score recorded: 86%. Your verified employability index has been recalibrated.",
+      "category": "ASSESSMENT",
+      "read": false,
+      "link": "/student/simulation",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790831073447",
+      "recipientRole": "STUDENT",
+      "title": "Assessment Completed: Aptitude Assessment",
+      "message": "Score recorded: 95%. Your verified employability index has been recalibrated.",
+      "category": "ASSESSMENT",
+      "read": false,
+      "link": "/student/simulation",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790830659008",
+      "recipientRole": "STUDENT",
+      "title": "Applied to MP State Electronics Dev Corp (MPSeDC)",
+      "message": "Your application for GovTech Digital Trainee Fellow (₹6.0 LPA) has been submitted successfully with verified ABC ID.",
+      "category": "DRIVE",
+      "read": true,
+      "link": "/student/placements",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790830658324",
+      "recipientRole": "STUDENT",
+      "title": "Assessment Completed: AI Voice Interview Terminal",
+      "message": "Score recorded: 86%. Your verified employability index has been recalibrated.",
+      "category": "ASSESSMENT",
+      "read": true,
+      "link": "/student/simulation",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790830658293",
+      "recipientRole": "STUDENT",
+      "title": "Assessment Completed: Aptitude Assessment",
+      "message": "Score recorded: 95%. Your verified employability index has been recalibrated.",
+      "category": "ASSESSMENT",
+      "read": true,
+      "link": "/student/simulation",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790830436053",
+      "recipientRole": "STUDENT",
+      "title": "Applied to Cisco Systems India",
+      "message": "Your application for Technical Consulting Engineer (₹14.8 LPA) has been submitted successfully with verified ABC ID.",
+      "category": "DRIVE",
+      "read": true,
+      "link": "/student/placements",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790830435330",
+      "recipientRole": "STUDENT",
+      "title": "Assessment Completed: AI Voice Interview Terminal",
+      "message": "Score recorded: 86%. Your verified employability index has been recalibrated.",
+      "category": "ASSESSMENT",
+      "read": true,
+      "link": "/student/simulation",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790830435301",
+      "recipientRole": "STUDENT",
+      "title": "Assessment Completed: Aptitude Assessment",
+      "message": "Score recorded: 95%. Your verified employability index has been recalibrated.",
+      "category": "ASSESSMENT",
+      "read": true,
+      "link": "/student/simulation",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790798901569",
+      "recipientRole": "STUDENT",
+      "title": "Applied to Persistent Systems",
+      "message": "Your application for Software Engineer - Product Cloud (₹8.0 LPA) has been submitted successfully with verified ABC ID.",
+      "category": "DRIVE",
+      "read": true,
+      "link": "/student/placements",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790797951374",
+      "recipientRole": "STUDENT",
+      "title": "Eligibility Updated: Tata Consultancy Services (TCS)",
+      "message": "TPO Cell updated eligibility for Systems Engineer (Digital & Prime): Min CGPA: 7.2, Max Backlogs: 0, Branches: CSE, IT, AI_DS.",
+      "category": "DRIVE",
+      "read": true,
+      "link": "/student/placements",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790796918086",
+      "recipientRole": "STUDENT",
+      "title": "1:1 Mentorship Confirmed with Aditya Khare",
+      "message": "Session booked for \"Technical Mock Interview & Resume Deep-Dive\" on Upcoming Weekend 5:00 PM.",
+      "category": "MENTORSHIP",
+      "read": true,
+      "link": "/student/alumni-network",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790796908466",
+      "recipientRole": "STUDENT",
+      "title": "1:1 Mentorship Confirmed with Aditya Khare",
+      "message": "Session booked for \"Technical Mock Interview & Resume Deep-Dive\" on Upcoming Weekend 5:00 PM.",
+      "category": "MENTORSHIP",
+      "read": true,
+      "link": "/student/alumni-network",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790790344967",
+      "recipientRole": "STUDENT",
+      "title": "Applied to Cisco Systems India",
+      "message": "Your application for Technical Consulting Engineer (₹14.8 LPA) has been submitted successfully with verified ABC ID.",
+      "category": "DRIVE",
+      "read": true,
+      "link": "/student/placements",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790790344884",
+      "recipientRole": "STUDENT",
+      "title": "Assessment Completed: AI Voice Interview Terminal",
+      "message": "Score recorded: 86%. Your verified employability index has been recalibrated.",
+      "category": "ASSESSMENT",
+      "read": true,
+      "link": "/student/simulation",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790790344850",
+      "recipientRole": "STUDENT",
+      "title": "Assessment Completed: Aptitude Assessment",
+      "message": "Score recorded: 95%. Your verified employability index has been recalibrated.",
+      "category": "ASSESSMENT",
+      "read": true,
+      "link": "/student/simulation",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790790318528",
+      "recipientRole": "STUDENT",
+      "title": "Assessment Completed: AI Voice Interview Terminal",
+      "message": "Score recorded: 86%. Your verified employability index has been recalibrated.",
+      "category": "ASSESSMENT",
+      "read": true,
+      "link": "/student/simulation",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1790790318506",
+      "recipientRole": "STUDENT",
+      "title": "Assessment Completed: Aptitude Assessment",
+      "message": "Score recorded: 95%. Your verified employability index has been recalibrated.",
+      "category": "ASSESSMENT",
+      "read": true,
+      "link": "/student/simulation",
+      "timestamp": "Just now"
+    },
+    {
+      "id": "notif-1",
+      "recipientRole": "ALL",
+      "title": "New Placement Drive Announced: Cisco Systems",
+      "message": "Cisco Systems India has opened applications for Technical Consulting Engineer (₹14.8 LPA). Cutoff: 8.0 CGPA.",
+      "category": "DRIVE",
+      "read": true,
+      "link": "/student/placements",
+      "timestamp": "10 mins ago"
+    },
+    {
+      "id": "notif-2",
+      "recipientRole": "STUDENT",
+      "title": "DigiLocker Verification Sealed",
+      "message": "Your Class X, Class XII, and B.Tech Grade Sheets are cryptographically stamped with SHA-256.",
+      "category": "VERIFICATION",
+      "read": true,
+      "link": "/student/profile",
+      "timestamp": "2 hours ago"
+    },
+    {
+      "id": "notif-3",
+      "recipientRole": "STUDENT",
+      "title": "TCS Application Shortlisted",
+      "message": "Congratulations! Your profile has been advanced to Technical Interview Round for Systems Engineer.",
+      "category": "OFFER",
+      "read": true,
+      "link": "/student/placements",
+      "timestamp": "1 day ago"
+    },
+    {
+      "id": "notif-4",
+      "recipientRole": "TPO",
+      "title": "Statutory NIRF Export Ready",
+      "message": "2026 Batch placement percentage has surpassed 62.1%. Statutory CSV export is available.",
+      "category": "SYSTEM",
+      "read": true,
+      "link": "/tpo/dashboard",
+      "timestamp": "3 hours ago"
+    }
+  ],
+  "roadmapPlaylists": {
+    "sde": [
+      {
+        "phase": "1. Learn (Foundation)",
+        "tasks": [
+          {
+            "id": "t1",
+            "title": "Docker Deep-Dive for Developers",
+            "duration": "3 hrs",
+            "completed": true,
+            "tag": "Video Course"
+          },
+          {
+            "id": "t2",
+            "title": "System Design Primer: Caching & Rate Limiting",
+            "duration": "2.5 hrs",
+            "completed": true,
+            "tag": "Reading"
+          },
+          {
+            "id": "t3",
+            "title": "PostgreSQL Query Optimization & EXPLAIN ANALYZE",
+            "duration": "2 hrs",
+            "completed": true,
+            "tag": "Interactive Lab"
+          }
+        ]
+      },
+      {
+        "phase": "2. Practice (Hands-on)",
+        "tasks": [
+          {
+            "id": "t4",
+            "title": "Dockerize CampusRise Full-Stack Application",
+            "duration": "2 hrs",
+            "completed": false,
+            "tag": "Project Task"
+          },
+          {
+            "id": "t5",
+            "title": "Solve 10 Dynamic Programming LeetCode Mediums",
+            "duration": "4 hrs",
+            "completed": true,
+            "tag": "Coding"
+          },
+          {
+            "id": "t6",
+            "title": "Implement Redis Cache in Node.js Microservice",
+            "duration": "2 hrs",
+            "completed": false,
+            "tag": "Project Task"
+          }
+        ]
+      },
+      {
+        "phase": "3. Test (Verification)",
+        "tasks": [
+          {
+            "id": "t7",
+            "title": "Take 30-min SDE Adaptive Mock Assessment",
+            "duration": "30 mins",
+            "completed": false,
+            "tag": "Timed Exam"
+          },
+          {
+            "id": "t8",
+            "title": "Verify Cloud Credentials via Swayam / AWS Portal",
+            "duration": "15 mins",
+            "completed": true,
+            "tag": "Verification"
+          }
+        ]
+      },
+      {
+        "phase": "4. Interview (Simulation)",
+        "tasks": [
+          {
+            "id": "t9",
+            "title": "AI Voice Mock Interview: Senior Tech Lead Panel",
+            "duration": "20 mins",
+            "completed": false,
+            "tag": "AI Studio"
+          },
+          {
+            "id": "t10",
+            "title": "Peer Group Discussion Practice Session",
+            "duration": "30 mins",
+            "completed": false,
+            "tag": "Live Room"
+          }
+        ]
+      }
+    ]
+  }
+}

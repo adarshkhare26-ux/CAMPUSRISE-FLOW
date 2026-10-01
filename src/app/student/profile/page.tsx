@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { 
   User, 
@@ -15,15 +15,118 @@ import {
   CheckCircle2, 
   Sparkles,
   ShieldAlert,
-  ShieldCheck
+  ShieldCheck,
+  Loader2,
+  QrCode
 } from "lucide-react";
 import { INITIAL_STUDENT_PROFILE } from "@/lib/mockData";
 import { DigiLockerSection } from "@/components/DigiLockerSection";
+import { PlacementPassportModal } from "@/components/PlacementPassportModal";
+import { ResumeInspectorModal } from "@/components/ResumeInspectorModal";
+import { useToast } from "@/components/Toast";
 
 export default function StudentProfilePage() {
+  const { toast } = useToast();
   const [profile, setProfile] = useState(INITIAL_STUDENT_PROFILE);
   const [skillInput, setSkillInput] = useState("");
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [resumeAnalysis, setResumeAnalysis] = useState<any>(null);
+  const [isUploadingResume, setIsUploadingResume] = useState(false);
+  const [isBoosting, setIsBoosting] = useState(false);
+  const [passportModalOpen, setPassportModalOpen] = useState(false);
+  const [resumeModalOpen, setResumeModalOpen] = useState(false);
+
+  const loadResumeAnalysis = async () => {
+    try {
+      const res = await fetch("/api/student/resume");
+      const data = await res.json();
+      if (data.success && data.analysis) {
+        setResumeAnalysis(data.analysis);
+      }
+    } catch {
+      // ignore
+    }
+  };
+
+  useEffect(() => {
+    async function loadProfile() {
+      try {
+        const res = await fetch("/api/student/profile");
+        const data = await res.json();
+        if (data.success && data.profile) {
+          setProfile(data.profile);
+        }
+      } catch (err) {
+        console.error("Failed to fetch profile", err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    loadProfile();
+    loadResumeAnalysis();
+  }, []);
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploadingResume(true);
+    try {
+      const res = await fetch("/api/student/resume", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "UPLOAD_RESUME",
+          fileName: file.name,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setProfile((prev) => ({ ...prev, resumeFileName: data.fileName, resumeUploaded: true }));
+        toast(`Resume "${file.name}" uploaded and encrypted! Re-evaluating ATS score...`, "success");
+        loadResumeAnalysis();
+      } else {
+        toast("Failed to process resume upload", "error");
+      }
+    } catch {
+      toast("Error uploading resume", "error");
+    } finally {
+      setIsUploadingResume(false);
+    }
+  };
+
+  const handleApplyBoost = async (skill: string) => {
+    setIsBoosting(true);
+    try {
+      const res = await fetch("/api/student/resume", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "APPLY_BOOST",
+          skillToAdd: skill,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setProfile((prev) => ({
+          ...prev,
+          skills: data.updatedSkills || [...prev.skills, skill],
+        }));
+        toast(data.message, "success");
+        loadResumeAnalysis();
+      } else {
+        toast("Failed to apply boost", "error");
+      }
+    } catch {
+      toast("Error applying boost", "error");
+    } finally {
+      setIsBoosting(false);
+    }
+  };
 
   const addSkill = (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,9 +146,27 @@ export default function StudentProfilePage() {
     });
   };
 
-  const handleSave = () => {
-    setSavedSuccess(true);
-    setTimeout(() => setSavedSuccess(false), 3000);
+  const handleSave = async () => {
+    setIsSaving(true);
+    try {
+      const res = await fetch("/api/student/profile", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(profile),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSavedSuccess(true);
+        toast("Student profile saved to central database!", "success");
+        setTimeout(() => setSavedSuccess(false), 3000);
+      } else {
+        toast(data.message || "Failed to save profile", "error");
+      }
+    } catch {
+      toast("Error connecting to server", "error");
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -66,17 +187,26 @@ export default function StudentProfilePage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {savedSuccess && (
             <span className="text-xs font-bold text-emerald-600 flex items-center gap-1">
               <CheckCircle2 className="w-4 h-4" /> Profile Stamped!
             </span>
           )}
           <button
-            onClick={handleSave}
-            className="px-4 py-2.5 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition-colors shadow-sm"
+            onClick={() => setPassportModalOpen(true)}
+            className="px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white text-xs font-black transition-all shadow-md shadow-indigo-500/20 flex items-center gap-1.5 cursor-pointer"
           >
-            Save Changes
+            <QrCode className="w-3.5 h-3.5 text-indigo-200" />
+            <span>Placement Passport</span>
+          </button>
+          <button
+            onClick={handleSave}
+            disabled={isSaving}
+            className="px-4 py-2.5 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition-colors shadow-sm flex items-center gap-1.5 disabled:opacity-60 cursor-pointer"
+          >
+            {isSaving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : null}
+            <span>{isSaving ? "Saving..." : "Save Changes"}</span>
           </button>
           <Link
             href="/student/career-target"
@@ -387,16 +517,58 @@ export default function StudentProfilePage() {
               <div className="text-xs font-extrabold text-slate-800 mb-1">
                 {profile.resumeFileName}
               </div>
-              <div className="text-[11px] text-slate-500 mb-4">
-                ATS Score: 88/100 • Digitally Hash Stamped
+              <div className="text-[11px] font-bold text-emerald-700 mb-3 flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                ATS Score: {resumeAnalysis?.score || 88}/100 • Digitally Hash Stamped
               </div>
-              <button
-                type="button"
-                onClick={() => alert("Upload dialog simulated. File encrypted and synced to TPO Placement Vault.")}
-                className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 text-white hover:bg-emerald-700 transition-colors shadow-sm"
-              >
-                Re-upload PDF
-              </button>
+
+              {/* Action Buttons: Upload & Deep ATS Audit */}
+              <div className="flex flex-col sm:flex-row gap-2 w-full">
+                <label className="cursor-pointer flex-1 px-3 py-2 rounded-xl text-xs font-bold bg-emerald-600 text-white hover:bg-emerald-700 transition-colors shadow-sm flex items-center justify-center gap-1.5">
+                  <UploadCloud className="w-3.5 h-3.5" />
+                  <span>{isUploadingResume ? "Scanning..." : "Upload PDF/DOCX"}</span>
+                  <input
+                    type="file"
+                    accept=".pdf,.docx,.txt"
+                    onChange={handleFileUpload}
+                    className="hidden"
+                    disabled={isUploadingResume}
+                  />
+                </label>
+
+                <button
+                  type="button"
+                  onClick={() => setResumeModalOpen(true)}
+                  className="px-3 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 transition-colors shadow-sm flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Deep ATS Audit</span>
+                </button>
+              </div>
+
+              {/* Missing Keywords Boost Chip Box */}
+              {resumeAnalysis?.missingKeywords?.length > 0 && (
+                <div className="mt-4 pt-3 border-t border-emerald-200/60 w-full text-left">
+                  <div className="text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5 flex items-center justify-between">
+                    <span>Missing High-Impact ATS Keywords:</span>
+                    <Sparkles className="w-3 h-3 text-blue-600" />
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    {resumeAnalysis.missingKeywords.slice(0, 4).map((kw: string) => (
+                      <button
+                        key={kw}
+                        type="button"
+                        onClick={() => handleApplyBoost(kw)}
+                        disabled={isBoosting || profile.skills.includes(kw)}
+                        className="text-[10px] font-bold px-2 py-0.5 rounded bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 transition-colors flex items-center gap-1 disabled:opacity-50"
+                        title="Add to student profile skills"
+                      >
+                        <span>+ {kw}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -435,8 +607,23 @@ export default function StudentProfilePage() {
           </div>
 
         </div>
-
       </div>
+
+      {/* Placement Passport Modal */}
+      <PlacementPassportModal
+        isOpen={passportModalOpen}
+        onClose={() => setPassportModalOpen(false)}
+        profile={profile}
+      />
+
+      {/* Resume ATS Inspector Modal */}
+      <ResumeInspectorModal
+        isOpen={resumeModalOpen}
+        onClose={() => setResumeModalOpen(false)}
+        fileName={profile.resumeFileName || "Priya_Sharma_Resume_2026.pdf"}
+        currentSkills={profile.skills}
+        onApplySkill={(skill) => handleApplyBoost(skill)}
+      />
 
     </div>
   );

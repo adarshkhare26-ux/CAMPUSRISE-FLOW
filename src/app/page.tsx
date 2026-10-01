@@ -9,18 +9,43 @@ import {
   Lock, 
   Mail, 
   Sparkles, 
-  Building2 
+  Building2,
+  Loader2
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
+import { useToast } from "@/components/Toast";
 
 export default function StudentLoginPage() {
   const router = useRouter();
+  const { toast } = useToast();
   const [identifier, setIdentifier] = useState("priya.sharma@rgpv.ac.in");
-  const [password, setPassword] = useState("password123");
+  const [password, setPassword] = useState("student123");
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  const handleStudentSignIn = (e: React.FormEvent) => {
+  const handleStudentSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    router.push("/student/profile");
+    setIsLoggingIn(true);
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: identifier, password, role: "STUDENT" }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        if (typeof window !== "undefined") {
+          localStorage.setItem("campusrise_user", JSON.stringify(data.user));
+        }
+        toast(data.message || "Signed in successfully!", "success");
+        router.push("/student/profile");
+      } else {
+        toast(data.message || "Invalid credentials", "error");
+      }
+    } catch {
+      toast("Error connecting to login server", "error");
+    } finally {
+      setIsLoggingIn(false);
+    }
   };
 
   return (
@@ -95,10 +120,11 @@ export default function StudentLoginPage() {
 
             <button
               type="submit"
-              className="w-full py-3 rounded-xl text-xs font-extrabold bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center gap-2 transition-all shadow-md shadow-emerald-500/25"
+              disabled={isLoggingIn}
+              className="w-full py-3 rounded-xl text-xs font-extrabold bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center gap-2 transition-all shadow-md shadow-emerald-500/25 disabled:opacity-50"
             >
-              <span>Login to Student Portal</span>
-              <ArrowRight className="w-4 h-4" />
+              {isLoggingIn ? <Loader2 className="w-4 h-4 animate-spin" /> : <ArrowRight className="w-4 h-4" />}
+              <span>{isLoggingIn ? "Authenticating..." : "Login to Student Portal"}</span>
             </button>
           </form>
 
@@ -129,7 +155,7 @@ export default function StudentLoginPage() {
       </main>
 
       <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
-        CampusRise • Student Career Readiness &amp; Placement Suite • MPOnline Hackathon 2026
+        CampusRise • Student Career Readiness &amp; Placement Suite
       </footer>
     </div>
   );

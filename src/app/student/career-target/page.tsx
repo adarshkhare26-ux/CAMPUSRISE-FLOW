@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { 
   Target, 
@@ -20,13 +20,56 @@ import {
   Check,
   AlertCircle,
   FileText,
-  BadgeCheck
+  BadgeCheck,
+  Loader2
 } from "lucide-react";
 import { CAREER_TARGETS } from "@/lib/mockData";
+import { useToast } from "@/components/Toast";
 
 export default function TargetCareerPage() {
+  const { toast } = useToast();
   const [selectedRole, setSelectedRole] = useState(CAREER_TARGETS[0].id);
+  const [activeSavedTargetId, setActiveSavedTargetId] = useState(CAREER_TARGETS[0].id);
+  const [isSettingTarget, setIsSettingTarget] = useState(false);
   const [activeTab, setActiveTab] = useState<"curriculum" | "fit" | "recruiters" | "rounds" | "capstone">("curriculum");
+
+  useEffect(() => {
+    async function loadTarget() {
+      try {
+        const res = await fetch("/api/student/career-target");
+        const data = await res.json();
+        if (data.success && data.activeId) {
+          setSelectedRole(data.activeId);
+          setActiveSavedTargetId(data.activeId);
+        }
+      } catch (err) {
+        console.error("Failed to fetch career targets", err);
+      }
+    }
+    loadTarget();
+  }, []);
+
+  const handleSetTargetRole = async (roleId: string) => {
+    setIsSettingTarget(true);
+    try {
+      const res = await fetch("/api/student/career-target", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ roleId }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setActiveSavedTargetId(roleId);
+        toast(`Target role successfully updated to ${data.activeRole?.title || "selected role"}!`, "success");
+      } else {
+        toast(data.message || "Failed to update target role", "error");
+      }
+    } catch {
+      toast("Error updating career target", "error");
+    } finally {
+      setIsSettingTarget(false);
+    }
+  };
 
   const activeTarget = CAREER_TARGETS.find(r => r.id === selectedRole) || CAREER_TARGETS[0];
 
@@ -170,6 +213,23 @@ export default function TargetCareerPage() {
                 <div>Base: <span className="font-bold text-white">{activeTarget.salaryBreakdown.base}</span></div>
                 <div>Variable: <span className="font-bold text-white">{activeTarget.salaryBreakdown.variable}</span></div>
                 <div>Tier-1 Top: <span className="font-bold text-amber-300">{activeTarget.salaryBreakdown.tier1Max}</span></div>
+              </div>
+              <div className="pt-2">
+                {selectedRole === activeSavedTargetId ? (
+                  <div className="w-full py-2 px-3 rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-bold flex items-center justify-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <span>Active Target Role</span>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => handleSetTargetRole(selectedRole)}
+                    disabled={isSettingTarget}
+                    className="w-full py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow-md flex items-center justify-center gap-1.5 disabled:opacity-60"
+                  >
+                    {isSettingTarget ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Target className="w-3.5 h-3.5" />}
+                    <span>Set as Primary Target</span>
+                  </button>
+                )}
               </div>
             </div>
           </div>
